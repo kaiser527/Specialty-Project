@@ -1,0 +1,365 @@
+syntax = "proto3";
+
+package product;
+
+message PaginateRequest {
+  int32 currentPage = 1;
+  int32 limit = 2;
+  string qs = 3;
+}
+
+message Meta {
+  int32 current = 1;
+  int32 pageSize = 2;
+  int32 pages = 3;
+  int32 total = 4;
+}
+
+message Role {
+  string _id = 1;
+  string name = 2;
+}
+
+message User {
+  string _id = 1;
+  string name = 2;
+  string image = 3;
+  string email = 4;
+  Role role = 5;
+}
+
+message VariantResponse {
+  string id = 1;
+  string productId = 2;
+  string sku = 3;
+  int32 price = 4;
+  int32 stock = 5;
+  repeated string images = 6;
+  map<string, string> attributes = 7;
+  string createdAt = 8;
+  string updatedAt = 9;
+  optional ProductResponse product = 10;
+  double discount = 11;
+  string dueDate = 12;
+}
+
+message ProductResponse {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  string brand = 4;
+  string status = 5;
+  Category category = 6;
+  string createdAt = 7;
+  string updatedAt = 8;
+  string thumbnail = 9;
+  string createdBy = 10;
+}
+
+message CategoryResponse {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  string createdAt = 4;
+  string updatedAt = 5;
+}
+
+message Category {
+  string id = 1;
+  string name = 2;
+}
+
+message VariantList {
+  repeated VariantResponse result = 1;
+}
+
+message PaginateVariantResponse {
+  repeated VariantResponse result = 1;
+  Meta meta = 2;
+}
+
+message PaginateProductResponse {
+  repeated ProductResponse result = 1;
+  Meta meta = 2;
+}
+
+message PaginateCategoryResponse {
+  repeated CategoryResponse result = 1;
+  Meta meta = 2;
+}
+
+message FileResponse {
+  repeated string files = 1;
+}
+
+message CreateVariant {
+  int32 price = 1;
+  int32 stock = 2;
+  optional string sku = 3;
+  map<string, string> attributes = 4;
+  repeated string images = 5;
+  int32 discount = 6;
+  optional string dueDate = 7;
+}
+
+message UpdateVariant {
+  string id = 1; 
+  int32 price = 2;
+  int32 stock = 3;
+  optional string sku = 4;
+  map<string, string> attributes = 5;
+  repeated string images = 6;
+  int32 discount = 7;
+  optional string dueDate = 8;
+}
+
+message CreateProductRequest{
+  string name = 1;
+  string brand = 2;
+  string description = 3;
+  string categoryId = 4;
+  string status = 5;
+  string thumbnail = 6;
+  repeated CreateVariant variants = 7;
+  User user = 8;
+}
+
+message UpdateProductRequest {
+  string id = 1;
+  string name = 2;
+  string brand = 3;
+  string description = 4;
+  string categoryId = 5;
+  string status = 6;
+  string thumbnail = 7;
+  repeated UpdateVariant variants = 8;
+  User user = 9;
+}
+
+message CreateCategoryRequest {
+  string name = 1;
+  string description = 2;
+  User user = 3;
+}
+
+message UpdateCategoryRequest {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  User user = 4;
+}
+
+message DeleteRequest {
+  string id = 1;
+  User user = 2;
+}
+
+message MutationProductResponse {
+  string id = 1;
+  string name = 2;
+  string brand = 3;
+  string description = 4;
+  Category category = 5;
+  string status = 6;
+  string thumbnail = 7;
+  repeated UpdateVariant variants = 8;
+  string createdAt = 9;
+  string updatedAt = 10;
+  optional User user = 11;
+}
+
+message QuickResponse {
+  string message = 1;
+}
+
+message FindOneRequest {
+  string id = 1;
+  optional bool isReview = 2;
+}
+
+message ReviewNode {
+  string id = 1;
+  optional User user = 2;
+  string userId = 3;
+  string variantId = 4;
+  int32 rating = 5;
+  string comment = 6;
+  string createdAt = 7;
+  string parentId = 8;
+  int32 depth = 9;
+  repeated ReviewNode children = 10;
+}
+
+message RawReview {
+  string id = 1;
+  string userId = 2;
+  int32 rating = 3;
+  string comment = 4;
+  string parentId = 5;
+  int32 depth = 6;
+  string variantId = 7;
+  string createdAt = 8;
+  string updatedAt = 9;
+}
+
+message RawReviewList {
+  repeated RawReview result = 1;
+}
+
+message ReviewResponse {
+  repeated ReviewNode reviews = 1;
+  Meta meta = 2;
+}
+
+message FindAllReviewRequest {
+  int32 currentPage = 1;
+  int32 limit = 2;
+  string variantId = 3;
+}
+
+message CreateReviewRequest {
+  optional int32 rating = 1;
+  string comment = 2;
+  string variantId = 3;
+  optional string parentId = 4;
+  User user = 5;
+}
+
+message UpdateReviewRequest {
+  string id = 1;
+  string comment = 2;
+  optional int32 rating = 3;
+  User user = 4;
+}
+
+message BulkVariant {
+  int32 price = 1;
+  int32 stock = 2;
+  map<string, string> attributes = 4;
+}
+
+message BulkProduct {
+  string name = 1;
+  string brand = 2;
+  string description = 3;
+  string category = 4;
+  repeated BulkVariant variants = 5;
+}
+
+message BulkCreateProductRequest {
+  repeated BulkProduct products = 1;
+  User user = 2;
+}
+
+message Empty {}
+
+message VariantsRequest{
+  repeated string variantIds = 1;
+}
+
+message ListVariantResponse {
+  repeated VariantResponse result = 1;
+}
+
+message MinMaxPriceCategory {
+  string id = 1;
+  string name = 2;
+}
+
+message MinMaxPriceResponse {
+  repeated int32 result = 1;
+  repeated string brands = 2;
+  repeated MinMaxPriceCategory categories = 3;
+}
+
+message DateOperator {
+  string operator = 1;
+  string value = 2;
+}
+
+message PriceOperator {
+  string operator = 1;
+  double value = 2;
+}
+
+message MinMaxPriceRequest {
+  repeated string categoryIds = 1;
+  optional string search = 2;
+  repeated string brands = 3;
+  repeated string createdBy = 4;
+  repeated string updatedBy = 5;
+  repeated DateOperator createdAtOperators = 6;
+  repeated DateOperator updatedAtOperators = 7;
+  repeated DateOperator dueDateOperators = 8;
+  repeated PriceOperator priceOperators = 9;
+  repeated string names = 10;
+  optional string nameRegex = 11; 
+  repeated string categories = 12;
+}
+
+message CartItem {
+  string variantId = 1;
+  int32 quantity = 2;
+}
+
+message UpdateVariantStockRequest {
+  repeated CartItem items = 1;
+}
+
+message UpdateProductCreatedByRequest {
+  string oldEmail = 1;
+  string newEmail = 2;
+}
+
+message FindAllProductsByUserResponse {
+  repeated ProductResponse products = 1;
+}
+
+message DeleteReviewRequest {
+  repeated string variantIds = 1;
+  repeated string userIds = 2;  
+}
+
+message SwitchProductAuthor {
+  string productId = 1;
+  string newAuthorEmail = 2;
+}
+
+message SwitchProductAuthorRequest {
+  SwitchProductAuthor dto = 1;
+  User user = 2;
+}
+
+service ProductService {
+  rpc findAllVariant(PaginateRequest) returns (PaginateVariantResponse);
+  rpc findOneVariant(FindOneRequest) returns (VariantResponse);
+  rpc findAllVariantForOrderService(VariantsRequest) returns (ListVariantResponse);
+  rpc getMinMaxPriceByVariants(MinMaxPriceRequest) returns (MinMaxPriceResponse);
+  rpc updateVariantStock(UpdateVariantStockRequest) returns (QuickResponse);
+  rpc restoreVariantStock(UpdateVariantStockRequest) returns (QuickResponse);
+  rpc updateProductCreatedBy(UpdateProductCreatedByRequest) returns (QuickResponse);
+  rpc findAllVariantInit(Empty) returns (VariantList);
+
+  rpc findAllProduct(PaginateRequest) returns (PaginateProductResponse);
+  rpc createProduct(CreateProductRequest) returns(MutationProductResponse);
+  rpc bulkCreateProduct(BulkCreateProductRequest) returns (QuickResponse);
+  rpc updateProduct(UpdateProductRequest) returns(MutationProductResponse);
+  rpc deleteProduct(DeleteRequest) returns(QuickResponse);
+  rpc findOneProduct(FindOneRequest) returns(MutationProductResponse);
+  rpc findAllProductsByUser(User) returns (FindAllProductsByUserResponse);
+  rpc switchProductAuthor(SwitchProductAuthorRequest) returns (QuickResponse);  
+
+  rpc findAllCategory(PaginateRequest) returns (PaginateCategoryResponse);
+  rpc createCategory(CreateCategoryRequest) returns (CategoryResponse);
+  rpc updateCategory(UpdateCategoryRequest) returns (CategoryResponse);
+  rpc deleteCategory(DeleteRequest) returns (QuickResponse);
+
+  rpc getAllFiles(Empty) returns (FileResponse);
+
+  rpc findAllReviewsByVariantId(FindAllReviewRequest) returns (ReviewResponse);
+  rpc createReview(CreateReviewRequest) returns (QuickResponse);
+  rpc updateReview(UpdateReviewRequest) returns (QuickResponse);
+  rpc deleteReview(DeleteRequest) returns (QuickResponse);
+  rpc findAllRawReviews(Empty) returns (RawReviewList);
+  rpc deleteReviewsByVariantsOrUsers(DeleteReviewRequest) returns (QuickResponse);  
+}

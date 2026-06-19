@@ -1,0 +1,479 @@
+syntax = "proto3";
+
+package order;
+
+message PaginateRequest {
+  int32 currentPage = 1;
+  int32 limit = 2;
+  string qs = 3;
+}
+
+message Meta {
+  int32 current = 1;
+  int32 pageSize = 2;
+  int32 pages = 3;
+  int32 total = 4;
+}
+
+message Role {
+  string _id = 1;
+  string name = 2;
+}
+
+message User {
+  string _id = 1;
+  string name = 2;
+  string image = 3;
+  string email = 4;
+  Role role = 5;
+}
+
+message VariantResponse {
+  string id = 1;
+  string productId = 2;
+  string sku = 3;
+  int32 price = 4;
+  int32 stock = 5;
+  repeated string images = 6;
+  map<string, string> attributes = 7;
+  optional ProductResponse product = 8;
+  double discount = 9;
+  string dueDate = 10;
+}
+
+message ProductResponse {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  string brand = 4;
+  string status = 5;
+  string thumbnail = 6;
+  string createdBy = 7;
+}
+
+message CartRequest {
+  string userId = 1;
+}
+
+message CartItemResponse {
+  string id = 1;
+  string cartId = 2;
+  int32 quantity = 3;
+  VariantResponse variant = 4;
+}
+
+message CartResponse {
+  string id = 1;
+  string userId = 2;
+  repeated CartItemResponse items = 3;
+}
+
+message Provider {
+  string status = 1;
+  string email = 2;
+  string image = 3;
+  string name = 4;
+  string role = 5;
+}
+
+message OrderItem {
+  string id = 1;
+  string orderId = 2;
+  string variantId = 3;
+  int32 quantity = 4;
+  int32 unitPrice = 5;
+  optional VariantResponse variant = 6;
+  string createdAt = 7;
+  string updatedAt = 8;
+  optional Provider provider = 9;
+}
+
+message OrderResponse {
+  string id = 1;
+  string userId = 2;
+  optional User user = 3;
+  int32 totalPrice = 4;
+  int32 shippingFee = 5;
+  int32 subTotal = 6;
+  string status = 7;
+  string type = 8;
+  string paymentRef = 9;
+  repeated OrderItem items = 10;
+  string createdAt = 11;
+  string updatedAt = 12;
+  string address = 13;
+  string phone = 14;
+  string name = 15;
+  optional string voucherCode = 16;
+  optional int32 discountAmount = 17;
+  optional string voucherId = 18; 
+}
+
+message OrderItemList {
+  repeated OrderItem result = 1;
+}
+
+message PaginateOrderResponse {
+  repeated OrderResponse result = 1;
+  Meta meta = 2;
+}
+
+message UpsertUserCartRequest {
+  string variantId = 1;
+  int32 quantity = 2;
+  User user = 3;  
+}
+
+message QuickResponse {
+  string message = 1;
+}
+
+message MergeCart {
+  string variantId = 1;
+  int32 quantity = 2;
+}
+
+message BulkMergeCartRequest {
+  repeated MergeCart items = 1;
+  User user = 2;
+}
+
+message ClearCartRequest {
+  User user = 1;
+}
+
+message OrderItemRequest {
+  string variantId = 1;
+  int32 quantity = 2;
+  int32 unitPrice = 3;
+}
+
+message PlaceOrderRequest {
+  string name = 1;
+  string address = 2;
+  string phone = 3;
+  int32 totalPrice = 4;
+  int32 shippingFee = 5;
+  int32 subTotal = 6;
+  string status = 7;
+  string type = 8;
+  User user = 9;
+  repeated OrderItemRequest items = 10;
+  string paymentRef = 11;
+  optional string voucherCode = 12;
+}
+
+message UpdateOrderStatusRequest {
+  string id = 1;
+  string status = 2;
+  User user = 3;
+}
+
+message UpdateProviderOrderStatusByOrderIdRequest {
+  string orderId = 1;
+  string status = 2;
+  User user = 3;
+}
+
+message FindOneRequest {
+  string id = 1;
+}
+
+message DeleteOrderRequest {
+  string id = 1;
+  User user = 2;
+}
+
+message ProviderFee {
+  string id = 1;
+  string orderId = 2;
+  string orderItemId = 3;
+  string ownerId = 4;
+  double percent = 5;
+  double feeAmount = 6;
+  string status = 7;
+  string createdAt = 9;
+  string updatedAt = 10;
+  VariantResponse variant = 11;
+}
+
+message ProviderFeeOrder {
+  string orderId = 1;
+  repeated ProviderFee items = 2;
+}
+
+message ProviderFeeGroup {
+  User user = 1;
+  repeated ProviderFeeOrder orders = 2;
+}
+
+message PaginateProviderFeeResponse {
+  repeated ProviderFeeGroup result = 1;
+  Meta meta = 2;
+}
+
+message ProviderFeeList {
+  repeated ProviderFee result = 1;
+}
+
+message CreateVnPayPaymentRequest {
+  string orderId = 1;
+  string ipAddr = 2;
+}
+
+message PaymentResponse {
+  string code = 1;
+  string message = 2;
+  string paymentUrl = 3;
+}
+
+message VerifyReturnUrlRequest {
+  string vnp_TxnRef = 1;
+  string vnp_OrderInfo = 2;
+  string vnp_Amount = 3;
+  optional string vnp_TmnCode = 4;
+  optional string vnp_BankCode = 5;
+  optional string vnp_BankTranNo = 6;
+  optional string vnp_CardType = 7;
+  optional string vnp_PayDate = 8;
+  optional string vnp_TransactionNo = 9;
+  string vnp_ResponseCode = 10;
+  optional string vnp_TransactionStatus = 11;
+  optional string vnp_SecureHashType = 12;
+  string vnp_SecureHash = 13;
+  User user = 14;
+}
+
+message VerifyReturnUrlResponse {
+  bool isError = 1;
+}
+
+message PlaceOrderResponse {
+  string orderId = 1;
+}
+
+message CreateStripePaymentRequest {
+  string orderId = 1;
+}
+
+message VerifyStripePaymentRequest {
+  string sessionId = 1;
+}
+
+message ProviderOrder {
+  string id = 1;
+  string orderId = 3;
+  string status = 4;
+  OrderItem orderItem = 6;
+  string createdAt = 7;
+  string updatedAt = 8;
+}
+
+message ProviderOrderGroup {
+  string orderId = 1;
+  repeated ProviderOrder items = 2;
+}
+
+message PaginateProviderOrderResponse {
+  repeated ProviderOrderGroup result = 1;
+  Meta meta = 2;
+}
+
+message QuickUpdateProviderFeeDto {
+  string ownerId = 1;
+  string status = 2;
+  string orderId = 3;
+}
+
+message QuickUpdateProviderFeeStatusRequest {
+  QuickUpdateProviderFeeDto dto = 1;
+  User user = 2;
+}
+
+message ProviderOrderRaw {
+  string id = 1;
+  string orderId = 3;
+  string status = 4;
+  OrderItem orderItem = 6;
+  string createdAt = 7;
+  string updatedAt = 8;
+  string orderItemId = 9;
+  string ownerId = 10;
+}
+
+message ProviderOrderRawList {
+  repeated ProviderOrderRaw result = 1;
+}
+
+message SummaryDashboard {
+  int32 totalOrders = 1;
+  int32 totalRevenue = 2;
+  int32 avgOrderValue = 3;
+  map<string, int32> paymentPercent = 4;
+}
+
+message ChartDashboard {
+  repeated string labels = 1;
+  repeated int32 revenue = 2;
+  repeated int32 orders = 3;
+}
+
+message DashboardResponse {
+  SummaryDashboard summary = 1;
+  ChartDashboard chart = 2;
+}
+
+message DashboardRequest {
+  string startDate = 1;
+  string endDate = 2;
+  string groupBy = 3;
+}
+
+message Empty {}
+
+message DashboardDateRange {
+  string minDate = 1;
+  string maxDate = 2;
+}
+
+message FindOrderItemByVariantIdsRequest {
+  repeated string variantIds = 1;
+}
+
+message FindOrderItemByVariantIdsResponse {
+  repeated OrderItem orderItems = 1;
+  repeated CartItemResponse cartItems = 2;
+}
+
+message FindAllOrdersByUserResponse {
+  repeated OrderResponse orders = 1;
+  repeated CartResponse carts = 2;
+}
+
+message ProviderFeeDashboardRequest {
+  DashboardRequest dto = 1;
+  optional string ownerId = 2;
+}
+
+message ProviderFeeDashboardResponse {
+  ProviderDashboardSummary summary = 1;
+  ProviderDashboardChart chart = 2;
+}
+
+message ProviderDashboardSummary {
+  int32 totalFeeRevenue = 1;
+  int32 avgFeeAmount = 2;
+}
+
+message ProviderDashboardChart {
+  repeated string labels = 1;
+  repeated int32 revenue = 2;
+}
+
+message ProviderDashboardDateRangeRequest {
+  optional string ownerId = 1;
+}
+
+message DeleteProviderFeesAndOrderByOwnerRequest {
+  string ownerId = 1;
+  User user = 2;
+}
+
+message Voucher {
+  string id = 1;
+  string code = 2;
+  int32 discountAmount = 3;
+  string createdAt = 4;
+  string updatedAt = 5;
+  bool active = 6;
+  string expirationDate = 7;
+}
+
+message VoucherPaginateResponse {
+  repeated Voucher result = 1;
+  Meta meta = 2;
+}
+
+message VoucherUsage {
+  string id = 1;
+  string voucherId = 2;
+  string userId = 3;
+  string orderId = 4;
+  string createdAt = 5;
+  string updatedAt = 6;
+  Voucher voucher = 8;
+}
+
+message VoucherUsagePaginateResponse {
+  repeated VoucherUsage result = 1;
+  Meta meta = 2;
+}
+
+message CreateVoucher {
+  int32 discountAmount = 1;
+  string expirationDate = 2;
+  optional bool active = 3;
+  optional string code = 4;
+}
+
+message CreateVoucherRequest {
+  CreateVoucher dto = 1;
+  User user = 2;
+}
+
+message UpateVoucher{
+  string id = 1;
+  int32 discountAmount = 2;
+  string expirationDate = 3;
+  optional bool active = 4;
+  optional string code = 5;
+}
+
+message UpdateVoucherRequest {
+  UpateVoucher dto = 1;
+  User user = 2;
+}
+
+message FindVoucherByCodeAndUserRequest {
+  string code = 1;
+  User user = 2;
+} 
+
+service OrderService {
+  rpc findAllOrder(PaginateRequest) returns (PaginateOrderResponse);
+  rpc findOneOrder(FindOneRequest) returns (OrderResponse);
+  rpc findOneByUser(DeleteOrderRequest) returns (OrderResponse);
+  rpc findAllProviderFee(PaginateRequest) returns (PaginateProviderFeeResponse);
+  rpc findCartByUser(CartRequest) returns (CartResponse);
+  rpc upsertUserCart(UpsertUserCartRequest) returns (QuickResponse);
+  rpc mergeCart(BulkMergeCartRequest) returns (QuickResponse);
+  rpc clearCart(ClearCartRequest) returns (QuickResponse);
+  rpc placeOrder(PlaceOrderRequest) returns (PlaceOrderResponse);
+  rpc updateOrderStatus(UpdateOrderStatusRequest) returns (QuickResponse);
+  rpc deleteOrder(DeleteOrderRequest) returns (QuickResponse);
+  rpc updateProviderFeeStatus(UpdateOrderStatusRequest) returns (QuickResponse);
+  rpc verifyReturnUrl(VerifyReturnUrlRequest) returns (VerifyReturnUrlResponse);
+  rpc createPaymentUrl(CreateVnPayPaymentRequest) returns (PaymentResponse);
+  rpc createStripePayment(CreateStripePaymentRequest) returns (PaymentResponse);
+  rpc verifyStripePayment(VerifyStripePaymentRequest) returns (VerifyReturnUrlResponse);
+  rpc findAllProviderOrder(PaginateRequest) returns (PaginateProviderOrderResponse);
+  rpc updateProviderOrderStatus(UpdateOrderStatusRequest) returns (QuickResponse);
+  rpc updateProviderOrdersByOrderId(UpdateProviderOrderStatusByOrderIdRequest) returns (QuickResponse);
+  rpc quickUpdateProviderFeeStatus(QuickUpdateProviderFeeStatusRequest) returns (QuickResponse);
+  rpc dashboard(DashboardRequest) returns (DashboardResponse);  
+  rpc getDashboardDateRange(Empty) returns (DashboardDateRange);
+  rpc findAllOrderItem(Empty) returns (OrderItemList);
+  rpc findAllProviderFeesInit(Empty) returns (ProviderFeeList);
+  rpc findAllProviderOrdersInit(Empty) returns (ProviderOrderRawList);
+  rpc findAllOrderItemsByVariantIds(FindOrderItemByVariantIdsRequest) returns (FindOrderItemByVariantIdsResponse);
+  rpc findAllOrdersByUser(User) returns (FindAllOrdersByUserResponse);
+  rpc providerFeeDashboard(ProviderFeeDashboardRequest) returns (ProviderFeeDashboardResponse);
+  rpc getProviderFeeDashboardDateRange(ProviderDashboardDateRangeRequest) returns (DashboardDateRange);
+  rpc deleteProviderFeesAndOrdersByOwner(DeleteProviderFeesAndOrderByOwnerRequest) returns (QuickResponse);
+  rpc findAllVouchers(PaginateRequest) returns (VoucherPaginateResponse);
+  rpc findAllUsages(PaginateRequest) returns (VoucherUsagePaginateResponse);
+  rpc createVoucher(CreateVoucherRequest) returns (QuickResponse);    
+  rpc updateVoucher(UpdateVoucherRequest) returns (QuickResponse);
+  rpc findVoucherByCodeAndUser(FindVoucherByCodeAndUserRequest) returns (Voucher); 
+  rpc deleteVoucher(FindOneRequest) returns (QuickResponse); 
+}

@@ -1,0 +1,21 @@
+// @import 'variables.scss';
+* {
+  margin: 0;
+  padding: 0;
+}
+
+@media (max-width: 1000px) {
+  .main {
+    padding: 10px 25px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .main {
+    padding: 5px 0 !important;
+  }
+}
+
+.main {
+  padding: 10px 125px;
+}

@@ -1,0 +1,93 @@
+.upsert-product-container {
+  background-color: white;
+  padding: 10px 30px;
+  border-radius: 5px;
+  min-height: 100vh;
+  height: auto;
+
+  .title {
+    padding: 10px 0 20px 0;
+  }
+
+  .ant-upload-list-picture-card {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 8px;
+  }
+}
+
+.row-approved td {
+  background-color: #f6ffed !important;
+}
+
+.row-approved:hover td {
+  background-color: #d9f7be !important;
+}
+
+.row-rejected td {
+  background-color: #ffe4e1 !important;
+}
+
+.row-rejected:hover td {
+  background-color: #ffccc7 !important;
+}
+
+.green-btn {
+  background-color: #52c41a !important;
+  border-color: #52c41a !important;
+  color: #fff !important;
+}
+
+.green-btn:hover {
+  background-color: #73d13d !important;
+  border-color: #73d13d !important;
+}
+
+.row-packaging td {
+  background-color: #f9f0ff !important;
+}
+
+.row-packaging:hover td {
+  background-color: #efdbff !important;
+}
+
+.row-delivering td {
+  background-color: #e6fffb !important;
+}
+
+.row-delivering:hover td {
+  background-color: #b5f5ec !important;
+}
+
+.packaging-btn {
+  background-color: #722ed1 !important;
+  border-color: #722ed1 !important;
+  color: #fff !important;
+}
+
+.packaging-btn:hover {
+  background-color: #9254de !important;
+  border-color: #9254de !important;
+}
+
+.delivering-btn {
+  background-color: #08979c !important;
+  border-color: #08979c !important;
+  color: #fff !important;
+}
+
+.delivering-btn:hover {
+  background-color: #13c2c2 !important;
+  border-color: #13c2c2 !important;
+}
+
+.rejected-btn {
+  background-color: #ff4d4f !important;
+  border-color: #ff4d4f !important;
+  color: #fff !important;
+}
+
+.rejected-btn:hover {
+  background-color: #ff7875 !important;
+  border-color: #ff7875 !important;
+}

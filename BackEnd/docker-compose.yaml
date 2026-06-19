@@ -1,0 +1,197 @@
+services:
+  db-mongo:
+    image: mongo:6.0.6
+    container_name: mongodb_dev
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 123456
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - nestjs_monorepo_network
+
+  mysql_db:
+    image: mysql:8.0
+    container_name: mysql_dev
+    ports:
+      - '3307:3306'
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=product_service
+    healthcheck:
+      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost', '-p123456']
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - nestjs_monorepo_network
+
+  postgres_db:
+    image: postgres:15-alpine
+    container_name: postgres_dev
+    ports:
+      - '5433:5432'
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=order_service
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - nestjs_monorepo_network
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver_dev
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=YourStrong@Pass123
+    ports:
+      - '1433:1433'
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+    networks:
+      - nestjs_monorepo_network
+
+  redis:
+    image: redis:alpine
+    container_name: redis_dev
+    ports:
+      - '6380:6379'
+    networks:
+      - nestjs_monorepo_network
+
+  identity-service:
+    build:
+      context: .
+      dockerfile: apps/identity-service/Dockerfile
+    container_name: identity_service
+    ports:
+      - '50052:50052'
+    env_file:
+      - ./apps/identity-service/.env
+    environment:
+      - DATABASE_URL=mongodb://root:123456@db-mongo:27017/identity_service?authSource=admin
+      - REDIS_HOST=redis
+      - GRPC_URL_IDENTITY=identity-service:50052
+      - GRPC_URL_PRODUCT=product-service:50051
+      - GRPC_URL_ORDER=order-service:50053
+      - GRPC_URL_MESSAGE=message-service:50054
+    depends_on:
+      - db-mongo
+      - redis
+    volumes:
+      - ./apps/identity-service:/usr/src/app/apps/identity-service
+      - ./libs:/usr/src/app/libs
+      - /usr/src/app/node_modules
+      - shared_images:/usr/src/app/apps/api-gateway/public/images
+    networks:
+      - nestjs_monorepo_network
+
+  product-service:
+    build:
+      context: .
+      dockerfile: apps/product-service/Dockerfile
+    container_name: product_service
+    ports:
+      - '50051:50051'
+    env_file:
+      - ./apps/product-service/.env
+    environment:
+      - DB_HOST=mysql_db
+      - GRPC_URL_IDENTITY=identity-service:50052
+      - GRPC_URL_PRODUCT=product-service:50051
+      - GRPC_URL_ORDER=order-service:50053
+    depends_on:
+      mysql_db:
+        condition: service_healthy
+    volumes:
+      - ./apps/product-service:/usr/src/app/apps/product-service
+      - ./libs:/usr/src/app/libs
+      - /usr/src/app/node_modules
+    networks:
+      - nestjs_monorepo_network
+
+  order-service:
+    build:
+      context: .
+      dockerfile: apps/order-service/Dockerfile
+    container_name: order_service
+    ports:
+      - '50053:50053'
+    env_file:
+      - ./apps/order-service/.env
+    environment:
+      - DB_HOST=postgres_db
+      - GRPC_URL_IDENTITY=identity-service:50052
+      - GRPC_URL_PRODUCT=product-service:50051
+      - GRPC_URL_ORDER=order-service:50053
+    depends_on:
+      - postgres_db
+    volumes:
+      - ./apps/order-service:/usr/src/app/apps/order-service
+      - ./libs:/usr/src/app/libs
+      - /usr/src/app/node_modules
+    networks:
+      - nestjs_monorepo_network
+
+  message-service:
+    build:
+      context: .
+      dockerfile: apps/message-service/Dockerfile
+    container_name: message_service
+    ports:
+      - '50054:50054'
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__sqlConnection=Server=sqlserver_dev,1433;Database=message_service;User Id=sa;Password=YourStrong@Pass123;TrustServerCertificate=true;Encrypt=true;
+      - Grpc__Identity=http://identity-service:50052
+      - Grpc__Product=http://product-service:50051
+      - Grpc__Order=http://order-service:50053
+    depends_on:
+      - sqlserver
+    volumes:
+      - .:/app
+      - /app/apps/message-service/bin
+      - /app/apps/message-service/obj
+    networks:
+      - nestjs_monorepo_network
+
+  api-gateway:
+    build:
+      context: .
+      dockerfile: apps/api-gateway/Dockerfile
+    container_name: api_gateway
+    ports:
+      - '3069:3069'
+    env_file:
+      - ./apps/api-gateway/.env
+    environment:
+      - REDIS_HOST=redis
+      - GRPC_URL_PRODUCT=product-service:50051
+      - GRPC_URL_ORDER=order-service:50053
+      - GRPC_URL_MESSAGE=message-service:50054
+    networks:
+      - nestjs_monorepo_network
+    depends_on:
+      - redis
+    volumes:
+      - ./apps/api-gateway:/usr/src/app/apps/api-gateway
+      - ./libs:/usr/src/app/libs
+      - /usr/src/app/node_modules
+      - shared_images:/usr/src/app/apps/api-gateway/public/images
+
+volumes:
+  mongodb_data:
+  mysql_data:
+  postgres_data:
+  sqlserver_data:
+  shared_images:
+
+networks:
+  nestjs_monorepo_network:
+    driver: bridge

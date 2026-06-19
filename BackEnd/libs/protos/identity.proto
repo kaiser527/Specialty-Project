@@ -1,0 +1,105 @@
+syntax = "proto3";
+
+package identity;
+
+message FindOneRequest {
+    string op = 1;
+    string strategy = 2;
+}
+
+message Role {
+    string _id = 1;
+    string name = 2;
+    bool isActive = 3;
+}
+
+enum AccountType {
+    LOCAL = 0;
+    GOOGLE = 1;
+    FACEBOOK = 2;
+}
+
+message User {
+    string _id = 1;
+    string name = 2;
+    string email = 3;
+    string image = 4;
+    Role role = 5;
+}
+
+message Meta {
+    int32 current = 1;
+    int32 pageSize = 2;
+    int32 pages = 3;
+    int32 total = 4;
+}
+
+message PaginateRequest {
+    int32 currentPage = 1;
+    int32 limit = 2;
+    string qs = 3;
+}
+
+message UserResponse {
+    string _id = 1;
+    string name = 2;
+    string email = 3;
+    string role = 4;
+    AccountType accountType = 5;
+    bool isActive = 6;
+    int32 age = 7;
+    string address = 8;
+    string gender = 9;
+    string image = 10;
+}
+
+message UserPopulateResponse {
+    string _id = 1;
+    string name = 2;
+    string email = 3;
+    Role role = 4;
+    AccountType accountType = 5;
+    bool isActive = 6;
+    int32 age = 7;
+    string address = 8;
+    string gender = 9;
+    string image = 10;
+}
+
+message UserListResponse {
+    repeated UserResponse result = 1;
+    Meta meta = 2;
+}
+
+message UserPopulateListResponse {
+    repeated UserPopulateResponse result = 1;
+    Meta meta = 2;
+}
+
+message FindAllUsersRequest {
+    repeated string ops = 1;
+    string strategy = 2;
+}
+
+message FindAllUsersResponse {
+    repeated User result = 1;
+}
+
+message FindUserItem {
+    string op = 1;        
+    string strategy = 2; 
+}
+
+message Empty {}
+
+service IdentityService {
+    rpc findOne(FindOneRequest) returns (User);
+    rpc findAllPopulate(PaginateRequest) returns (UserPopulateListResponse);
+    rpc findAll(PaginateRequest) returns (UserListResponse);
+    rpc findAllUsers(FindAllUsersRequest) returns (FindAllUsersResponse);
+
+    rpc findAllUsersClientStreaming(stream FindUserItem) returns (FindAllUsersResponse);
+    rpc findAllUsersServerStreaming(Empty) returns (stream User);
+    rpc findUsersBidirectional(stream FindUserItem) returns (stream User);
+}
+

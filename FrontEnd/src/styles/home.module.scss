@@ -1,0 +1,156 @@
+@media (max-width: 1000px) {
+  .top-banner {
+    height: 280px !important;
+  }
+  .sub-banner {
+    height: 140px !important;
+  }
+  .carousel-item {
+    margin-left: -12px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .top-banner {
+    height: 180px !important;
+  }
+  .sub-banner {
+    height: 90px !important;
+  }
+  .category-banner {
+    font-size: 16px !important;
+  }
+}
+
+.main-container {
+  padding: 10px;
+
+  .top-banner {
+    width: 100%;
+    height: 470px;
+
+    .banner-image {
+      width: 100%;
+      height: 100%;
+      border-radius: 12px;
+      object-fit: cover;
+      cursor: pointer;
+    }
+  }
+
+  .banner-row {
+    margin-top: 10px;
+
+    .sub-banner {
+      width: 100%;
+      height: 210px;
+      border-radius: 12px;
+      object-fit: cover;
+      cursor: pointer;
+    }
+  }
+
+  .category-section {
+    margin-top: 40px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 8px 24px rgba(255, 159, 26, 0.08);
+    transition: 0.3s;
+    border: 1px solid rgba(255, 159, 26, 0.25);
+    padding: 18px;
+    transition: all 0.3s ease;
+    &:hover {
+      border-color: #ff9f1a; // main orange
+      box-shadow: 0 12px 36px rgba(255, 122, 0, 0.2); // stronger orange glow
+    }
+    .category-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: linear-gradient(90deg, #fff1f0, #ffffff);
+      .view-all {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+
+        font-size: 17px;
+        font-weight: 600;
+        color: #ff4d2d; // 🔥 main orange
+
+        cursor: pointer;
+        padding: 6px 12px;
+        border-radius: 8px;
+
+        transition: all 0.25s ease;
+
+        svg {
+          font-size: 15px;
+          transition: transform 0.25s ease;
+        }
+
+        &:hover {
+          background: rgba(255, 77, 45, 0.1); // light orange bg
+          color: #d4380d; // darker orange
+
+          svg {
+            transform: translateX(5px); // 👉 slide effect
+          }
+        }
+
+        &:active {
+          transform: scale(0.96);
+        }
+      }
+      .category-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        .category-banner {
+          position: relative;
+          display: inline-block;
+          background: #ff4d2d;
+          color: #fff;
+          font-weight: 700;
+          min-width: 100%;
+          font-size: 20px;
+          padding: 10px 24px;
+          border-radius: 4px 0 0 4px;
+          overflow: hidden;
+          .category-banner-text {
+            position: relative;
+            z-index: 2;
+          }
+          &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: -30px;
+            width: 63px;
+            height: 100%;
+            background: #0f2a2a; // dark green like your image
+            transform: skewX(-35deg);
+          }
+          &::before {
+            content: "";
+            position: absolute;
+            right: -15px;
+            top: 0;
+            width: 30px;
+            height: 100%;
+            background: #f5f5f5;
+            transform: skewX(-35deg);
+            z-index: 1;
+          }
+        }
+      }
+    }
+  }
+
+  .carousel-item {
+    padding: 12px;
+    margin-left: -13.5px;
+  }
+}

@@ -1,0 +1,831 @@
+@media (max-width: 1000px) {
+  .ellipsis {
+    max-width: 350px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .ellipsis {
+    max-width: 120px !important;
+  }
+  .actionRow {
+    display: block !important;
+    .upgradeBtn {
+      width: 100% !important;
+    }
+    .warrantyTag {
+      width: 100% !important;
+      margin-bottom: 12px !important;
+    }
+  }
+  .oldPrice {
+    display: none !important;
+  }
+  .inputActions {
+    display: block !important;
+    .submitBtn {
+      width: 100% !important;
+      margin-top: 8px !important;
+    }
+  }
+  .nestedReplies {
+    margin-left: 18px !important;
+  }
+}
+
+.ellipsis {
+  display: inline-block;
+  max-width: 500px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: bottom;
+}
+
+.product-detail-container {
+  padding: 12px;
+  background-color: #fff;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 77, 45, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.25s ease;
+  .productInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    .qty-wrapper {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid #eee;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      width: fit-content;
+      flex-shrink: 0;
+      .qty-btn {
+        width: 34px;
+        height: 34px;
+        border: none;
+        background: #fafafa;
+        cursor: pointer;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 14px;
+        color: #555;
+
+        transition: all 0.2s ease;
+
+        &:hover {
+          background: #fff1ee;
+          color: #ff4d2d;
+        }
+
+        &:active {
+          transform: scale(0.92);
+          background: #ffe0d9;
+        }
+
+        &:disabled {
+          opacity: 0.4;
+          cursor: not-allowed;
+          background: #f5f5f5;
+        }
+      }
+
+      .qty-input {
+        width: 42px;
+        height: 34px;
+        border: none;
+        text-align: center;
+        font-weight: 600;
+        font-size: 14px;
+        outline: none;
+        background: #fff;
+
+        border-left: 1px solid #eee;
+        border-right: 1px solid #eee;
+      }
+    }
+    .variantName {
+      font-size: 21px;
+      font-weight: 700;
+      color: #000;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      word-break: break-word;
+    }
+    .addToCartBtn {
+      padding: 0 30px;
+      background-color: transparent;
+      color: #ff4d2d;
+      border: 1.5px solid #ff4d2d;
+      border-radius: 8px;
+      height: 48px;
+      font-weight: 700;
+      font-size: 16px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        background-color: #ff4d2d;
+        color: #ffffff;
+        box-shadow: 0 4px 12px rgba(255, 77, 45, 0.2);
+      }
+
+      &:active {
+        transform: scale(0.98); // Slight click effect
+      }
+    }
+    .priceWrapper {
+      border: 1px dashed #d9d9d9;
+      border-radius: 12px;
+      padding: 12px;
+      background: #fafafa;
+      margin-top: -8px;
+      .priceBanner {
+        background: linear-gradient(90deg, #ff4d2d 0%, #ff8e2d 100%);
+        border-radius: 12px;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: white;
+        margin-bottom: 12px;
+        .mainPriceGroup {
+          display: flex;
+          align-items: baseline;
+          gap: 60px;
+
+          .currentPrice {
+            font-size: 25px;
+            font-weight: 800;
+            margin-bottom: 7px;
+            text-decoration: underline;
+          }
+
+          .oldPrice {
+            font-size: 20px;
+            text-decoration: line-through;
+          }
+        }
+
+        .savings {
+          font-weight: 500;
+          font-size: 18px;
+          margin-bottom: 4px;
+        }
+      }
+      .actionRow {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+
+        .warrantyTag {
+          font-weight: bold;
+          padding: 5px 15px;
+          border-radius: 6px;
+          font-size: 14px;
+        }
+
+        .upgradeBtn {
+          background: linear-gradient(90deg, #3d31ff 0%, #ff3131 100%);
+          color: white;
+          border: none;
+          padding: 8px 16px;
+          border-radius: 20px;
+          font-weight: bold;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          text-transform: uppercase;
+          font-size: 13px;
+          transition: opacity 0.2s;
+
+          &:hover {
+            opacity: 0.9;
+          }
+        }
+      }
+    }
+
+    .description {
+      .sectionTitle {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 12px;
+        color: #000;
+      }
+
+      .attributeList {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .attributeItem {
+          display: flex;
+          align-items: flex-start;
+          gap: 10px;
+          font-size: 15px;
+          line-height: 1.4;
+
+          .checkIcon {
+            color: #004d40; // Dark green like your screenshot
+            margin-top: 3px;
+          }
+
+          .attrKey {
+            font-weight: 600;
+            color: #333;
+            margin-right: 5px;
+          }
+
+          .attrValue {
+            color: #444;
+          }
+        }
+      }
+    }
+  }
+  .gallery {
+    width: 100%;
+    .main {
+      position: relative;
+      width: 100%;
+      border: 1px solid #eee;
+      border-radius: 8px;
+      overflow: hidden;
+      .prev,
+      .next {
+        position: absolute;
+        top: 42%;
+        width: 30px;
+        height: 60px;
+        border: none;
+        cursor: pointer;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background: rgba(255, 255, 255, 0.7);
+        color: #333;
+
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: all 0.25s ease;
+      }
+      .prev {
+        left: -3px;
+        border-radius: 0 40px 40px 0;
+      }
+      .next {
+        right: -3px;
+        border-radius: 40px 0 0 40px;
+      }
+      .prev:hover,
+      .next:hover {
+        background: rgba(255, 255, 255, 0.95);
+        color: #000;
+      }
+      .mainImageContainer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #fff;
+        height: 444px;
+        .mainImage {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+    .thumbCarousel {
+      margin-top: 12px;
+      border: 1px solid #eee;
+      padding: 8px;
+      border-radius: 8px;
+      :global(.slick-slide) {
+        padding: 0 5px;
+      }
+      :global(.slick-track) {
+        display: flex !important;
+        align-items: center;
+      }
+      .thumbList {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+      }
+      .thumb {
+        width: 100%;
+        height: 100px;
+        border: 2px solid transparent;
+        cursor: pointer;
+        border-radius: 6px;
+        overflow: hidden;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        &.active {
+          border-color: #ff4d4f;
+        }
+      }
+    }
+  }
+  .writeReviewWrapper {
+    background: #ffffff;
+    border: 1px solid #f0f0f0;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    transition: all 0.3s ease;
+    .formItemNoMargin {
+      margin-bottom: 0 !important; // Removes AntD default spacing to keep layout tight
+
+      // Smooth transition for validation messages
+      :global(.ant-form-item-explain) {
+        font-size: 12px;
+        margin-top: 4px;
+        padding-left: 12px;
+      }
+    }
+    &:focus-within {
+      border-color: #ffbb96; // Light orange focus
+      box-shadow: 0 8px 24px rgba(250, 140, 22, 0.08);
+    }
+
+    .inputHeader {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start; // Better alignment for multiline text
+
+      .userAvatar {
+        background: #fa8c16; // Orange theme avatar
+        flex-shrink: 0;
+      }
+
+      .customTextArea {
+        border: none;
+        background: #f8f9fa;
+        border-radius: 12px;
+        padding: 12px 16px;
+        resize: none;
+        font-size: 14px;
+
+        &:focus {
+          background: #fff;
+          box-shadow: none;
+          outline: none;
+        }
+
+        &::placeholder {
+          color: #bfbfbf;
+        }
+      }
+    }
+
+    .inputActions {
+      display: flex;
+      justify-content: space-between; // Separates rating (left) and button (right)
+      align-items: center;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid #f5f5f5; // Subtle separator line
+
+      .ratingSection {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        .ratingLabel {
+          font-size: 15px;
+          font-weight: 500;
+          color: #8c8c8c;
+          margin-top: -3px;
+        }
+
+        .customRate {
+          font-size: 18px;
+          color: #ffa940; // Orange theme for stars
+
+          // Target the Ant Design star hover state
+          :global(.ant-rate-star-second) {
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+          }
+
+          &:hover :global(.ant-rate-star) {
+            transform: scale(1.1); // Subtle pop-out effect on hover
+          }
+        }
+      }
+
+      .submitBtn {
+        background: linear-gradient(135deg, #ffa940 0%, #ff7a45 100%);
+        border: none;
+        border-radius: 8px;
+        height: 38px;
+        padding: 0 24px;
+        font-weight: 600;
+        box-shadow: 0 4px 10px rgba(255, 122, 69, 0.2);
+
+        &:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 6px 15px rgba(255, 122, 69, 0.3);
+        }
+
+        &:active {
+          transform: translateY(0);
+        }
+      }
+    }
+  }
+
+  // Layout adjustments for Empty State
+  .emptyContainer {
+    background: #fff;
+    padding: 40px;
+    border-radius: 20px;
+    background: linear-gradient(180deg, #ffffff 0%, #fffbf0 100%);
+    border: 1px solid #fff1b8;
+
+    .emptyContent {
+      margin-bottom: 32px;
+
+      h3 {
+        font-weight: 700;
+        color: #262626;
+        margin-top: 12px;
+      }
+    }
+  }
+  .listWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .reviewsContainer {
+    .title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 30px;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      // Modern Orange Gradient Theme
+      background: linear-gradient(90deg, #fff7ed 0%, #ffffff 100%);
+      border-left: 4px solid #ff9c12; // Solid orange accent line
+      border-radius: 4px 8px 8px 4px;
+      color: #434343;
+
+      .iconWrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        background: linear-gradient(135deg, #ffa940 0%, #ff7a45 100%);
+        color: #fff;
+        border-radius: 8px;
+        font-size: 18px;
+        box-shadow: 0 4px 10px rgba(255, 122, 69, 0.3);
+      }
+
+      .count {
+        font-size: 14px;
+        font-weight: 400;
+        color: #8c8c8c;
+        margin-left: auto; // Push count to the far right
+        background: #f5f5f5;
+        padding: 2px 10px;
+        border-radius: 12px;
+      }
+    }
+  }
+
+  .reviewItem {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .inlineEditForm {
+      margin-left: 44px;
+      margin-top: 12px;
+      padding: 14px;
+
+      border: 1px solid #ffd8bf;
+      border-radius: 12px;
+      animation: slideDown 0.25s ease-out;
+      box-shadow: 0 4px 12px rgba(255, 122, 69, 0.08);
+
+      .editForm {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .editRate {
+        margin-bottom: 8px !important;
+      }
+
+      .editFormItem {
+        margin-bottom: 8px !important;
+      }
+
+      .editTextArea {
+        border-radius: 8px;
+        border: 1px solid #ffd8bf;
+        padding: 10px 12px;
+        font-size: 14px;
+        transition: all 0.25s ease;
+
+        &:focus {
+          border-color: #ff7a45;
+          box-shadow: 0 0 0 2px rgba(255, 122, 69, 0.15);
+        }
+      }
+
+      .editActions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+        margin-top: 6px;
+      }
+
+      .editSubmitBtn {
+        background: linear-gradient(135deg, #ff7a45 0%, #ff4d4f 100%);
+        border: none;
+        font-size: 12px;
+        height: 28px;
+        border-radius: 6px;
+        color: #fff;
+        font-weight: 600;
+        box-shadow: 0 2px 6px rgba(255, 77, 79, 0.25);
+        transition: all 0.25s ease;
+
+        &:hover {
+          background: linear-gradient(135deg, #ff9c6e 0%, #ff7875 100%);
+          transform: translateY(-1px);
+          box-shadow: 0 4px 12px rgba(255, 77, 79, 0.35);
+          color: #fff !important;
+        }
+
+        &:active {
+          transform: translateY(0);
+          box-shadow: 0 2px 4px rgba(255, 77, 79, 0.2);
+        }
+      }
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+
+    .userInfo {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+
+      .name {
+        font-weight: 600;
+        font-size: 18px;
+        color: #262626;
+      }
+
+      .roleBadge {
+        font-size: 12px;
+        padding: 4px 8px;
+        border-radius: 4px;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      // Role Specific Gradients
+      .role_ADMIN {
+        background: linear-gradient(135deg, #ff4d4f 0%, #ff7875 100%);
+      }
+      .role_USER {
+        background: linear-gradient(135deg, #1677ff 0%, #69b1ff 100%);
+      }
+      .role_STAFF {
+        background: linear-gradient(135deg, #722ed1 0%, #b37feb 100%);
+      }
+      .role_PROVIDER {
+        background: linear-gradient(135deg, #ffa940 0%, #ffd666 100%);
+      }
+    }
+
+    .meta {
+      font-size: 14px;
+      color: #8c8c8c;
+      margin-top: 4px;
+    }
+
+    .commentBody {
+      margin-left: 44px; // Align with the end of the avatar
+      color: #595959;
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    .actions {
+      margin-left: 44px;
+      margin-top: 12px;
+      display: flex;
+      gap: 8px;
+      .deleteBtn {
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 500;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        padding: 0 10px;
+
+        background: #fff1f0;
+        color: #ff4d4f;
+        border: 1px solid #ffa39e;
+
+        transition: all 0.25s ease;
+        position: relative;
+        overflow: hidden;
+
+        &:hover {
+          background: linear-gradient(135deg, #ff7875 0%, #ff4d4f 100%);
+          color: #fff;
+          border-color: transparent;
+          transform: translateY(-1px);
+          box-shadow: 0 4px 10px rgba(255, 77, 79, 0.3);
+        }
+
+        &:active {
+          transform: translateY(0);
+          box-shadow: 0 2px 4px rgba(255, 77, 79, 0.2);
+        }
+      }
+      .activeReplyBtn {
+        @extend .replyBtn;
+        background: #fff1f0 !important;
+        color: #ff4d4f !important;
+        border: 1px solid #ffa39e;
+      }
+      .replyBtn,
+      .toggleBtn {
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        background: #f8f9fa;
+        color: #595959;
+        padding: 0 10px;
+
+        &:hover {
+          background: #f0f0f0;
+          color: #1890ff;
+        }
+      }
+
+      .toggleBtn {
+        color: #8c8c8c;
+        background: transparent;
+        border: 1px solid #f0f0f0;
+
+        &:hover {
+          border-color: #ffd666; // Orange theme hint on hover
+          color: #fa8c16;
+          background: #fffbe6;
+        }
+      }
+    }
+
+    .inlineReplyForm {
+      margin-left: 44px;
+      margin-top: 12px;
+      padding: 12px;
+      background: #fcfcfc;
+      border: 1px solid #f0f0f0;
+      border-radius: 12px;
+      animation: slideDown 0.2s ease-out;
+
+      .replyFormWrapper {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+
+        .replyAvatar {
+          flex-shrink: 0;
+          border: 1px solid #fff;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .flexForm {
+          flex: 1; // Takes up the remaining horizontal space
+
+          .replyFormItem {
+            margin-bottom: 8px !important; // Space between textarea and buttons
+          }
+        }
+      }
+
+      .replyTextArea {
+        border: 1px solid #e8e8e8;
+        border-radius: 8px;
+        font-size: 14px;
+        padding: 8px 12px;
+
+        &:focus {
+          border-color: #ffbb96;
+          box-shadow: 0 0 0 2px rgba(250, 140, 22, 0.1);
+        }
+      }
+
+      .replyFormActions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+        margin-top: 8px;
+
+        .miniSubmitBtn {
+          background: linear-gradient(135deg, #ffa940 0%, #ff7a45 100%);
+          border: none;
+          font-size: 12px;
+          height: 28px;
+          border-radius: 6px;
+          color: #fff;
+          margin-top: -2px;
+          font-weight: 600;
+          box-shadow: 0 2px 6px rgba(255, 122, 69, 0.2);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); // Premium smooth curve
+          cursor: pointer;
+
+          &:hover {
+            background: linear-gradient(135deg, #ffb35a 0%, #ff8b5e 100%);
+            transform: translateY(-1.5px);
+            box-shadow: 0 4px 12px rgba(255, 122, 69, 0.35);
+            color: #fff !important;
+          }
+
+          &:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(255, 122, 69, 0.2);
+          }
+        }
+
+        button {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+
+  .nestedReplies {
+    margin-left: 44px;
+    margin-top: 16px;
+    padding-left: 16px;
+    border-left: 2px solid #f0f2f5;
+
+    animation: slideDown 0.3s ease-out;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-5px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

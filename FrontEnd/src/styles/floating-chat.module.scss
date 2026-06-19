@@ -1,0 +1,345 @@
+.orange-float-btn {
+  box-shadow: 0 8px 20px rgba(249, 115, 22, 0.35);
+  width: 48px;
+  height: 48px;
+}
+
+.sidebar {
+  border-right: 1px solid #f1f1f1;
+  overflow-y: auto;
+  .sidebarHeader {
+    padding: 16px;
+    border-bottom: 1px solid #f1f1f1;
+  }
+}
+
+.orangeFloatBtn {
+  width: 24px !important;
+  height: 24px !important;
+  border: none !important;
+
+  background: linear-gradient(135deg, #f97316 0%, #fb923c 100%) !important;
+
+  box-shadow: 0 8px 20px rgba(249, 115, 22, 0.35);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+
+  &:hover {
+    background: linear-gradient(135deg, #ea580c 0%, #f97316 100%) !important;
+
+    transform: translateY(-2px) scale(1.05);
+
+    box-shadow: 0 12px 24px rgba(249, 115, 22, 0.45);
+  }
+
+  &:active {
+    transform: scale(0.96);
+  }
+
+  :global(.anticon) {
+    font-size: 14px;
+    color: white;
+  }
+}
+.conversationItem {
+  padding: 14px 16px !important;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+
+  &:hover {
+    background: #fff7ed;
+  }
+
+  &.active {
+    background: #fff7ed !important;
+  }
+}
+
+.chatHeader {
+  height: 56px;
+  border-bottom: 1px solid #f1f1f1;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+}
+
+.chatContent {
+  height: calc(100% - 56px);
+  background: white;
+}
+
+.emptyChat {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+}
+
+.chatContent {
+  height: 100%;
+  background: #fafafa;
+}
+
+.chatWrapper {
+  height: 100%;
+}
+
+.emptyMessages {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.suggestionContainer {
+  width: 100%;
+  max-width: 520px;
+}
+
+.suggestionButton {
+  position: relative;
+
+  width: calc(50% - 6px); // 2 per row
+  min-width: 0;
+
+  padding: 12px 18px !important;
+
+  border: none !important;
+  border-radius: 14px !important;
+
+  background: white !important;
+  color: #ea580c !important;
+
+  font-weight: 600;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease,
+    color 0.2s ease !important;
+
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.12);
+
+  &::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    padding: 1.5px;
+
+    border-radius: inherit;
+
+    background: linear-gradient(135deg, #f97316 0%, #fb923c 100%);
+
+    -webkit-mask: linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+
+    pointer-events: none;
+  }
+
+  &:hover {
+    background: #fffaf5 !important;
+
+    transform: translateY(-2px);
+
+    color: #f97316 !important;
+
+    box-shadow: 0 12px 28px rgba(249, 115, 22, 0.18),
+      0 0 0 4px rgba(251, 146, 60, 0.08);
+
+    &::before {
+      background: linear-gradient(135deg, #fb923c 0%, #fdba74 100%);
+    }
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+.messagesWrapper {
+  flex: 1;
+  overflow-y: auto;
+  padding: 22px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  scroll-behavior: smooth;
+}
+
+.userMessage {
+  align-self: flex-end;
+  max-width: 72%;
+  padding: 12px 14px;
+  border-radius: 16px 16px 4px 16px;
+
+  background: linear-gradient(135deg, #f97316, #fb923c);
+  color: #fff;
+
+  box-shadow: 0 8px 18px rgba(249, 115, 22, 0.25);
+
+  animation: popIn 0.15s ease;
+}
+
+.assistantMessage {
+  align-self: flex-start;
+  max-width: 72%;
+  padding: 12px 14px;
+  border-radius: 16px 16px 16px 4px;
+
+  background: #ffffff;
+  border: 1px solid #f1f1f1;
+
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
+
+  animation: popIn 0.15s ease;
+}
+
+.messageText {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #1f1f1f;
+}
+
+.inputWrapper {
+  padding: 14px;
+  border-top: 1px solid #f3f3f3;
+  background: #fff;
+
+  position: sticky;
+  bottom: 0;
+}
+
+.textArea {
+  width: 100%;
+
+  padding: 10px 14px;
+  height: 35px;
+
+  border: 1px solid #e5e5e5;
+  border-radius: 14px;
+
+  background: #fff;
+
+  font-size: 15px;
+  color: #111;
+
+  outline: none;
+
+  transition: all 0.2s ease;
+
+  &::placeholder {
+    color: #a3a3a3;
+  }
+
+  &:focus {
+    border-color: #fb923c;
+    box-shadow: 0 0 0 4px rgba(251, 146, 60, 0.15);
+  }
+}
+
+.sendBtn {
+  height: 35px;
+  border: none !important;
+  border-radius: 10px;
+
+  color: white !important;
+
+  background: linear-gradient(135deg, #f97316, #fb923c) !important;
+
+  box-shadow: 0 10px 20px rgba(249, 115, 22, 0.25);
+
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: linear-gradient(135deg, #ea580c, #f97316) !important;
+    color: white !important;
+    transform: translateY(-1px);
+
+    box-shadow: 0 14px 28px rgba(249, 115, 22, 0.35);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.emptyChat {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0.97);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.messagesWrapper::-webkit-scrollbar {
+  width: 6px;
+}
+
+.messagesWrapper::-webkit-scrollbar-thumb {
+  background: #f97316;
+  border-radius: 20px;
+  opacity: 0.5;
+}
+
+.orangeOutlineBtn {
+  border: 1px solid #f97316 !important;
+  color: #f97316 !important;
+  background: transparent !important;
+
+  border-radius: 10px;
+  font-weight: 500;
+
+  transition: all 0.18s ease;
+
+  box-shadow: none !important;
+
+  &:hover {
+    background: rgba(249, 115, 22, 0.12) !important;
+    color: #f97316 !important;
+    border-color: #f97316 !important;
+
+    transform: none !important;
+  }
+
+  &:active {
+    background: rgba(249, 115, 22, 0.18) !important;
+    transform: scale(0.98);
+  }
+
+  &:focus {
+    color: #f97316 !important;
+    border-color: #f97316 !important;
+  }
+}
