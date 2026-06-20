@@ -145,22 +145,19 @@ message ClearCartRequest {
 message OrderItemRequest {
   string variantId = 1;
   int32 quantity = 2;
-  int32 unitPrice = 3;
 }
 
 message PlaceOrderRequest {
   string name = 1;
   string address = 2;
   string phone = 3;
-  int32 totalPrice = 4;
-  int32 shippingFee = 5;
-  int32 subTotal = 6;
-  string status = 7;
-  string type = 8;
-  User user = 9;
-  repeated OrderItemRequest items = 10;
-  string paymentRef = 11;
-  optional string voucherCode = 12;
+  int32 shippingFee = 4;
+  string status = 5;
+  string type = 6;
+  User user = 7;
+  repeated OrderItemRequest items = 8;
+  string paymentRef = 9;
+  optional string voucherCode = 10;
 }
 
 message UpdateOrderStatusRequest {

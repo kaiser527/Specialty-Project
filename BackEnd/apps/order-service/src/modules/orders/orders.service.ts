@@ -327,35 +327,36 @@ export class OrdersService implements OnModuleInit {
 
   placeOrder = async (dto: OrderDto, user: IUser) => {
     //@ts-ignore
-    const { items, user: _, ...rest } = dto;
+    const { items, voucherCode, user: _, ...rest } = dto;
 
     const userId = user._id.toString();
 
     const mergedItems = Object.values(
-      items.reduce((acc, item) => {
-        if (!acc[item.variantId]) acc[item.variantId] = { ...item };
-        else acc[item.variantId].quantity += item.quantity;
-        return acc;
-      }, {}),
+      items.reduce(
+        (acc, item) => {
+          if (!acc[item.variantId]) acc[item.variantId] = { ...item };
+          else acc[item.variantId].quantity += item.quantity;
+          return acc;
+        },
+        {} as Record<string, OrderItemDto>,
+      ),
     );
 
     if (!mergedItems.length) {
       throw new RpcException('Order items cannot be empty');
     }
 
+    const variantIds = mergedItems.map((item) => item.variantId);
+
+    const response: any = await lastValueFrom(
+      this.productService.findAllVariantForOrderService({
+        variantIds,
+      }),
+    );
+
+    const variants: any[] = response?.result;
+
     if (user.role?.name === 'PROVIDER') {
-      const variantIds = mergedItems.map(
-        (item: OrderItemDto) => item.variantId,
-      );
-
-      const response: any = await lastValueFrom(
-        this.productService.findAllVariantForOrderService({
-          variantIds,
-        }),
-      );
-
-      const variants: any[] = response?.result;
-
       const hasOwnProduct = variants.some(
         (variant) => variant.product?.createdBy === user.email,
       );
@@ -365,18 +366,47 @@ export class OrdersService implements OnModuleInit {
       }
     }
 
+    const variantMap = new Map(
+      variants.map((variant) => [variant.id, variant]),
+    );
+
+    let subTotal = 0;
+
+    const orderItems = mergedItems.map((item) => {
+      const variant = variantMap.get(item.variantId);
+
+      if (!variant) {
+        throw new RpcException(`Variant ${item.variantId} not found`);
+      }
+
+      const unitPrice =
+        variant.price - Math.round((variant.price * variant.discount) / 100);
+
+      subTotal += unitPrice * item.quantity;
+
+      return {
+        variantId: item.variantId,
+        quantity: item.quantity,
+        unitPrice,
+      };
+    });
+
+    const totalPrice = Math.round(subTotal + rest.shippingFee);
+
     return await this.ordersRepository.manager.transaction(async (manager) => {
       const order = await manager.save(this.ordersRepository.target, {
         ...rest,
         userId,
         createdBy: user.email,
         status: OrderStatus.PENDING,
+        subTotal,
+        totalPrice,
       });
 
-      if (dto.voucherCode) {
+      if (voucherCode) {
         await this.vouchersService.applyVoucher(
           manager,
-          dto.voucherCode,
+          voucherCode,
           order,
           userId,
         );
@@ -384,7 +414,7 @@ export class OrdersService implements OnModuleInit {
 
       const savedItems = await manager.save(
         this.orderItemsRepository.target,
-        mergedItems.map((item: OrderItemDto) => ({
+        orderItems.map((item) => ({
           orderId: order.id,
           variantId: item.variantId,
           quantity: item.quantity,

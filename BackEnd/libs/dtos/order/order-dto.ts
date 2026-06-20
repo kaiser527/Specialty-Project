@@ -14,9 +14,6 @@ export class OrderItemDto {
 
   @IsNotEmpty()
   quantity: number;
-
-  @IsNotEmpty()
-  unitPrice: number;
 }
 
 export class OrderDto {
@@ -37,12 +34,6 @@ export class OrderDto {
 
   @IsNotEmpty()
   shippingFee: number;
-
-  @IsNotEmpty()
-  subTotal: number;
-
-  @IsNotEmpty()
-  totalPrice: number;
 
   @IsOptional()
   voucherCode?: string;

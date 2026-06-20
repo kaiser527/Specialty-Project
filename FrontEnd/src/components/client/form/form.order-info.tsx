@@ -143,14 +143,6 @@ const OrderInfoForm = ({ totalPrice, cart, refetch }: IProps) => {
     setShippingFee(fee);
   };
 
-  const getProvinceName = (code: number) => {
-    return provinces.find((p) => p.code === code)?.name || "";
-  };
-
-  const getDistrictName = (code: number) => {
-    return districts.find((d) => d.code === code)?.name || "";
-  };
-
   const onFinish = async (values: any) => {
     if (!isAuthenticated) {
       navigate("/login");
@@ -164,6 +156,14 @@ const OrderInfoForm = ({ totalPrice, cart, refetch }: IProps) => {
     const { province, district, paymentMethod, agree, address, ...rest } =
       values;
 
+    const getProvinceName = (code: number) => {
+      return provinces.find((p) => p.code === code)?.name || "";
+    };
+
+    const getDistrictName = (code: number) => {
+      return districts.find((d) => d.code === code)?.name || "";
+    };
+
     const fullAddress = [
       address,
       getDistrictName(district),
@@ -174,25 +174,18 @@ const OrderInfoForm = ({ totalPrice, cart, refetch }: IProps) => {
 
     const payload = {
       shippingFee,
-      type: paymentMethod === "COD",
-      subTotal: totalPrice,
+      type: paymentMethod === "COD" ? "COD" : "BANKING",
+      paymentRef: paymentMethod === "COD" ? "LOCAL" : paymentMethod,
       address: fullAddress,
-      totalPrice: totalPrice + shippingFee,
       items: cart.items.map((i) => ({
         variantId: i.variant.id,
         quantity: i.quantity,
-        unitPrice: getFinalPrice(i.variant),
       })),
       ...(voucher?.current?.code && { voucherCode: voucher.current.code }),
     };
 
     const handleOrder = async () => {
-      const res = await placeOrder({
-        ...rest,
-        ...payload,
-        type: paymentMethod === "COD" ? "COD" : "BANKING",
-        paymentRef: paymentMethod === "COD" ? "LOCAL" : paymentMethod,
-      }).unwrap();
+      const res = await placeOrder({ ...rest, ...payload }).unwrap();
       if (res?.data) {
         messageApi.success("Order successfully!");
         form.resetFields();
