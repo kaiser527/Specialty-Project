@@ -6,7 +6,7 @@ import {
   PlusOutlined,
   UploadOutlined,
 } from "@ant-design/icons";
-import { Button, ConfigProvider, Modal, Upload } from "antd";
+import { Button, Modal, Upload } from "antd";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
@@ -107,43 +107,41 @@ const UploadImage = ({
 
   return (
     <>
-      <ConfigProvider>
-        <Upload
-          showUploadList={showList === true}
-          listType={renderChild === "upload" ? "picture-card" : undefined}
-          multiple={mode === "multiple"}
-          customRequest={handleUploadFileLogo}
-          beforeUpload={beforeUpload}
-          onRemove={(file) => handleRemoveFile(file)}
-          onPreview={handlePreview}
-          fileList={dataImage?.map((item) => ({
-            uid: item.uid,
-            name: item.name,
-            status: "done",
-            url: `${import.meta.env.VITE_BACKEND_URL}/images/${folder}/${
-              item.name
-            }`,
-          }))}
-        >
-          {allowUpload && (
-            <>
-              {renderChild === "button" ? (
-                <Button
-                  loading={isLoading}
-                  icon={isLoading ? <LoadingOutlined /> : <UploadOutlined />}
-                >
-                  Upload
-                </Button>
-              ) : (
-                <div>
-                  {isLoading ? <LoadingOutlined /> : <PlusOutlined />}
-                  <div style={{ marginTop: 8 }}>Upload</div>
-                </div>
-              )}
-            </>
-          )}
-        </Upload>
-      </ConfigProvider>
+      <Upload
+        showUploadList={showList === true}
+        listType={renderChild === "upload" ? "picture-card" : undefined}
+        multiple={mode === "multiple"}
+        customRequest={handleUploadFileLogo}
+        beforeUpload={beforeUpload}
+        onRemove={(file) => handleRemoveFile(file)}
+        onPreview={handlePreview}
+        fileList={dataImage?.map((item) => ({
+          uid: item.uid,
+          name: item.name,
+          status: "done",
+          url: `${import.meta.env.VITE_BACKEND_URL}/images/${folder}/${
+            item.name
+          }`,
+        }))}
+      >
+        {allowUpload && (
+          <>
+            {renderChild === "button" ? (
+              <Button
+                loading={isLoading}
+                icon={isLoading ? <LoadingOutlined /> : <UploadOutlined />}
+              >
+                Upload
+              </Button>
+            ) : (
+              <div>
+                {isLoading ? <LoadingOutlined /> : <PlusOutlined />}
+                <div style={{ marginTop: 8 }}>Upload</div>
+              </div>
+            )}
+          </>
+        )}
+      </Upload>
       <Modal
         open={previewOpen}
         title={previewTitle}

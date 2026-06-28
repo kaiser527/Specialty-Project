@@ -1,3 +1,5 @@
+import { DARKTHEME } from "@/config/constants/utils";
+import { useBackground } from "@/hooks/useBackground";
 import { useConversation } from "@/hooks/useConversation";
 import { useGetAccount } from "@/hooks/useGetAccount";
 import { useFetchConversationQuery } from "@/redux/api/aiApi";
@@ -19,6 +21,7 @@ const ChatSidebar = ({ openModal, collapsed }: IProps) => {
   const screen = useBreakpoint();
 
   const { isAuthenticated } = useGetAccount();
+  const { background } = useBackground();
   const { conversationId, setConversationId } = useConversation();
 
   const { data, isLoading } = useFetchConversationQuery(
@@ -44,7 +47,14 @@ const ChatSidebar = ({ openModal, collapsed }: IProps) => {
 
   return (
     <>
-      <div className={styles.sidebarHeader}>
+      <div
+        style={
+          background === "dark"
+            ? { border: `1px solid ${DARKTHEME.border}` }
+            : {}
+        }
+        className={styles.sidebarHeader}
+      >
         {!collapsed && screen.lg && (
           <Flex justify="space-between" align="center">
             <Text strong>Conversations</Text>
@@ -59,7 +69,6 @@ const ChatSidebar = ({ openModal, collapsed }: IProps) => {
           </Flex>
         )}
       </div>
-
       {!collapsed && (
         <>
           {isLoading ? (
@@ -71,9 +80,19 @@ const ChatSidebar = ({ openModal, collapsed }: IProps) => {
                 const isActive = item.id === conversationId;
                 return (
                   <List.Item
-                    className={`${styles.conversationItem} ${
-                      isActive ? styles.active : ""
-                    }`}
+                    className={`
+                      ${styles.conversationItem}
+                      ${
+                        background === "dark" ? styles.darkConversationItem : ""
+                      }
+                      ${
+                        isActive
+                          ? background === "dark"
+                            ? styles.activeDark
+                            : styles.active
+                          : ""
+                      }
+                    `}
                     onClick={() => setConversationId(item.id)}
                     style={{ cursor: "pointer" }}
                   >

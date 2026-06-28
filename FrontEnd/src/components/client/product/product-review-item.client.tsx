@@ -1,4 +1,5 @@
 import { FORMATE_DATE } from "@/config/helpers/global";
+import { useBackground } from "@/hooks/useBackground";
 import { useGetAccount } from "@/hooks/useGetAccount";
 import { useMessage } from "@/hooks/useMessage";
 import {
@@ -43,6 +44,7 @@ const ReviewItem = ({ node }: { node: ReviewNode }) => {
   const { user, isAuthenticated } = useGetAccount();
   const { id } = useParams();
   const { notificationApi } = useMessage();
+  const { background } = useBackground();
 
   const hasChildren = node.children && node.children.length > 0;
   const roleName = node.user?.role?.name || "USER";
@@ -104,7 +106,11 @@ const ReviewItem = ({ node }: { node: ReviewNode }) => {
   };
 
   return (
-    <div className={styles.reviewItem}>
+    <div
+      className={`${styles.reviewItem} ${
+        background === "dark" ? styles.reviewItemDark : ""
+      }`}
+    >
       <div className={styles.header}>
         <div className={styles.userInfo}>
           <Avatar src={urlAvatar} icon={<UserOutlined />} size="large" />

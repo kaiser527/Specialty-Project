@@ -1,4 +1,4 @@
-import { socket, SUGGESTIONS } from "@/config/constants/utils";
+import { DARKTHEME, socket, SUGGESTIONS } from "@/config/constants/utils";
 import { useMessage } from "@/hooks/useMessage";
 import { useFetchMessagesQuery } from "@/redux/api/aiApi";
 import { IAction, IChatMessage } from "@/types/backend";
@@ -40,6 +40,7 @@ import ChatData from "./chat.data";
 import { useGetAccount } from "@/hooks/useGetAccount";
 import ViewOrderDetail from "@/components/admin/order/order.view";
 import { useConversation } from "@/hooks/useConversation";
+import { useBackground } from "@/hooks/useBackground";
 
 const { Content } = Layout;
 const { Text } = Typography;
@@ -105,6 +106,7 @@ const ChatContent = () => {
   const { messageApi } = useMessage();
   const { user } = useGetAccount();
   const { conversationId } = useConversation();
+  const { background } = useBackground();
 
   const inputRef = useRef<HTMLInputElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement | null>(null);
@@ -324,7 +326,10 @@ const ChatContent = () => {
 
   return (
     <>
-      <Content className={styles.chatContent}>
+      <Content
+        style={background === "dark" ? { background: DARKTHEME.bg } : {}}
+        className={styles.chatContent}
+      >
         <Flex vertical className={styles.chatWrapper}>
           <div
             ref={messagesContainerRef}
@@ -358,7 +363,11 @@ const ChatContent = () => {
                         {suggestions.map((x) => (
                           <Button
                             key={x}
-                            className={styles.suggestionButton}
+                            className={`${styles.suggestionButton} ${
+                              background === "dark"
+                                ? styles.suggestionButtonDark
+                                : ""
+                            }`}
                             onClick={() => {
                               if (inputRef.current) {
                                 inputRef.current.value = x;
@@ -391,6 +400,14 @@ const ChatContent = () => {
                   return (
                     <div
                       key={msg.id}
+                      style={
+                        !isUser && background === "dark"
+                          ? {
+                              background: DARKTHEME.card,
+                              border: `1px solid ${DARKTHEME.border}`,
+                            }
+                          : {}
+                      }
                       className={
                         isUser ? styles.userMessage : styles.assistantMessage
                       }
@@ -437,7 +454,17 @@ const ChatContent = () => {
               style={{ float: "left", clear: "both" }}
             />
           </div>
-          <div className={styles.inputWrapper}>
+          <div
+            style={
+              background === "dark"
+                ? {
+                    background: DARKTHEME.bg,
+                    borderTop: `1px solid ${DARKTHEME.border}`,
+                  }
+                : {}
+            }
+            className={styles.inputWrapper}
+          >
             <Flex gap={12} align="flex-end">
               <input
                 ref={inputRef}
@@ -448,6 +475,11 @@ const ChatContent = () => {
                     handleSend();
                   }
                 }}
+                style={
+                  background === "dark"
+                    ? { background: "transparent", color: "#fff" }
+                    : {}
+                }
                 className={styles.textArea}
               />
               <Button

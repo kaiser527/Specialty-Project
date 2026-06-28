@@ -7,6 +7,8 @@ import {
 import logo from "assets/logo2.svg";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useBackground } from "@/hooks/useBackground";
+import { DARKTHEME } from "@/config/constants/utils";
 
 const { Title, Text, Link } = Typography;
 const { useBreakpoint } = Grid;
@@ -14,16 +16,22 @@ const { useBreakpoint } = Grid;
 const Footer = () => {
   const screens = useBreakpoint();
   const navigate = useNavigate();
+  const { background } = useBackground();
+
   const [hover, setHover] = useState(false);
+
+  const whiteText = background === "dark" ? "#fff" : "#000";
 
   return (
     <footer
       style={{
-        background: "#fafafa",
+        background: background === "dark" ? DARKTHEME.bgSecondary : "#fafafa",
         padding: `${screens.lg ? 60 : screens.xs ? 6 : 8}px ${
           screens.lg ? 120 : 6
         }px 30px`,
-        borderTop: "1px solid #f0f0f0",
+        borderTop: `1px solid ${
+          background === "dark" ? DARKTHEME.border : "#f0f0f0"
+        }`,
         boxSizing: "border-box",
         width: "100%",
         overflowX: "hidden",
@@ -47,16 +55,28 @@ const Footer = () => {
           {/* Social */}
           <div style={{ marginTop: 20 }}>
             <Space size="middle">
-              <FacebookOutlined style={{ fontSize: 18, cursor: "pointer" }} />
-              <InstagramOutlined style={{ fontSize: 18, cursor: "pointer" }} />
-              <TwitterOutlined style={{ fontSize: 18, cursor: "pointer" }} />
+              <FacebookOutlined
+                style={{
+                  fontSize: 18,
+                  cursor: "pointer",
+                  color: whiteText,
+                }}
+              />
+              <InstagramOutlined
+                style={{ fontSize: 18, cursor: "pointer", color: whiteText }}
+              />
+              <TwitterOutlined
+                style={{ fontSize: 18, cursor: "pointer", color: whiteText }}
+              />
             </Space>
           </div>
         </Col>
 
         {/* Links */}
         <Col sm={6} xs={8} lg={4}>
-          <Title level={5}>Shop</Title>
+          <Title style={{ color: whiteText }} level={5}>
+            Shop
+          </Title>
           <Space direction="vertical">
             <Link style={{ color: "#ff9f1a" }}>Gaming PCs</Link>
             <Link style={{ color: "#ff9f1a" }}>Laptops</Link>
@@ -66,7 +86,9 @@ const Footer = () => {
         </Col>
 
         <Col sm={6} xs={8} lg={4}>
-          <Title level={5}>Support</Title>
+          <Title style={{ color: whiteText }} level={5}>
+            Support
+          </Title>
           <Space direction="vertical">
             <Link style={{ color: "#ff9f1a" }}>Contact Us</Link>
             <Link style={{ color: "#ff9f1a" }}>Warranty</Link>
@@ -76,7 +98,9 @@ const Footer = () => {
         </Col>
 
         <Col sm={6} xs={8} lg={4}>
-          <Title level={5}>Company</Title>
+          <Title style={{ color: whiteText }} level={5}>
+            Company
+          </Title>
           <Space direction="vertical">
             <Link style={{ color: "#ff9f1a" }}>About</Link>
             <Link style={{ color: "#ff9f1a" }}>Careers</Link>
@@ -85,8 +109,10 @@ const Footer = () => {
           </Space>
         </Col>
 
-        <Col sm={6} xs={24} lg={4}>
-          <Title level={5}>Special Offer</Title>
+        <Col style={{ color: whiteText }} sm={6} xs={24} lg={4}>
+          <Title style={{ color: whiteText }} level={5}>
+            Special Offer
+          </Title>
           <Text style={{ color: "#ff9f1a" }} type="secondary">
             Get 10% off your first order
           </Text>
@@ -116,16 +142,37 @@ const Footer = () => {
       {/* BOTTOM */}
       <Row justify="space-between" align="middle" wrap>
         <Col>
-          <Text type="secondary">
+          <Text style={{ color: whiteText }} type="secondary">
             © {new Date().getFullYear()} PC Store. All rights reserved.
           </Text>
         </Col>
 
         <Col>
           <Space size="large" wrap>
-            <Link type="secondary">Privacy Policy</Link>
-            <Link type="secondary">Terms</Link>
-            <Link type="secondary">Sitemap</Link>
+            <Link
+              onMouseEnter={(e) => (e.currentTarget.style.color = "#ff9f1a")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = whiteText)}
+              style={{ color: whiteText }}
+              type="secondary"
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              onMouseEnter={(e) => (e.currentTarget.style.color = "#ff9f1a")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = whiteText)}
+              style={{ color: whiteText }}
+              type="secondary"
+            >
+              Terms
+            </Link>
+            <Link
+              onMouseEnter={(e) => (e.currentTarget.style.color = "#ff9f1a")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = whiteText)}
+              style={{ color: whiteText }}
+              type="secondary"
+            >
+              Sitemap
+            </Link>
           </Space>
         </Col>
       </Row>

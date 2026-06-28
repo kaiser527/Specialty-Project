@@ -327,6 +327,7 @@ export interface IMinMaxPriceQuery {
   priceOperators?: { operator: string; value: number }[];
   createdAtOperators?: { operator: string; value: string }[];
   updatedAtOperators?: { operator: string; value: string }[];
+  isQueryBrand?: boolean;
 }
 
 export interface IMinMaxPrice {

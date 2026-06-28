@@ -6,21 +6,11 @@ import {
   useUpdateProductMutation,
 } from "@/redux/api/productApi";
 import { skipToken } from "@reduxjs/toolkit/query";
-import {
-  Breadcrumb,
-  Button,
-  Col,
-  ConfigProvider,
-  Form,
-  Input,
-  Row,
-  Select,
-} from "antd";
+import { Breadcrumb, Button, Col, Form, Input, Row, Select } from "antd";
 import styles from "styles/admin.module.scss";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-import enUS from "antd/lib/locale/en_US";
 import {
   FooterToolbar,
   ProForm,
@@ -33,11 +23,16 @@ import { IImage, IVariant } from "@/types/frontend";
 import UploadImage from "@/components/share/upload";
 import { useMessage } from "@/hooks/useMessage";
 import ProductVariants from "./product.variant";
-import { roleGradients } from "@/config/constants/utils";
+import {
+  DARKTHEME,
+  roleColorsDark,
+  roleGradients,
+} from "@/config/constants/utils";
 import { useGetAccount } from "@/hooks/useGetAccount";
 import { useFetchUserQuery } from "@/redux/api/userApi";
 import Access from "@/components/share/access";
 import { ALL_PERMISSIONS } from "@/config/constants/permissions";
+import { useBackground } from "@/hooks/useBackground";
 
 const variants: IVariant[] = [
   {
@@ -61,6 +56,7 @@ const ViewUpsertProduct = () => {
   const [form] = Form.useForm();
 
   const { user } = useGetAccount();
+  const { background } = useBackground();
 
   const [filterSku, setFilterSku] = useState("");
   const [dataThumbnail, setDataThumbnail] = useState<IImage[]>([]);
@@ -241,7 +237,10 @@ const ViewUpsertProduct = () => {
       product?.data?.status === "REJECTED");
 
   return (
-    <div className={styles["upsert-product-container"]}>
+    <div
+      style={background === "dark" ? { background: DARKTHEME.bgSecondary } : {}}
+      className={styles["upsert-product-container"]}
+    >
       <div className={styles["title"]}>
         <Breadcrumb
           separator=">"
@@ -287,10 +286,21 @@ const ViewUpsertProduct = () => {
                       fontWeight: 500,
                       padding: "2px 8px",
                       borderRadius: 4,
-                      color: "#fff",
+                      border:
+                        background === "light"
+                          ? "none"
+                          : `1px solid ${
+                              roleColorsDark[product.data.user.role.name]
+                            }`,
+                      color:
+                        background === "light"
+                          ? "#fff"
+                          : roleColorsDark[product.data.user.role.name],
                       marginTop: 5,
                       background:
-                        roleGradients[product.data.user.role.name] || "gray",
+                        background === "light"
+                          ? roleGradients[product.data.user.role.name] || "gray"
+                          : "transparent",
                       display: "inline-block",
                     }}
                   >
@@ -325,9 +335,19 @@ const ViewUpsertProduct = () => {
                         fontWeight: 500,
                         padding: "1px 4px",
                         borderRadius: 4,
-                        color: "#fff",
+                        border:
+                          background === "light"
+                            ? "none"
+                            : `1px solid ${roleColorsDark[u.role.name]}`,
+                        color:
+                          background === "light"
+                            ? "#fff"
+                            : roleColorsDark[u.role.name],
                         marginLeft: 8,
-                        background: roleGradients[u.role.name] || "gray",
+                        background:
+                          background === "light"
+                            ? roleGradients[u.role.name] || "gray"
+                            : "transparent",
                         display: "inline-block",
                       }}
                     >
@@ -349,103 +369,111 @@ const ViewUpsertProduct = () => {
         </div>
       </Access>
       <div>
-        <ConfigProvider locale={enUS}>
-          <ProForm
-            form={form}
-            onFinish={onFinish}
-            submitter={{
-              searchConfig: {
-                resetText: "Cancel",
-                submitText: (
-                  <>{product?.data?.id ? "Update product" : "Create product"}</>
-                ),
-              },
-              onReset: () => navigate("/admin/product"),
-              render: (_: any, dom: any) =>
-                !isShow && <FooterToolbar>{dom}</FooterToolbar>,
-              submitButtonProps: {
-                loading: isSubmitting,
-                icon: <CheckSquareOutlined />,
-              },
-            }}
-          >
-            <Row gutter={[20, 20]}>
-              <Col lg={4} sm={6} md={6} xs={12}>
-                <ProFormText
-                  label="Product name"
-                  name="name"
-                  rules={[{ required: true }]}
-                  placeholder="Enter product name"
-                />
-              </Col>
-              <Col lg={4} sm={6} md={6} xs={12}>
-                <ProFormSelect
-                  label="Category"
-                  name="categoryId"
-                  rules={[{ required: true }]}
-                  options={
-                    category?.data?.result.map((c: any) => ({
-                      label: c.name,
-                      value: c.id,
-                    })) || []
+        <ProForm
+          form={form}
+          onFinish={onFinish}
+          submitter={{
+            searchConfig: {
+              resetText: "Cancel",
+              submitText: (
+                <>{product?.data?.id ? "Update product" : "Create product"}</>
+              ),
+            },
+            onReset: () => navigate("/admin/product"),
+            render: (_: any, dom: any) =>
+              !isShow && (
+                <FooterToolbar
+                  style={
+                    background === "dark"
+                      ? { background: DARKTHEME.bgSecondary }
+                      : {}
                   }
-                />
-              </Col>
-              <Col lg={4} sm={6} md={6} xs={12}>
-                <ProFormText
-                  label="brand"
-                  name="brand"
-                  rules={[{ required: true }]}
-                  placeholder="Enter product brand"
-                />
-              </Col>
-              <Col lg={4} sm={6} md={6} xs={12}>
-                <ProFormSelect
-                  label="Status"
-                  name="status"
-                  disabled={user.role.name === "PROVIDER"}
-                  rules={[{ required: true }]}
-                  options={[
-                    { label: "Approved", value: "APPROVED" },
-                    { label: "Pending", value: "PENDING" },
-                    { label: "Rejected", value: "REJECTED" },
-                  ]}
-                  initialValue="PENDING"
-                />
-              </Col>
-              <Col lg={8} sm={24} md={24} xs={24}>
-                <p style={{ marginBottom: 8 }}>Thumbnail</p>
-                <UploadImage
-                  renderChild="upload"
-                  folder="product"
-                  dataImage={dataThumbnail}
-                  showList={true}
-                  allowUpload={!isShow}
-                  setDataImage={setDataThumbnail}
-                />
-              </Col>
-              <Col span={24}>
-                <Form.Item
-                  label="Description"
-                  name="description"
-                  rules={[{ required: true }]}
                 >
-                  <Input.TextArea
-                    autoSize={{ minRows: 4, maxRows: 4 }}
-                    placeholder="Your description"
-                  />
-                </Form.Item>
-              </Col>
-            </Row>
-            <ProductVariants
-              filterSku={filterSku}
-              setFilterSku={setFilterSku}
-              isShow={isShow}
-              setProductVariants={setProductVariants}
-              productVariants={productVariants}
-            />
-          </ProForm>
-        </ConfigProvider>
+                  {dom}
+                </FooterToolbar>
+              ),
+            submitButtonProps: {
+              loading: isSubmitting,
+              icon: <CheckSquareOutlined />,
+            },
+          }}
+        >
+          <Row gutter={[20, 20]}>
+            <Col lg={4} sm={6} md={6} xs={12}>
+              <ProFormText
+                label="Product name"
+                name="name"
+                rules={[{ required: true }]}
+                placeholder="Enter product name"
+              />
+            </Col>
+            <Col lg={4} sm={6} md={6} xs={12}>
+              <ProFormSelect
+                label="Category"
+                name="categoryId"
+                rules={[{ required: true }]}
+                options={
+                  category?.data?.result.map((c: any) => ({
+                    label: c.name,
+                    value: c.id,
+                  })) || []
+                }
+              />
+            </Col>
+            <Col lg={4} sm={6} md={6} xs={12}>
+              <ProFormText
+                label="brand"
+                name="brand"
+                rules={[{ required: true }]}
+                placeholder="Enter product brand"
+              />
+            </Col>
+            <Col lg={4} sm={6} md={6} xs={12}>
+              <ProFormSelect
+                label="Status"
+                name="status"
+                disabled={user.role.name === "PROVIDER"}
+                rules={[{ required: true }]}
+                options={[
+                  { label: "Approved", value: "APPROVED" },
+                  { label: "Pending", value: "PENDING" },
+                  { label: "Rejected", value: "REJECTED" },
+                ]}
+                initialValue="PENDING"
+              />
+            </Col>
+            <Col lg={8} sm={24} md={24} xs={24}>
+              <p style={{ marginBottom: 8 }}>Thumbnail</p>
+              <UploadImage
+                renderChild="upload"
+                folder="product"
+                dataImage={dataThumbnail}
+                showList={true}
+                allowUpload={!isShow}
+                setDataImage={setDataThumbnail}
+              />
+            </Col>
+            <Col span={24}>
+              <Form.Item
+                label="Description"
+                name="description"
+                rules={[{ required: true }]}
+              >
+                <Input.TextArea
+                  autoSize={{ minRows: 4, maxRows: 4 }}
+                  placeholder="Your description"
+                />
+              </Form.Item>
+            </Col>
+          </Row>
+          <ProductVariants
+            filterSku={filterSku}
+            setFilterSku={setFilterSku}
+            isShow={isShow}
+            setProductVariants={setProductVariants}
+            productVariants={productVariants}
+          />
+        </ProForm>
       </div>
     </div>
   );

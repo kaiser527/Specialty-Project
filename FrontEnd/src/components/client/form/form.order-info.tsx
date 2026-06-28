@@ -19,7 +19,11 @@ import {
   PrinterOutlined,
   TagOutlined,
 } from "@ant-design/icons";
-import { PaymentMethod, paymentMethodLabels } from "@/config/constants/utils";
+import {
+  DARKTHEME,
+  PaymentMethod,
+  paymentMethodLabels,
+} from "@/config/constants/utils";
 import { usePlaceOrderMutation } from "@/redux/api/orderApi";
 import { useMessage } from "@/hooks/useMessage";
 import { useGetAccount } from "@/hooks/useGetAccount";
@@ -39,6 +43,7 @@ import { saveAs } from "file-saver";
 import { useFetchVoucherByCodeMutation } from "@/redux/api/voucherApi";
 import Access from "@/components/share/access";
 import { ALL_PERMISSIONS } from "@/config/constants/permissions";
+import { useBackground } from "@/hooks/useBackground";
 
 const { Text } = Typography;
 const { Option } = Select;
@@ -74,6 +79,7 @@ const OrderInfoForm = ({ totalPrice, cart, refetch }: IProps) => {
 
   const { messageApi, notificationApi } = useMessage();
   const { isAuthenticated, user } = useGetAccount();
+  const { background } = useBackground();
 
   const [shippingFee, setShippingFee] = useState(0);
   const [provinces, setProvinces] = useState<Province[]>([]);
@@ -343,7 +349,12 @@ const OrderInfoForm = ({ totalPrice, cart, refetch }: IProps) => {
       <Row gutter={[16, 16]}>
         <Col lg={12} sm={24} xs={24}>
           <Form.Item>
-            <div className={styles["title-box"]}>
+            <div
+              style={
+                background === "dark" ? { background: DARKTHEME.border } : {}
+              }
+              className={styles["title-box"]}
+            >
               <Text style={{ fontWeight: 700, fontSize: 17 }}>
                 ORDER INFORMATION
               </Text>
@@ -430,7 +441,12 @@ const OrderInfoForm = ({ totalPrice, cart, refetch }: IProps) => {
         </Col>
         <Col lg={12} sm={24} xs={24}>
           <Form.Item>
-            <div className={styles["title-box"]}>
+            <div
+              style={
+                background === "dark" ? { background: DARKTHEME.border } : {}
+              }
+              className={styles["title-box"]}
+            >
               <Text style={{ fontWeight: 700, fontSize: 17 }}>GRAND TOTAL</Text>
             </div>
             {isAuthenticated && (
@@ -438,18 +454,27 @@ const OrderInfoForm = ({ totalPrice, cart, refetch }: IProps) => {
                 permission={ALL_PERMISSIONS.VOUCHERS.FIND_BY_CODE_USER}
                 hideChildren
               >
-                <div className={styles["discount-box"]}>
+                <div
+                  style={background === "dark" ? { background: "#262626" } : {}}
+                  className={styles["discount-box"]}
+                >
                   <Space.Compact block>
                     <input
                       ref={inputRef}
-                      className={styles["voucher-input"]}
+                      className={`${styles["voucher-input"]} ${
+                        background === "dark"
+                          ? styles["voucher-input-dark"]
+                          : ""
+                      }`}
                       placeholder="Voucher code"
                     />
                     <Button
                       type="primary"
                       loading={isLoading}
                       icon={<TagOutlined />}
-                      className={styles["voucher-btn"]}
+                      className={`${styles["voucher-btn"]} ${
+                        background === "dark" ? styles["voucher-btn-dark"] : ""
+                      }`}
                       onClick={handleSubmitVoucher}
                     >
                       Select Voucher code
@@ -517,7 +542,9 @@ const OrderInfoForm = ({ totalPrice, cart, refetch }: IProps) => {
               <Col span={12}>
                 <Button
                   icon={<PrinterOutlined />}
-                  className={styles["btn-secondary"]}
+                  className={`${styles["btn-secondary"]} ${
+                    background === "dark" ? styles["btn-secondary-dark"] : ""
+                  }`}
                   onClick={() =>
                     navigate("/print?name=cart", { state: { cart, user } })
                   }
@@ -529,7 +556,9 @@ const OrderInfoForm = ({ totalPrice, cart, refetch }: IProps) => {
               <Col span={12}>
                 <Button
                   icon={<FileExcelOutlined />}
-                  className={styles["btn-secondary"]}
+                  className={`${styles["btn-secondary"]} ${
+                    background === "dark" ? styles["btn-secondary-dark"] : ""
+                  }`}
                   block
                   onClick={handleExportExcel}
                 >
@@ -540,7 +569,9 @@ const OrderInfoForm = ({ totalPrice, cart, refetch }: IProps) => {
                 <Button
                   icon={<CheckOutlined />}
                   htmlType="submit"
-                  className={styles["btn-primary"]}
+                  className={`${styles["btn-primary"]} ${
+                    background === "dark" ? styles["btn-primary-dark"] : ""
+                  }`}
                   block
                 >
                   Place Order

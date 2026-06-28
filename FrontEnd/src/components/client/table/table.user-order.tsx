@@ -7,6 +7,7 @@ import {
   statusColors,
 } from "@/config/constants/utils";
 import { formatCurrency, FORMATE_DATE } from "@/config/helpers/global";
+import { useBackground } from "@/hooks/useBackground";
 import { useMessage } from "@/hooks/useMessage";
 import { useUpdateOrderStatusMutation } from "@/redux/api/orderApi";
 import { IMeta, IModelPaginate, IOrder } from "@/types/backend";
@@ -29,6 +30,7 @@ const UserOrderTable = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { messageApi, notificationApi } = useMessage();
+  const { background } = useBackground();
 
   useEffect(() => {
     setIsLoading(true);
@@ -178,7 +180,11 @@ const UserOrderTable = () => {
                 cancelText="No"
                 disabled={disableRefund}
               >
-                <Button type="primary" danger disabled={disableRefund}>
+                <Button
+                  type={background === "dark" ? "default" : "primary"}
+                  danger
+                  disabled={disableRefund}
+                >
                   Refund
                 </Button>
               </Popconfirm>

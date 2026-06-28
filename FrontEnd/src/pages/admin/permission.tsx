@@ -1,7 +1,7 @@
 import { IPermission } from "@/types/backend";
 import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
 import { ProColumns } from "@ant-design/pro-components";
-import { Button, Popconfirm, Space, Tag } from "antd";
+import { Button, Popconfirm, Space } from "antd";
 import { useState } from "react";
 import dayjs from "dayjs";
 import queryString from "query-string";

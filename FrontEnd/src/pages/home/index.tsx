@@ -10,10 +10,14 @@ import { DoubleRightOutlined } from "@ant-design/icons";
 import ProductCard from "@/components/client/card/card.product";
 import CardSkeleton from "@/components/client/card/card.product-skeleton";
 import { useNavigate } from "react-router-dom";
+import { useBackground } from "@/hooks/useBackground";
+import { DARKTHEME } from "@/config/constants/utils";
 
 const HomePage = () => {
   const { data, isLoading } = useFetchVariantQuery("current=1&pageSize=50");
   const variants = data?.data?.result || [];
+
+  const { background } = useBackground();
 
   const navigate = useNavigate();
 
@@ -54,8 +58,16 @@ const HomePage = () => {
       {isLoading ? (
         <>
           {Array.from({ length: 4 }).map((_, sectionIndex) => (
-            <div key={sectionIndex} className={styles["category-section"]}>
-              <div className={styles["category-header"]}>
+            <div
+              style={background === "dark" ? { background: DARKTHEME.bg } : {}}
+              key={sectionIndex}
+              className={styles["category-section"]}
+            >
+              <div
+                className={`${styles["category-header"]} ${
+                  background === "dark" ? styles.dark : ""
+                }`}
+              >
                 <Skeleton.Input active />
               </div>
               <Carousel
@@ -79,8 +91,16 @@ const HomePage = () => {
         </>
       ) : (
         filteredCategories.map(([categoryId, value]: any) => (
-          <div key={categoryId} className={styles["category-section"]}>
-            <div className={styles["category-header"]}>
+          <div
+            style={background === "dark" ? { background: DARKTHEME.bg } : {}}
+            key={categoryId}
+            className={styles["category-section"]}
+          >
+            <div
+              className={`${styles["category-header"]} ${
+                background === "dark" ? styles.dark : ""
+              }`}
+            >
               <div className={styles["category-left"]}>
                 <div className={styles["category-banner"]}>
                   <span className={styles["category-banner-text"]}>

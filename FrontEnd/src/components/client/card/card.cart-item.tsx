@@ -1,8 +1,10 @@
+import { DARKTHEME } from "@/config/constants/utils";
 import {
   buildVariantName,
   formatCurrency,
   getFinalPrice,
 } from "@/config/helpers/global";
+import { useBackground } from "@/hooks/useBackground";
 import { useGetAccount } from "@/hooks/useGetAccount";
 import { useMessage } from "@/hooks/useMessage";
 import { useUpsertUserCartMutation } from "@/redux/api/cartApi";
@@ -29,6 +31,7 @@ const CartItemCard = ({ cartItem }: IProps) => {
 
   const { notificationApi } = useMessage();
   const { isAuthenticated } = useGetAccount();
+  const { background } = useBackground();
 
   const [upsert] = useUpsertUserCartMutation();
 
@@ -57,7 +60,10 @@ const CartItemCard = ({ cartItem }: IProps) => {
   };
 
   return (
-    <div className={styles["cart-item"]}>
+    <div
+      style={background === "dark" ? { background: DARKTHEME.card } : {}}
+      className={styles["cart-item"]}
+    >
       <Row align="middle" gutter={16}>
         <Col lg={2}>
           {screens.xs ? (
@@ -91,17 +97,27 @@ const CartItemCard = ({ cartItem }: IProps) => {
           )}
         </Col>
         <Col lg={10} sm={8} xs={0}>
-          <div className={styles["variant-name"]}>
+          <div
+            style={background === "dark" ? { color: "#ccc" } : {}}
+            className={styles["variant-name"]}
+          >
             {buildVariantName(cartItem.variant)}
           </div>
         </Col>
         <Col lg={4} sm={4} xs={5}>
-          <div className={styles["variant-price"]}>
+          <div
+            style={background === "dark" ? { color: "#fff" } : {}}
+            className={styles["variant-price"]}
+          >
             {formatCurrency(getFinalPrice(cartItem.variant))}
           </div>
         </Col>
         <Col lg={4} sm={5} xs={7}>
-          <div className={styles["qty-wrapper"]}>
+          <div
+            className={`${styles["qty-wrapper"]} ${
+              background === "dark" ? styles["qty-wrapper-dark"] : ""
+            }`}
+          >
             <button
               className={styles["qty-btn"]}
               onClick={() => handleChangeCartItemQuantity(cartItem.variant, 1)}

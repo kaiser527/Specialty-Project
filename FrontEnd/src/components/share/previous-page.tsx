@@ -1,6 +1,7 @@
 import { Breadcrumb } from "antd";
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
+import { useBackground } from "@/hooks/useBackground";
 
 interface IProps {
   previousPages: {
@@ -13,6 +14,8 @@ const PreviousPage = ({ previousPages }: IProps) => {
   const location = useLocation();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
+  const { background } = useBackground();
+
   const ORANGE = "#fa8c16";
   const ORANGE_HOVER = "#ffa940";
   const ORANGE_ACTIVE = "#fa541c";
@@ -24,7 +27,7 @@ const PreviousPage = ({ previousPages }: IProps) => {
 
     const baseStyle: React.CSSProperties = {
       fontWeight: 600,
-      color: "#666",
+      color: background === "dark" ? "#fff" : "#666",
       textDecoration: "none",
       fontSize: 16,
       transition: "all 0.2s ease",

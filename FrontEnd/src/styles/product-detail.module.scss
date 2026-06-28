@@ -110,6 +110,42 @@
         border-right: 1px solid #eee;
       }
     }
+    .qty-wrapper-dark {
+      border-color: #2d2d2d;
+      background: #1f1f1f;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+
+      .qty-btn {
+        background: #1a1a1a;
+        color: #e5e5e5;
+
+        &:hover {
+          background: rgba(255, 77, 45, 0.12);
+          color: #ff7a45;
+        }
+
+        &:active {
+          background: rgba(255, 77, 45, 0.2);
+        }
+
+        &:disabled {
+          background: #161616;
+          color: #666;
+        }
+      }
+
+      .qty-input {
+        background: #1f1f1f;
+        color: #fff;
+
+        border-left: 1px solid #2d2d2d;
+        border-right: 1px solid #2d2d2d;
+
+        &::placeholder {
+          color: #888;
+        }
+      }
+    }
     .variantName {
       font-size: 21px;
       font-weight: 700;
@@ -219,6 +255,42 @@
           }
         }
       }
+      .priceBannerDark {
+        background: linear-gradient(90deg, #3a241d 0%, #5a3426 100%);
+        border: 1px solid #ff7a45;
+        box-shadow: 0 4px 18px rgba(255, 122, 69, 0.2);
+
+        .currentPrice {
+          color: #ff9f1a;
+        }
+
+        .oldPrice {
+          color: #a3a3a3;
+        }
+
+        .savings {
+          color: #ffd591;
+        }
+      }
+
+      .warrantyTagDark {
+        background: transparent !important;
+        border: 1px solid #fbbf24 !important;
+        color: #fbbf24 !important;
+      }
+
+      .upgradeBtnDark {
+        background: transparent;
+        border: 1px solid #60a5fa;
+        color: #60a5fa;
+
+        &:hover {
+          background: #60a5fa;
+          color: #fff;
+          border-color: #60a5fa;
+          box-shadow: 0 4px 12px rgba(96, 165, 250, 0.25);
+        }
+      }
     }
 
     .description {
@@ -257,6 +329,22 @@
 
           .attrValue {
             color: #444;
+          }
+        }
+      }
+      .attributeListDark {
+        .attributeItem {
+          .checkIcon {
+            color: #22c55e; // soft neon green (better than dark green in dark UI)
+          }
+
+          .attrKey {
+            font-weight: 600;
+            color: #e5e7eb; // light gray for labels
+          }
+
+          .attrValue {
+            color: #cbd5e1; // muted readable gray
           }
         }
       }
@@ -304,6 +392,23 @@
       .next:hover {
         background: rgba(255, 255, 255, 0.95);
         color: #000;
+      }
+      .prevDark,
+      .nextDark {
+        background: rgba(20, 20, 20, 0.75);
+        color: #f5f5f5;
+
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      }
+      .prevDark:hover,
+      .nextDark:hover {
+        background: rgba(40, 40, 40, 0.9);
+        color: #fff;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
       }
       .mainImageContainer {
         display: flex;
@@ -462,6 +567,114 @@
     }
   }
 
+  .writeReviewWrapperDark {
+    background: linear-gradient(180deg, #1f1f1f 0%, #2a1a12 100%);
+    border: 1px solid #3a2a1a;
+    border-radius: 16px;
+    padding: 20px;
+
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.35);
+
+    transition: all 0.3s ease;
+
+    &:focus-within {
+      border-color: #ff9c12;
+      box-shadow: 0 8px 24px rgba(255, 156, 18, 0.15);
+    }
+
+    .formItemNoMargin {
+      margin-bottom: 0 !important;
+
+      :global(.ant-form-item-explain) {
+        font-size: 12px;
+        margin-top: 4px;
+        padding-left: 12px;
+        color: #ffb088;
+      }
+    }
+
+    .inputHeader {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+
+      .userAvatar {
+        background: linear-gradient(135deg, #ff7a45 0%, #ff9c12 100%);
+      }
+
+      .customTextArea {
+        border: 1px solid #3a3a3a;
+        background: #1a1a1a;
+        color: #f5f5f5;
+
+        border-radius: 12px;
+        padding: 12px 16px;
+        resize: none;
+        font-size: 14px;
+
+        transition: all 0.2s ease;
+
+        &:focus {
+          background: #151515;
+          border-color: #ff9c12;
+          box-shadow: 0 0 0 2px rgba(255, 156, 18, 0.12);
+          outline: none;
+        }
+
+        &::placeholder {
+          color: #6b7280;
+        }
+      }
+    }
+
+    .inputActions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 12px;
+      padding-top: 12px;
+
+      border-top: 1px solid #2a2a2a;
+
+      .ratingSection {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        .ratingLabel {
+          font-size: 15px;
+          font-weight: 500;
+          color: #c7c7c7;
+        }
+
+        .customRate {
+          font-size: 18px;
+          color: #ff9c12;
+        }
+      }
+
+      .submitBtn {
+        background: linear-gradient(135deg, #ff9c12 0%, #ff7a45 100%);
+        border: none;
+        border-radius: 8px;
+        height: 38px;
+        padding: 0 24px;
+        font-weight: 600;
+
+        box-shadow: 0 4px 10px rgba(255, 122, 69, 0.25);
+
+        &:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 6px 15px rgba(255, 122, 69, 0.35);
+        }
+
+        &:active {
+          transform: translateY(0);
+        }
+      }
+    }
+  }
+
   // Layout adjustments for Empty State
   .emptyContainer {
     background: #fff;
@@ -480,6 +693,32 @@
       }
     }
   }
+  .emptyContainerDark {
+    background: linear-gradient(180deg, #1f1f1f 0%, #2a1a12 100%);
+    padding: 40px;
+    border-radius: 20px;
+
+    border: 1px solid #3a2a1a;
+
+    /* soft orange glow for depth */
+    box-shadow: 0 10px 24px rgba(255, 122, 69, 0.08);
+
+    .emptyContent {
+      margin-bottom: 32px;
+
+      h3 {
+        font-weight: 700;
+        color: #f5f5f5;
+        margin-top: 12px;
+      }
+    }
+
+    /* optional: better Ant Empty text in dark */
+    :global(.ant-empty-description) {
+      color: #bfbfbf;
+    }
+  }
+
   .listWrapper {
     display: flex;
     flex-direction: column;
@@ -522,6 +761,37 @@
         background: #f5f5f5;
         padding: 2px 10px;
         border-radius: 12px;
+      }
+    }
+    .titleDark {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 30px;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      /* lighter dark + warm orange tint */
+      background: linear-gradient(90deg, #2a2a2a 0%, #3a2416 100%);
+      border-left: 4px solid #ff9c12;
+
+      border-radius: 4px 8px 8px 4px;
+      color: #f5f5f5;
+
+      /* subtle orange glow */
+      box-shadow: 0 6px 18px rgba(255, 122, 69, 0.08);
+
+      .iconWrapper {
+        background: linear-gradient(135deg, #ff9c12 0%, #ff7a45 100%);
+        color: #fff;
+        box-shadow: 0 4px 12px rgba(255, 156, 18, 0.25);
+      }
+
+      .count {
+        background: #333333;
+        color: #ffd8b8;
+        border: 1px solid #4a3a30;
       }
     }
   }
@@ -805,6 +1075,124 @@
         button {
           font-size: 12px;
         }
+      }
+    }
+  }
+
+  .reviewItemDark {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid #2d2d2d;
+    }
+
+    .inlineEditForm {
+      margin-left: 44px;
+      margin-top: 12px;
+      padding: 14px;
+
+      border: 1px solid #3a2a22;
+      border-radius: 12px;
+      background: #1f1f1f;
+      box-shadow: 0 4px 12px rgba(255, 122, 69, 0.06);
+
+      .editTextArea {
+        background: #1a1a1a;
+        border: 1px solid #262626;
+        color: #f5f5f5;
+
+        &:focus {
+          border-color: #ff7a45;
+          box-shadow: 0 0 0 2px rgba(255, 122, 69, 0.18);
+        }
+
+        &::placeholder {
+          color: #6b6b6b;
+        }
+      }
+
+      .editSubmitBtn {
+        background: linear-gradient(135deg, #ff7a45 0%, #ff4d4f 100%);
+      }
+    }
+
+    .name {
+      color: #f5f5f5 !important;
+    }
+
+    .meta {
+      color: #9ca3af !important;
+    }
+
+    .commentBody {
+      color: #d1d5db !important;
+    }
+
+    .actions {
+      .replyBtn,
+      .toggleBtn {
+        background: #1a1a1a; // deeper neutral dark
+        color: #d1d5db;
+        border: 1px solid #262626;
+
+        &:hover {
+          background: #1f1f1f;
+          color: #ff9c12; // warmer orange (less harsh than #ffa940)
+          border-color: #3a3a3a;
+        }
+      }
+
+      .toggleBtn {
+        background: transparent;
+        border: 1px solid #2d2d2d;
+
+        &:hover {
+          background: rgba(255, 122, 69, 0.08);
+          border-color: #ff7a45;
+          color: #ff9c12;
+        }
+      }
+
+      .activeReplyBtn {
+        background: rgba(255, 77, 79, 0.12) !important;
+        color: #ff7a45 !important;
+        border: 1px solid #ff7a45;
+      }
+
+      .deleteBtn {
+        background: rgba(255, 77, 79, 0.08);
+        border: 1px solid #5a1f1f;
+        color: #ff7a45;
+
+        &:hover {
+          background: linear-gradient(135deg, #ff4d4f 0%, #ff7a45 100%);
+          color: #fff;
+        }
+      }
+    }
+
+    .inlineReplyForm {
+      background: #121212; // 🔥 deeper dark (near black, no blue tone)
+      border: 1px solid #1f1f1f;
+
+      .replyTextArea {
+        background: #1a1a1a; // slightly lighter than container for contrast
+        border: 1px solid #2a2a2a;
+        color: #f5f5f5;
+
+        &::placeholder {
+          color: #666;
+        }
+
+        &:focus {
+          border-color: #ff7a45;
+          box-shadow: 0 0 0 2px rgba(255, 122, 69, 0.18);
+        }
+      }
+
+      .miniSubmitBtn {
+        background: linear-gradient(135deg, #ff7a45 0%, #ff9c12 100%);
       }
     }
   }

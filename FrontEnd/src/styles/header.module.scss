@@ -81,11 +81,22 @@
       display: flex;
       flex-direction: column;
       z-index: 9999;
+      .dark {
+        &:hover {
+          background: rgba(40, 40, 40, 0.9);
+        }
+      }
     }
 
     .suggest-list {
       overflow-y: auto;
       max-height: 280px;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .suggest-list::-webkit-scrollbar {
+      display: none;
     }
 
     .suggest-count {
@@ -272,6 +283,22 @@
               color: #ff7a00;
             }
           }
+          .category-btn-dark {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 8px;
+            background: #121212;
+            color: #fff;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            &:hover {
+              background: rgba(255, 122, 0, 0.15);
+              color: #ff7a00;
+            }
+          }
         }
         .search-box {
           flex: 1;
@@ -327,7 +354,13 @@
 
           .suggest-list {
             overflow-y: auto;
-            max-height: 280px; /* leave space for sticky count */
+            max-height: 280px;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+          }
+
+          .suggest-list::-webkit-scrollbar {
+            display: none;
           }
 
           .suggest-count {
@@ -350,9 +383,14 @@
             cursor: pointer;
 
             transition: all 0.2s ease;
-
             &:hover {
               background: #fff5ec;
+            }
+          }
+
+          .dark {
+            &:hover {
+              background: rgba(40, 40, 40, 0.9);
             }
           }
 
@@ -531,8 +569,12 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      max-height: 300px;
       overflow-y: auto;
+      max-height: 300px;
+      padding-top: 9px;
+      &::-webkit-scrollbar {
+        display: none;
+      }
       .book {
         display: flex;
         align-items: center;
@@ -588,6 +630,18 @@
         padding-left: 15px;
         padding-right: 15px;
         height: 30px;
+      }
+    }
+    .pop-cart-footer-dark {
+      button {
+        background: transparent;
+        border: 1px solid #ff4d2d;
+        color: #ff4d2d;
+        &:hover {
+          background: #ff4d2d;
+          color: #fff;
+          box-shadow: 0 4px 10px rgba(255, 77, 45, 0.25);
+        }
       }
     }
   }

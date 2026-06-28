@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { useGetAccount } from "@/hooks/useGetAccount";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { setCountDown } from "@/redux/slice/timerSlice";
+import { useBackground } from "@/hooks/useBackground";
 
 const { Title, Text } = Typography;
 
@@ -22,6 +23,7 @@ const VerifyPage = () => {
 
   const { messageApi, notificationApi } = useMessage();
   const { isAuthenticated } = useGetAccount();
+  const { background } = useBackground();
 
   const { email } = useParams();
   const navigate = useNavigate();
@@ -108,7 +110,9 @@ const VerifyPage = () => {
         justifyContent: "center",
         alignItems: "center",
         background:
-          "linear-gradient(135deg, #1677ff 0%, #69b1ff 50%, #e6f4ff 100%)",
+          background === "dark"
+            ? "linear-gradient(135deg, #121212 0%, #102a43 50%, #1677ff 100%)"
+            : "linear-gradient(135deg,#1677ff 0%,#69b1ff 40%,#e6f4ff 100%)",
         padding: 20,
       }}
     >

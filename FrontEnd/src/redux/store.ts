@@ -19,6 +19,7 @@ import {
 import accountSlice from "./slice/accountSlice";
 import timerSlice from "./slice/timerSlice";
 import cartSlice from "./slice/cartSlice";
+import backgroundSlice from "./slice/backgroundSlice";
 import { injectStore } from "@/config/axios/axios-customize";
 import { WHITELIST_REDUCER } from "@/config/constants/utils";
 import { accountApi } from "./api/accountApi";
@@ -42,6 +43,7 @@ const rootReducer = combineSlices({
   timer: timerSlice,
   cart: cartSlice,
   conversation: conversationSlice,
+  background: backgroundSlice,
 
   [accountApi.reducerPath]: accountApi.reducer,
   [userApi.reducerPath]: userApi.reducer,

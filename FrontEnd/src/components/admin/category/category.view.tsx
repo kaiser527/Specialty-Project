@@ -9,6 +9,9 @@ import {
   MailOutlined,
 } from "@ant-design/icons";
 import dayjs from "dayjs";
+import styles from "styles/admin.module.scss";
+import { useBackground } from "@/hooks/useBackground";
+import { DARKTHEME, hideScrollbar } from "@/config/constants/utils";
 
 interface IProps {
   onClose: (v: boolean) => void;
@@ -22,6 +25,9 @@ const { Text, Title } = Typography;
 const ViewDetailCategory = (props: IProps) => {
   const { onClose, open, dataInit, setDataInit } = props;
 
+  const { background } = useBackground();
+  const isDark = background === "dark";
+
   const handleClose = () => {
     onClose(false);
     setDataInit(null);
@@ -33,14 +39,26 @@ const ViewDetailCategory = (props: IProps) => {
       onClose={handleClose}
       open={open}
       width={555}
-      styles={{ body: { padding: 0, background: "#f5f7fb" } }}
+      styles={{
+        body: {
+          ...hideScrollbar,
+          padding: 0,
+          background: isDark ? DARKTHEME.bgSecondary : "#f6f8fb",
+        },
+      }}
+      className={styles["hide-scrollbar"]}
       maskClosable={false}
     >
       {/* Header */}
       <div
         style={{
           padding: 24,
-          background: colorMethodGradient("GET"),
+          background: isDark
+            ? `
+                linear-gradient(rgba(20,20,20,.82), rgba(20,20,20,.82)),
+                ${colorMethodGradient("GET")}
+              `
+            : colorMethodGradient("GET"),
           color: "#fff",
         }}
       >

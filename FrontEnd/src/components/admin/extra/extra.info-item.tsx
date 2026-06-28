@@ -1,3 +1,4 @@
+import { useBackground } from "@/hooks/useBackground";
 import { Card, Space, Typography } from "antd";
 
 const { Text } = Typography;
@@ -10,58 +11,68 @@ const InfoItem = ({
   icon: React.ReactNode;
   label: string;
   value?: React.ReactNode;
-}) => (
-  <Card
-    size="small"
-    hoverable
-    style={{
-      borderRadius: 16,
-      height: "100%",
-      boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
-      transition: "all 0.3s",
-    }}
-    styles={{ body: { padding: 12 } }}
-  >
-    <Space align="start">
-      <div
-        style={{
-          fontSize: 18,
-          padding: 10,
-          borderRadius: 10,
-          background: "#eef2ff",
-          color: "#4f46e5",
-        }}
-      >
-        {icon}
-      </div>
+}) => {
+  const { background } = useBackground();
 
-      <Space direction="vertical" size={4}>
-        <Text
+  const isDark = background === "dark";
+
+  return (
+    <Card
+      size="small"
+      hoverable
+      style={{
+        borderRadius: 16,
+        height: "100%",
+        background: isDark ? "#141414" : "#fff",
+        border: isDark ? "1px solid #303030" : "1px solid #f0f0f0",
+        boxShadow: isDark
+          ? "0 4px 12px rgba(0,0,0,0.35)"
+          : "0 4px 12px rgba(0,0,0,0.05)",
+        transition: "all 0.3s",
+      }}
+      styles={{ body: { padding: 12 } }}
+    >
+      <Space align="start">
+        <div
           style={{
-            fontSize: 11,
-            color: "#94a3b8", // softer gray
-            textTransform: "uppercase",
-            letterSpacing: 0.5,
-            fontWeight: 500,
+            fontSize: 18,
+            padding: 10,
+            borderRadius: 10,
+            background: isDark ? "rgba(79,70,229,0.15)" : "#eef2ff",
+            color: isDark ? "#818cf8" : "#4f46e5",
           }}
         >
-          {label}
-        </Text>
+          {icon}
+        </div>
 
-        <Text
-          style={{
-            fontSize: 15,
-            fontWeight: 600,
-            color: "#0f172a", // darker, more contrast
-            lineHeight: 1.4,
-            wordBreak: "break-word",
-          }}
-        >
-          {value || "-"}
-        </Text>
+        <Space direction="vertical" size={4}>
+          <Text
+            style={{
+              fontSize: 11,
+              color: isDark ? "#8c8c8c" : "#94a3b8",
+              textTransform: "uppercase",
+              letterSpacing: 0.5,
+              fontWeight: 500,
+            }}
+          >
+            {label}
+          </Text>
+
+          <Text
+            style={{
+              fontSize: 15,
+              fontWeight: 600,
+              color: isDark ? "#f5f5f5" : "#0f172a",
+              lineHeight: 1.4,
+              wordBreak: "break-word",
+            }}
+          >
+            {value || "-"}
+          </Text>
+        </Space>
       </Space>
-    </Space>
-  </Card>
-);
+    </Card>
+  );
+};
 
 export default InfoItem;

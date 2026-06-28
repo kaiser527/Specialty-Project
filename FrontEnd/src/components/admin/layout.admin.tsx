@@ -32,6 +32,8 @@ import ModelManageAccount from "../client/modal/modal.account";
 import { clearCart } from "@/redux/slice/cartSlice";
 import { socket } from "@/config/constants/utils";
 import { useConversation } from "@/hooks/useConversation";
+import { useBackground } from "@/hooks/useBackground";
+import BackgroundToggle from "../share/background.toggle";
 
 const { Content, Sider } = Layout;
 const { useBreakpoint } = Grid;
@@ -51,6 +53,7 @@ const LayoutAdmin = () => {
   const { messageApi, notificationApi } = useMessage();
   const { setConversationId } = useConversation();
   const { user } = useGetAccount();
+  const { background } = useBackground();
 
   const permissions: IPermission[] = user.permissions;
 
@@ -276,6 +279,15 @@ const LayoutAdmin = () => {
       key: "logout",
       icon: <LogoutOutlined />,
     },
+    {
+      label: (
+        <div onClick={(e) => e.stopPropagation()} style={{ float: "right" }}>
+          <BackgroundToggle />
+        </div>
+      ),
+      key: "config-theme",
+      icon: "Theme",
+    },
   ];
 
   const urlAvatar = `${import.meta.env.VITE_BACKEND_URL}/images/user/${
@@ -284,7 +296,12 @@ const LayoutAdmin = () => {
 
   const AvatarDropdown = (
     <Dropdown menu={{ items: itemsDropdown }} trigger={["click"]}>
-      <Space style={{ cursor: "pointer" }}>
+      <Space
+        style={{
+          cursor: "pointer",
+          color: background === "dark" ? "#fff" : "#000",
+        }}
+      >
         {screens.lg && `Welcome" ${user?.name}`}
         <Avatar size={45} src={urlAvatar} />
       </Space>
@@ -293,7 +310,7 @@ const LayoutAdmin = () => {
 
   return (
     <>
-      <Layout style={{ minHeight: "100vh" }} className="layout-admin">
+      <Layout style={{ minHeight: "100vh" }}>
         {screens.lg ? (
           <Sider
             theme="light"
@@ -311,7 +328,14 @@ const LayoutAdmin = () => {
                 : {}
             }
           >
-            <div style={{ height: 32, margin: 16, textAlign: "center" }}>
+            <div
+              style={{
+                height: 32,
+                margin: 16,
+                textAlign: "center",
+                color: background === "dark" ? "#fff" : "#000",
+              }}
+            >
               <BugOutlined /> ADMIN
             </div>
             <Menu
@@ -322,7 +346,13 @@ const LayoutAdmin = () => {
             />
           </Sider>
         ) : (
-          <>
+          <div
+            style={{
+              position: "sticky",
+              top: 0,
+              zIndex: 1000,
+            }}
+          >
             <Menu
               selectedKeys={[activeMenu]}
               items={menuItems}
@@ -334,12 +364,11 @@ const LayoutAdmin = () => {
                 position: "fixed",
                 right: 12,
                 bottom: 12,
-                zIndex: 999,
               }}
             >
               {AvatarDropdown}
             </div>
-          </>
+          </div>
         )}
         <Layout style={screens.lg ? { marginLeft: collapsed ? 80 : 200 } : {}}>
           {screens.lg && (

@@ -11,9 +11,11 @@ import { clearCart } from "@/redux/slice/cartSlice";
 import { useMessage } from "@/hooks/useMessage";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import CartItemCard from "@/components/admin/order/order.cart-item";
+import CartItemCard from "@/components/client/card/card.cart-item";
 import OrderInfoForm from "@/components/client/form/form.order-info";
 import { ICart } from "@/types/backend";
+import { useBackground } from "@/hooks/useBackground";
+import { DARKTHEME } from "@/config/constants/utils";
 
 const { Text } = Typography;
 
@@ -35,6 +37,7 @@ const { useBreakpoint } = Grid;
 const CartPage = () => {
   const { isAuthenticated } = useGetAccount();
   const { notificationApi } = useMessage();
+  const { background } = useBackground();
 
   const screens = useBreakpoint();
   const dispatch = useAppDispatch();
@@ -88,7 +91,13 @@ const CartPage = () => {
       <div style={{ marginBottom: 16 }}>
         <PreviousPage previousPages={breadcrumbItems} />
       </div>
-      <Text style={{ fontSize: 16, color: "#007782", fontWeight: 700 }}>
+      <Text
+        style={{
+          fontSize: 16,
+          color: background === "dark" ? "#22b8c7" : "#007782",
+          fontWeight: 700,
+        }}
+      >
         Cart
       </Text>
       <Text
@@ -111,11 +120,28 @@ const CartPage = () => {
         style={{ textAlign: "right", marginBottom: 10 }}
       />
       {isEmptyCart && (
-        <div className={styles["empty-cart"]}>
+        <div
+          style={background === "dark" ? { background: DARKTHEME.card } : {}}
+          className={styles["empty-cart"]}
+        >
           <div className={styles["icon"]}>🛒</div>
-          <div className={styles["title"]}>Your cart is empty</div>
-          <div className={styles["desc"]}>Start adding some products</div>
-          <Button className={styles["btn"]}>
+          <div
+            style={background === "dark" ? { color: "#bbb" } : {}}
+            className={styles["title"]}
+          >
+            Your cart is empty
+          </div>
+          <div
+            style={background === "dark" ? { color: "#aaa" } : {}}
+            className={styles["desc"]}
+          >
+            Start adding some products
+          </div>
+          <Button
+            className={`${styles["btn"]} ${
+              background === "dark" ? styles["btn-dark"] : ""
+            }`}
+          >
             <Link to="/filter">Go shopping</Link>
           </Button>
         </div>
@@ -148,7 +174,10 @@ const CartPage = () => {
           </div>
         </Col>
       </Row>
-      <div className={styles["order-info"]}>
+      <div
+        style={background === "dark" ? { background: DARKTHEME.card } : {}}
+        className={styles["order-info"]}
+      >
         <OrderInfoForm
           cart={cart?.data as ICart}
           refetch={refetch}

@@ -1,7 +1,10 @@
-// @import 'variables.scss';
 * {
   margin: 0;
   padding: 0;
+}
+
+html::-webkit-scrollbar {
+  display: none;
 }
 
 @media (max-width: 1000px) {
@@ -18,4 +21,8 @@
 
 .main {
   padding: 10px 125px;
+}
+
+:global(.ant-switch.ant-switch-checked) {
+  background: linear-gradient(135deg, #ff9f1a, #ff7b00) !important;
 }

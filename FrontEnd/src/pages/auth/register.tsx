@@ -13,6 +13,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { IUser } from "@/types/backend";
 import { useRegisterMutation } from "@/redux/api/accountApi";
 import { useMessage } from "@/hooks/useMessage";
+import { useBackground } from "@/hooks/useBackground";
 
 const { Option } = Select;
 const { Title, Text } = Typography;
@@ -21,6 +22,7 @@ const RegisterPage = () => {
   const [register, { isLoading }] = useRegisterMutation();
 
   const { messageApi, notificationApi } = useMessage();
+  const { background } = useBackground();
 
   const navigate = useNavigate();
 
@@ -53,7 +55,9 @@ const RegisterPage = () => {
       style={{
         minHeight: "calc(100vh - 39.7px)",
         background:
-          "linear-gradient(135deg,#1677ff 0%,#69b1ff 40%,#e6f4ff 100%)",
+          background === "dark"
+            ? "linear-gradient(135deg, #121212 0%, #102a43 50%, #1677ff 100%)"
+            : "linear-gradient(135deg,#1677ff 0%,#69b1ff 40%,#e6f4ff 100%)",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -81,7 +85,7 @@ const RegisterPage = () => {
                   name="name"
                   rules={[{ required: true }]}
                 >
-                  <Input size="large" />
+                  <Input placeholder="Enter your name" size="large" />
                 </Form.Item>
               </Col>
 
@@ -91,7 +95,7 @@ const RegisterPage = () => {
                   name="email"
                   rules={[{ required: true }]}
                 >
-                  <Input size="large" />
+                  <Input placeholder="Enter your email" size="large" />
                 </Form.Item>
               </Col>
 
@@ -101,13 +105,20 @@ const RegisterPage = () => {
                   name="password"
                   rules={[{ required: true }]}
                 >
-                  <Input.Password size="large" />
+                  <Input.Password
+                    placeholder="Enter your password"
+                    size="large"
+                  />
                 </Form.Item>
               </Col>
 
               <Col xs={24} sm={12} md={12} lg={12}>
                 <Form.Item label="Age" name="age" rules={[{ required: true }]}>
-                  <Input type="number" size="large" />
+                  <Input
+                    placeholder="Enter your age"
+                    type="number"
+                    size="large"
+                  />
                 </Form.Item>
               </Col>
 
@@ -117,7 +128,7 @@ const RegisterPage = () => {
                   name="gender"
                   rules={[{ required: true }]}
                 >
-                  <Select size="large">
+                  <Select placeholder="Select your gender" size="large">
                     <Option value="male">Male</Option>
                     <Option value="female">Female</Option>
                     <Option value="other">Other</Option>
@@ -131,7 +142,7 @@ const RegisterPage = () => {
                   name="address"
                   rules={[{ required: true }]}
                 >
-                  <Input size="large" />
+                  <Input placeholder="Enter your address" size="large" />
                 </Form.Item>
               </Col>
             </Row>

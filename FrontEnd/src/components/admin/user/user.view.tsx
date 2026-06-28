@@ -9,8 +9,15 @@ import {
   HomeOutlined,
   IdcardOutlined,
 } from "@ant-design/icons";
-import { roleColors, roleGradients } from "@/config/constants/utils";
+import {
+  DARKTHEME,
+  hideScrollbar,
+  roleColors,
+  roleColorsDark,
+  roleGradients,
+} from "@/config/constants/utils";
 import InfoItem from "@/components/admin/extra/extra.info-item";
+import { useBackground } from "@/hooks/useBackground";
 
 interface IProps {
   onClose: (v: boolean) => void;
@@ -21,6 +28,9 @@ interface IProps {
 
 const ViewDetailUser = (props: IProps) => {
   const { onClose, open, dataInit, setDataInit } = props;
+
+  const { background } = useBackground();
+  const isDark = background === "dark";
 
   const urlAvatar = `${import.meta.env.VITE_BACKEND_URL}/images/user/${
     dataInit?.image
@@ -37,7 +47,13 @@ const ViewDetailUser = (props: IProps) => {
       onClose={handleClose}
       open={open}
       width={555}
-      styles={{ body: { padding: 0, background: "#f6f8fb" } }}
+      styles={{
+        body: {
+          ...hideScrollbar,
+          padding: 0,
+          background: isDark ? DARKTHEME.bgSecondary : "#f6f8fb",
+        },
+      }}
       maskClosable={false}
     >
       {/* Profile Header */}
@@ -45,9 +61,11 @@ const ViewDetailUser = (props: IProps) => {
         style={{
           padding: 32,
           textAlign: "center",
-          background:
-            roleGradients[dataInit?.role?.name ?? "USER"] ||
-            "linear-gradient(135deg, #1677ff 0%, #69b1ff 100%)",
+          background: isDark
+            ? `linear-gradient(rgba(20,20,20,.82), rgba(20,20,20,.82)), ${
+                roleGradients[dataInit?.role?.name ?? "USER"]
+              }`
+            : roleGradients[dataInit?.role?.name ?? "USER"],
           color: "#fff",
         }}
       >
@@ -56,8 +74,12 @@ const ViewDetailUser = (props: IProps) => {
           src={urlAvatar}
           icon={<UserOutlined />}
           style={{
-            border: "4px solid #fff",
-            boxShadow: "0 6px 20px rgba(0,0,0,0.2)",
+            border: `3px solid ${
+              isDark ? roleColorsDark[dataInit?.role?.name ?? "USER"] : "#fff"
+            }`,
+            boxShadow: isDark
+              ? "0 6px 20px rgba(0,0,0,.45)"
+              : "0 6px 20px rgba(0,0,0,.2)",
           }}
         />
 

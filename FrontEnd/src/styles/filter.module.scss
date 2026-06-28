@@ -192,7 +192,7 @@
 
 .category-group {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); // 👈 2 per row
+  grid-template-columns: repeat(2, 1fr);
   gap: 10px;
 }
 

@@ -1,7 +1,9 @@
 import { Card, Avatar, Space, Typography, Tag, Image, Flex, Grid } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import {
+  DARKTHEME,
   paymentRefColors,
+  roleColorsDark,
   roleGradients,
   statusColors,
 } from "@/config/constants/utils";
@@ -14,6 +16,7 @@ import { useGetAccount } from "@/hooks/useGetAccount";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
 import { IVariant } from "@/types/backend";
+import { useBackground } from "@/hooks/useBackground";
 
 const { Text } = Typography;
 const { useBreakpoint } = Grid;
@@ -38,11 +41,15 @@ const accountTypeColors: Record<number, string> = {
 
 const ChatData = ({ data, setOrderId, setOpenViewDetail }: IProps) => {
   const { user, isAuthenticated } = useGetAccount();
+  const { background } = useBackground();
 
   const navigate = useNavigate();
   const screen = useBreakpoint();
 
   const canViewDueDate = isAuthenticated && user?.role?.name !== "USER";
+
+  const borderStyle =
+    background === "dark" ? { border: `1px solid ${DARKTHEME.border}` } : {};
 
   if (!data || data?.length === 0) return null;
 
@@ -50,7 +57,11 @@ const ChatData = ({ data, setOrderId, setOpenViewDetail }: IProps) => {
 
   if ("role" in first && "email" in first) {
     return data.map((user, index) => (
-      <Card key={`user-${index}`} size="small" style={{ marginTop: 10 }}>
+      <Card
+        key={`user-${index}`}
+        size="small"
+        style={{ marginTop: 10, ...borderStyle }}
+      >
         <Space align="center" style={{ display: "flex" }}>
           <Avatar
             src={`${import.meta.env.VITE_BACKEND_URL}/images/user/${
@@ -65,15 +76,24 @@ const ChatData = ({ data, setOrderId, setOpenViewDetail }: IProps) => {
               <Tag
                 style={{
                   background:
-                    roleGradients[user.role?.name || "USER"] ||
-                    roleGradients.USER,
-                  color: "#fff",
-                  border: "none",
+                    background === "light"
+                      ? roleGradients[user.role?.name || "USER"]
+                      : "transparent",
+                  color:
+                    background === "light"
+                      ? "#fff"
+                      : roleColorsDark[user.role?.name || "USER"],
+                  border:
+                    background === "light"
+                      ? "none"
+                      : `1px solid ${
+                          roleColorsDark[user.role?.name || "USER"]
+                        }`,
                   borderRadius: 10,
                   padding: "0px 10px",
                 }}
               >
-                {user.role?.name || user.role}
+                {user.role?.name}
               </Tag>
             </Space>
             <Text type="secondary">{user.email}</Text>
@@ -81,9 +101,17 @@ const ChatData = ({ data, setOrderId, setOpenViewDetail }: IProps) => {
           <Tag
             style={{
               background:
-                accountTypeColors[user.accountType] || accountTypeColors[0],
-              color: "#fff",
-              border: "none",
+                background === "light"
+                  ? accountTypeColors[user.accountType || 0]
+                  : "transparent",
+              color:
+                background === "light"
+                  ? "#fff"
+                  : accountTypeColors[user.accountType || 0],
+              border:
+                background === "light"
+                  ? "none"
+                  : `1px solid ${accountTypeColors[user.accountType || 0]}`,
               borderRadius: 10,
               padding: "0px 10px",
             }}
@@ -99,6 +127,9 @@ const ChatData = ({ data, setOrderId, setOpenViewDetail }: IProps) => {
     return data.map((variant: IVariant, index) => {
       const image =
         variant.images?.[0] || variant.product?.thumbnail || "empty.jpg";
+
+      const isExpired = dayjs(variant.dueDate).isBefore(dayjs());
+
       return (
         <Card
           onClick={() => navigate(`/product/${variant.id}`)}
@@ -111,6 +142,7 @@ const ChatData = ({ data, setOrderId, setOpenViewDetail }: IProps) => {
             overflow: "hidden",
             border: "1px solid #f3f4f6",
             boxShadow: "0 4px 14px rgba(0,0,0,0.05)",
+            ...borderStyle,
           }}
         >
           <Space align="start" size={14}>
@@ -189,27 +221,43 @@ const ChatData = ({ data, setOrderId, setOpenViewDetail }: IProps) => {
                 <Tag
                   style={{
                     height: "fit-content",
-                    background: dayjs(variant.dueDate).isBefore(dayjs())
-                      ? "#fef2f2"
-                      : "#fff7ed",
 
-                    color: dayjs(variant.dueDate).isBefore(dayjs())
-                      ? "#ef4444"
-                      : "#f97316",
+                    background:
+                      background === "dark"
+                        ? isExpired
+                          ? "#3a1515"
+                          : "#3b2a12"
+                        : isExpired
+                        ? "#fef2f2"
+                        : "#fff7ed",
+
+                    color:
+                      background === "dark"
+                        ? isExpired
+                          ? "#ff8a8a"
+                          : "#ffcf70"
+                        : isExpired
+                        ? "#ef4444"
+                        : "#f97316",
 
                     border: `1px solid ${
-                      dayjs(variant.dueDate).isBefore(dayjs())
+                      background === "dark"
+                        ? isExpired
+                          ? "#8b2c2c"
+                          : "#8b5e1a"
+                        : isExpired
                         ? "#fca5a5"
                         : "#fdba74"
                     }`,
+
                     borderRadius: 10,
                     fontWeight: 600,
                     padding: "2px 8px",
                     whiteSpace: "nowrap",
                   }}
                 >
-                  {dayjs(variant.dueDate).isBefore(dayjs()) ? "Expired" : "Due"}{" "}
-                  : {dayjs(variant.dueDate).format(FORMATE_DATE)}
+                  {isExpired ? "Expired" : "Due"} :{" "}
+                  {dayjs(variant.dueDate).format(FORMATE_DATE)}
                 </Tag>
               )}
             </Flex>
@@ -234,6 +282,7 @@ const ChatData = ({ data, setOrderId, setOpenViewDetail }: IProps) => {
           borderRadius: 16,
           border: "1px solid #f3f4f6",
           boxShadow: "0 4px 14px rgba(0,0,0,0.05)",
+          ...borderStyle,
         }}
       >
         <Flex vertical gap={10}>

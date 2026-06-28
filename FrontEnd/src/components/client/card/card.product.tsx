@@ -15,10 +15,30 @@ import styles from "styles/card.module.scss";
 import CardPopover from "./card.popover";
 import { useNavigate } from "react-router-dom";
 import { MouseEvent } from "react";
+import { useBackground } from "@/hooks/useBackground";
+import { DARKTHEME } from "@/config/constants/utils";
 
 interface IProps {
   variant: IVariant;
 }
+
+const darkTagStyles = {
+  available: {
+    background: "#16351f",
+    borderColor: "#2f6b3f",
+    color: "#7dd87d",
+  },
+  lowStock: {
+    background: "#3b2a12",
+    borderColor: "#8b5e1a",
+    color: "#ffcf70",
+  },
+  outOfStock: {
+    background: "#3a1515",
+    borderColor: "#8b2c2c",
+    color: "#ff8a8a",
+  },
+};
 
 const { useBreakpoint } = Grid;
 
@@ -31,6 +51,7 @@ const ProductCard = ({ variant }: IProps) => {
 
   const { isAuthenticated } = useGetAccount();
   const { notificationApi } = useMessage();
+  const { background } = useBackground();
 
   const handleAddToCart = async (
     variantId: string | undefined,
@@ -54,6 +75,7 @@ const ProductCard = ({ variant }: IProps) => {
 
   return (
     <div
+      style={background === "dark" ? { background: DARKTHEME.card } : {}}
       className={styles["card"]}
       onClick={() => navigate(`/product/${variant.id}`)}
     >
@@ -87,7 +109,12 @@ const ProductCard = ({ variant }: IProps) => {
           </Carousel>
         </div>
       </Popover>
-      <div className={styles["card-name"]}>{buildVariantName(variant)}</div>
+      <div
+        style={background === "dark" ? { color: "#fff" } : {}}
+        className={styles["card-name"]}
+      >
+        {buildVariantName(variant)}
+      </div>
       <div className={styles["card-footer"]}>
         <div className={styles["price-row"]}>
           <div className={styles["price-wrapper"]}>
@@ -113,7 +140,9 @@ const ProductCard = ({ variant }: IProps) => {
         <div className={styles["action-row"]}>
           {variant.stock > 0 && (
             <div
-              className={styles["add-to-cart"]}
+              className={`${styles["add-to-cart"]} ${
+                background === "dark" ? styles["add-to-cart-dark"] : ""
+              }`}
               onClick={(e) => handleAddToCart(variant.id, e)}
             >
               <div className={styles["cart-icon"]}>
@@ -123,11 +152,36 @@ const ProductCard = ({ variant }: IProps) => {
             </div>
           )}
           <div className={styles["stock-tag"]}>
-            {variant.stock > 10 && <Tag color="green">Available</Tag>}
-            {variant.stock > 0 && variant.stock <= 10 && (
-              <Tag color="orange">Low Stock</Tag>
+            {variant.stock > 10 && (
+              <Tag
+                color={background === "dark" ? undefined : "green"}
+                style={
+                  background === "dark" ? darkTagStyles.available : undefined
+                }
+              >
+                Available
+              </Tag>
             )}
-            {variant.stock === 0 && <Tag color="red">Out of Stock</Tag>}
+            {variant.stock > 0 && variant.stock <= 10 && (
+              <Tag
+                color={background === "dark" ? undefined : "orange"}
+                style={
+                  background === "dark" ? darkTagStyles.lowStock : undefined
+                }
+              >
+                Low Stock
+              </Tag>
+            )}
+            {variant.stock === 0 && (
+              <Tag
+                color={background === "dark" ? undefined : "red"}
+                style={
+                  background === "dark" ? darkTagStyles.outOfStock : undefined
+                }
+              >
+                Out of Stock
+              </Tag>
+            )}
           </div>
         </div>
       </div>

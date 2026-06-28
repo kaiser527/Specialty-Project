@@ -19,6 +19,7 @@ import { useGetAccount } from "@/hooks/useGetAccount";
 import { useMessage } from "@/hooks/useMessage";
 import { setCountDown } from "@/redux/slice/timerSlice";
 import { socket } from "@/config/constants/utils";
+import { useBackground } from "@/hooks/useBackground";
 
 const { Title, Text } = Typography;
 
@@ -27,6 +28,7 @@ const LoginPage = () => {
   const [login, { isLoading }] = useLoginMutation();
 
   const { isAuthenticated } = useGetAccount();
+  const { background } = useBackground();
   const { messageApi, notificationApi } = useMessage();
 
   const navigate = useNavigate();
@@ -88,7 +90,9 @@ const LoginPage = () => {
       style={{
         minHeight: "calc(100vh - 39.7px)",
         background:
-          "linear-gradient(135deg,#1677ff 0%,#69b1ff 40%,#e6f4ff 100%)",
+          background === "dark"
+            ? "linear-gradient(135deg, #121212 0%, #102a43 50%, #1677ff 100%)"
+            : "linear-gradient(135deg,#1677ff 0%,#69b1ff 40%,#e6f4ff 100%)",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",

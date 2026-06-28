@@ -1,11 +1,13 @@
 import ProductCard from "@/components/client/card/card.product";
 import CardSkeleton from "@/components/client/card/card.product-skeleton";
 import PreviousPage from "@/components/share/previous-page";
+import { DARKTHEME, hideScrollbar } from "@/config/constants/utils";
 import {
   formatterNumber,
   parseQs,
   parserNumber,
 } from "@/config/helpers/global";
+import { useBackground } from "@/hooks/useBackground";
 import { useFetchCategoryQuery } from "@/redux/api/categoryApi";
 import {
   useFetchVariantQuery,
@@ -37,6 +39,8 @@ const { Text } = Typography;
 const { useBreakpoint } = Grid;
 
 const FilterPage = () => {
+  const { background } = useBackground();
+
   const screen = useBreakpoint();
   const pageSize = screen.lg ? 12 : screen.xs ? 6 : 9;
 
@@ -88,8 +92,6 @@ const FilterPage = () => {
           .map((p) => `&createdAt${p.operator}${p.value}`)
           .join("")
       : "";
-
-  console.log(parsed);
 
   const queryUpdatedAt =
     parsed.updatedAtOperators.length > 0
@@ -149,6 +151,7 @@ const FilterPage = () => {
     createdAtOperators: parsed.createdAtOperators,
     updatedAtOperators: parsed.updatedAtOperators,
     dueDateOperators: parsed.dueDateOperators,
+    isQueryBrand: parsed?.brands?.length > 0,
   });
 
   const rawMin =
@@ -282,9 +285,12 @@ const FilterPage = () => {
     },
   ];
 
+  const borderStyle =
+    background === "dark" ? { border: `1px solid ${DARKTHEME.border}` } : {};
+
   const filter = (
     <>
-      <div className={styles["header"]}>
+      <div style={borderStyle} className={styles["header"]}>
         <Text className={styles["header-text"]}>FILTER PRODUCT</Text>
       </div>
       <Text className={styles["category-text"]}>CATEGORY</Text>
@@ -308,14 +314,38 @@ const FilterPage = () => {
               disabled={isFixed}
               className={styles["category-checkbox"]}
             >
-              <span className={styles["label"]}>{cat?.name}</span>
+              <span
+                style={
+                  background === "dark"
+                    ? {
+                        background: DARKTHEME.bgSecondary,
+                        color: "#fff",
+                        ...borderStyle,
+                      }
+                    : {}
+                }
+                className={styles["label"]}
+              >
+                {cat?.name}
+              </span>
             </Checkbox>
           );
         })}
       </Checkbox.Group>
       <Text className={styles["price-text"]}>PRICE RANGE</Text>
       <Divider style={{ marginTop: 10, marginBottom: 15 }} />
-      <div className={styles["price-filter"]}>
+      <div
+        style={
+          background === "dark"
+            ? {
+                background: DARKTHEME.bgSecondary,
+                color: "#fff",
+                ...borderStyle,
+              }
+            : {}
+        }
+        className={styles["price-filter"]}
+      >
         <div className={styles["price-values"]}>
           <Text className={styles["price-label"]}>Min</Text>
           <Text className={styles["price-label"]}>Max</Text>
@@ -404,7 +434,20 @@ const FilterPage = () => {
             value={brand}
             className={styles["category-checkbox"]}
           >
-            <span className={styles["label"]}>{brand}</span>
+            <span
+              style={
+                background === "dark"
+                  ? {
+                      background: DARKTHEME.bgSecondary,
+                      color: "#fff",
+                      ...borderStyle,
+                    }
+                  : {}
+              }
+              className={styles["label"]}
+            >
+              {brand}
+            </span>
           </Checkbox>
         ))}
       </Checkbox.Group>
@@ -435,10 +478,18 @@ const FilterPage = () => {
       </Flex>
       <Row gutter={screen.xs ? [0, 0] : [10, 10]}>
         <Col lg={6} sm={0} xs={0}>
-          <div className={styles["wrapper"]}>{filter}</div>
+          <div
+            style={background === "dark" ? { background: DARKTHEME.card } : {}}
+            className={styles["wrapper"]}
+          >
+            {filter}
+          </div>
         </Col>
         <Col lg={18} sm={24} xs={24}>
-          <div className={styles["wrapper"]}>
+          <div
+            style={background === "dark" ? { background: DARKTHEME.card } : {}}
+            className={styles["wrapper"]}
+          >
             <Row justify="space-between" align="middle">
               <Col>
                 <Row align="middle">
@@ -517,6 +568,7 @@ const FilterPage = () => {
       </Row>
       <Drawer
         {...(screen.xs ? { width: "95%" } : {})}
+        styles={{ body: hideScrollbar }}
         placement="right"
         onClose={() => setOpenDrawer(false)}
         open={openDrawer}

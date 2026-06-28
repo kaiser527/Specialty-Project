@@ -1,8 +1,11 @@
+import { useBackground } from "@/hooks/useBackground";
 import { Button, Result } from "antd";
 import { useNavigate } from "react-router-dom";
 
 const NotPermitted = () => {
   const navigate = useNavigate();
+
+  const { background } = useBackground();
 
   return (
     <Result
@@ -10,7 +13,10 @@ const NotPermitted = () => {
       title="403"
       subTitle="Sorry, you are not authorized to access this page."
       extra={
-        <Button type="primary" onClick={() => navigate("/")}>
+        <Button
+          type={background === "dark" ? "default" : "primary"}
+          onClick={() => navigate("/")}
+        >
           Back Home
         </Button>
       }

@@ -1,3 +1,14 @@
+:global(.ant-modal-wrap) {
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+    width: 0;
+  }
+}
+
 .upsert-product-container {
   background-color: white;
   padding: 10px 30px;
@@ -16,78 +27,154 @@
   }
 }
 
-.row-approved td {
-  background-color: #f6ffed !important;
+.row-approved {
+  td {
+    background-color: #f6ffed !important;
+  }
+
+  &:hover {
+    td {
+      background-color: #d9f7be !important;
+    }
+  }
 }
 
-.row-approved:hover td {
-  background-color: #d9f7be !important;
+.row-rejected {
+  td {
+    background-color: #ffe4e1 !important;
+  }
+
+  &:hover {
+    td {
+      background-color: #ffccc7 !important;
+    }
+  }
 }
 
-.row-rejected td {
-  background-color: #ffe4e1 !important;
+.row-approved-dark {
+  td {
+    background-color: #162312 !important;
+  }
+
+  &:hover {
+    td {
+      background-color: #274916 !important;
+    }
+  }
 }
 
-.row-rejected:hover td {
-  background-color: #ffccc7 !important;
+.row-rejected-dark {
+  td {
+    background-color: #2b1618 !important;
+  }
+
+  &:hover {
+    td {
+      background-color: #5c2223 !important;
+    }
+  }
 }
 
 .green-btn {
   background-color: #52c41a !important;
   border-color: #52c41a !important;
   color: #fff !important;
+
+  &:hover {
+    background-color: #73d13d !important;
+    border-color: #73d13d !important;
+  }
 }
 
-.green-btn:hover {
-  background-color: #73d13d !important;
-  border-color: #73d13d !important;
+.green-btn-outline {
+  background: transparent !important;
+  border: 1px solid #52c41a !important;
+  color: #52c41a !important;
+
+  &:hover {
+    background: rgba(82, 196, 26, 0.15) !important;
+    border-color: #73d13d !important;
+    color: #73d13d !important;
+  }
 }
 
-.row-packaging td {
-  background-color: #f9f0ff !important;
+.row-packaging {
+  td {
+    background-color: #f9f0ff !important;
+  }
+
+  &:hover {
+    td {
+      background-color: #efdbff !important;
+    }
+  }
 }
 
-.row-packaging:hover td {
-  background-color: #efdbff !important;
+.row-delivering {
+  td {
+    background-color: #e6fffb !important;
+  }
+
+  &:hover {
+    td {
+      background-color: #b5f5ec !important;
+    }
+  }
 }
 
-.row-delivering td {
-  background-color: #e6fffb !important;
+.row-packaging-dark {
+  td {
+    background-color: #22075e !important;
+  }
+
+  &:hover {
+    td {
+      background-color: #391085 !important;
+    }
+  }
 }
 
-.row-delivering:hover td {
-  background-color: #b5f5ec !important;
+.row-delivering-dark {
+  td {
+    background-color: #112123 !important;
+  }
+
+  &:hover {
+    td {
+      background-color: #144848 !important;
+    }
+  }
 }
 
 .packaging-btn {
   background-color: #722ed1 !important;
   border-color: #722ed1 !important;
   color: #fff !important;
-}
 
-.packaging-btn:hover {
-  background-color: #9254de !important;
-  border-color: #9254de !important;
+  &:hover {
+    background-color: #9254de !important;
+    border-color: #9254de !important;
+  }
 }
 
 .delivering-btn {
   background-color: #08979c !important;
   border-color: #08979c !important;
   color: #fff !important;
-}
 
-.delivering-btn:hover {
-  background-color: #13c2c2 !important;
-  border-color: #13c2c2 !important;
+  &:hover {
+    background-color: #13c2c2 !important;
+    border-color: #13c2c2 !important;
+  }
 }
 
 .rejected-btn {
   background-color: #ff4d4f !important;
   border-color: #ff4d4f !important;
   color: #fff !important;
-}
 
-.rejected-btn:hover {
-  background-color: #ff7875 !important;
-  border-color: #ff7875 !important;
+  &:hover {
+    background-color: #ff7875 !important;
+    border-color: #ff7875 !important;
+  }
 }

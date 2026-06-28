@@ -1,4 +1,4 @@
-import { FORMATE_DATE } from "@/config/helpers/global";
+import { formatCurrency, FORMATE_DATE } from "@/config/helpers/global";
 import { useFetchVoucherUsageQuery } from "@/redux/api/voucherApi";
 import { IVoucherUsage } from "@/types/backend";
 import { Empty, Table, Tag, Typography } from "antd";
@@ -26,6 +26,12 @@ const VoucherUsageTable = () => {
       dataIndex: ["voucher", "code"],
       key: "code",
       render: (code: string) => <Tag color="blue">{code}</Tag>,
+    },
+    {
+      title: "Discount",
+      dataIndex: ["voucher", "discountAmount"],
+      key: "discountAmount",
+      render: (discountAmount) => <>{formatCurrency(discountAmount)}</>,
     },
     {
       title: "Order ID",

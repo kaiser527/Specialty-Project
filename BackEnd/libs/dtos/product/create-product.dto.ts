@@ -1,6 +1,7 @@
 import {
   ArrayUnique,
   IsArray,
+  IsBoolean,
   IsEnum,
   IsNotEmpty,
   IsObject,
@@ -152,4 +153,8 @@ export class GetMinMaxPriceDto {
     operator: string;
     value: string;
   }[];
+
+  @IsOptional()
+  @IsBoolean()
+  isQueryBrand?: boolean;
 }

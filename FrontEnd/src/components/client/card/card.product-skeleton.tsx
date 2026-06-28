@@ -1,9 +1,16 @@
+import { DARKTHEME } from "@/config/constants/utils";
+import { useBackground } from "@/hooks/useBackground";
 import { Skeleton } from "antd";
 import styles from "styles/card.module.scss";
 
 const CardSkeleton = () => {
+  const { background } = useBackground();
+
   return (
-    <div className={styles["card"]}>
+    <div
+      style={background === "dark" ? { background: DARKTHEME.card } : {}}
+      className={styles.card}
+    >
       <div className={styles["fake-image"]}>
         <Skeleton.Node active className={styles["skeleton-node"]} />
       </div>

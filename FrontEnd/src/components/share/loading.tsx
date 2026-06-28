@@ -1,11 +1,17 @@
+import { DARKTHEME } from "@/config/constants/utils";
+import { useBackground } from "@/hooks/useBackground";
 import HashLoader from "react-spinners/HashLoader";
 
 const Loading = () => {
+  const { background } = useBackground();
+
   const style: React.CSSProperties = {
     position: "fixed",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
+    inset: 0,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    background: background === "dark" ? DARKTHEME.bg : "#fff",
   };
 
   return (

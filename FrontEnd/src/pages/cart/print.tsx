@@ -2,7 +2,7 @@ import { useGetAccount } from "@/hooks/useGetAccount";
 import { useGetUnAuthenticateCart } from "@/hooks/useGetUnAuthenticateCart";
 import { ICart } from "@/types/backend";
 import dayjs from "dayjs";
-import { ReactNode, useEffect, useRef } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import styles from "styles/print-cart.module.scss";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { formatCurrency, getFinalPrice } from "@/config/helpers/global";
@@ -21,11 +21,13 @@ import {
   Typography,
 } from "antd";
 import { FilePdfOutlined, PrinterOutlined } from "@ant-design/icons";
+import { useBackground } from "@/hooks/useBackground";
+import { DARKTHEME } from "@/config/constants/utils";
 
 const { useBreakpoint } = Grid;
 const { Text } = Typography;
 
-const PrintCartPage = () => {
+const PrintPage = () => {
   const location = useLocation();
   const screen = useBreakpoint();
   const navigate = useNavigate();
@@ -37,12 +39,30 @@ const PrintCartPage = () => {
   const guessCart = useGetUnAuthenticateCart();
   const { isAuthenticated } = useGetAccount();
   const { messageApi } = useMessage();
+  const { background } = useBackground();
+
+  const [isExporting, setIsExporting] = useState(false);
+  const isLightDocument = background !== "dark" || isExporting;
 
   const user = location.state?.user;
   const name = searchParams.get("name");
 
   const cart: ICart = location.state?.cart;
   const cartItems = isAuthenticated ? cart?.items || [] : guessCart || [];
+
+  const whiteText = !isLightDocument ? { color: "#eee" } : { color: "#000" };
+  const tableHead = !isLightDocument
+    ? {
+        background: DARKTHEME.card,
+        color: "#eee",
+      }
+    : {
+        background: "#f5f5f5",
+        color: "#000",
+      };
+  const borderStyle = {
+    border: `1px solid ${isLightDocument ? "#d9d9d9" : DARKTHEME.border}`,
+  };
 
   useEffect(() => {
     if (hasRun.current) return;
@@ -64,7 +84,7 @@ const PrintCartPage = () => {
       <div style={{ fontWeight: 600, marginBottom: 4 }}>
         {variant.product?.name}
       </div>
-      <div style={{ fontSize: 12, marginBottom: 6 }}>
+      <div style={{ marginBottom: 6 }}>
         <Text
           copyable
           ellipsis={{ tooltip: true }}
@@ -74,20 +94,27 @@ const PrintCartPage = () => {
         </Text>
       </div>
       {Object.entries(variant.attributes || {}).map(([k, v]) => (
-        <div key={k} style={{ fontSize: 12 }}>
+        <div key={k}>
           <span style={{ color: "red" }}>{k}:</span> {v as ReactNode}
         </div>
       ))}
+      <div>Warranty: 36 Months</div>
     </div>
   );
 
   const handleExportPDF = async () => {
     if (!printRef.current) return;
 
+    setIsExporting(true);
+
+    await new Promise((r) => setTimeout(r, 100));
+
     const canvas = await html2canvas(printRef.current, {
       scale: 2,
       useCORS: true,
     });
+
+    setIsExporting(false);
 
     const imgData = canvas.toDataURL("image/png");
 
@@ -121,8 +148,18 @@ const PrintCartPage = () => {
     pdf.save(`${name}.pdf`);
   };
 
+  const handlePrint = async () => {
+    setIsExporting(true);
+    await new Promise((r) => setTimeout(r, 100));
+    window.print();
+    setIsExporting(false);
+  };
+
   return (
-    <div className={styles["print-container"]}>
+    <div
+      style={background === "dark" ? { background: DARKTHEME.bg } : {}}
+      className={styles["print-container"]}
+    >
       <div ref={printRef}>
         <Flex justify="space-between" align="center">
           <div className={styles["logo-wrapper"]}>
@@ -135,66 +172,79 @@ const PrintCartPage = () => {
           </div>
           <div className={styles["info-wrapper"]}>
             <Text className={styles["web-title"]}>Bazaar</Text>
-            <Text>
+            <Text style={whiteText}>
               HANOI: No. 83-85 Thai Ha, Trung Liet Ward, Dong Da District, Hanoi
             </Text>
-            <Text>
+            <Text style={whiteText}>
               HCM.CITY: No. 83A Cuu Long Street, Ward 15, District 10, Ho Chi
               Minh City
             </Text>
-            <Text>Hotline: 098.668.0497</Text>
-            <Text>Email: minh.hacker89@gmail.com</Text>
+            <Text style={whiteText}>Hotline: 098.668.0497</Text>
+            <Text style={whiteText}>Email: minh.hacker89@gmail.com</Text>
           </div>
         </Flex>
 
         <Divider
-          style={{ borderWidth: 2, borderColor: "#ccc", marginTop: 5 }}
+          style={{
+            borderWidth: 2,
+            borderColor: background === "dark" ? DARKTHEME.border : "#ccc",
+            marginTop: 5,
+          }}
         />
         <Divider
           style={{
             borderWidth: 2,
             marginTop: -23,
-            borderColor: "#ccc",
+            borderColor: background === "dark" ? DARKTHEME.border : "#ccc",
             marginBottom: 0,
           }}
         />
 
-        <h1 className={styles["title"]}>PRODUCT QUOTATION</h1>
-        <p className={styles["date"]}>{dayjs().format("DD.MM.YYYY")}</p>
+        <h1 style={whiteText} className={styles["title"]}>
+          PRODUCT QUOTATION
+        </h1>
+        <p style={whiteText} className={styles["date"]}>
+          {dayjs().format("DD.MM.YYYY")}
+        </p>
 
         <Row>
           <Col style={{ fontSize: 16 }} span={12}>
-            <p>Customer: {user?.name}</p>
-            <p>Email: {user?.email}</p>
+            <Text style={whiteText}>Customer: {user?.name}</Text>
+            <br />
+            <Text style={whiteText}>Email: {user?.email}</Text>
           </Col>
           <Col style={{ fontSize: 16 }} span={12}>
-            <p>Address: {user?.address}</p>
-            <p>Phone: {user?.phone}</p>
+            <Text style={whiteText}>Address: {user?.address}</Text>
+            <br />
+            <Text style={whiteText}>Phone: {user?.phone}</Text>
           </Col>
         </Row>
 
-        <p className={styles["intro"]}>
+        <p style={whiteText} className={styles["intro"]}>
           We are pleased to provide you with the following quotation:
         </p>
 
         <table className={styles["table"]}>
           <colgroup>
-            <col style={{ width: "18%" }} />
+            <col style={{ width: screen.xs ? "64%" : "18%" }} />
             {!screen.xs && <col style={{ width: "34%" }} />}
             <col style={{ width: "12%" }} />
             <col style={{ width: "12%" }} />
             <col style={{ width: "12%" }} />
-            <col style={{ width: "12%" }} />
+            {!screen.xs && <col style={{ width: "12%" }} />}
           </colgroup>
-
           <thead>
             <tr>
-              <th>Image</th>
-              {!screen.xs && <th>Product Name</th>}
-              <th>Quantity</th>
-              <th>Unit Price</th>
-              <th>Discount</th>
-              <th>Warranty</th>
+              <th style={{ ...tableHead, ...borderStyle }}>Image</th>
+              {!screen.xs && (
+                <th style={{ ...tableHead, ...borderStyle }}>Product Name</th>
+              )}
+              <th style={{ ...tableHead, ...borderStyle }}>Quantity</th>
+              <th style={{ ...tableHead, ...borderStyle }}>Unit Price</th>
+              <th style={{ ...tableHead, ...borderStyle }}>Discount</th>
+              {!screen.xs && (
+                <th style={{ ...tableHead, ...borderStyle }}>Warranty</th>
+              )}
             </tr>
           </thead>
 
@@ -206,7 +256,7 @@ const PrintCartPage = () => {
 
               return (
                 <tr key={item.id}>
-                  <td className={styles["imageCell"]}>
+                  <td style={borderStyle} className={styles["imageCell"]}>
                     <div className={styles["cellCenter"]}>
                       <Popover
                         content={
@@ -227,14 +277,15 @@ const PrintCartPage = () => {
                     </div>
                   </td>
                   {!screen.xs && (
-                    <td className={styles["productName"]}>
+                    <td style={borderStyle} className={styles["productName"]}>
                       <div className={styles["cellStart"]}>
-                        <b>{product?.name}</b>
+                        <b style={whiteText}>{product?.name}</b>
                         <div className={styles["attrs"]}>
                           {Object.entries(variant.attributes || {}).map(
                             ([k, v]) => (
                               <p key={k}>
-                                <span>{k}:</span> {v}
+                                <span>{k}:</span>{" "}
+                                <span style={whiteText}>{v}</span>
                               </p>
                             )
                           )}
@@ -242,61 +293,85 @@ const PrintCartPage = () => {
                       </div>
                     </td>
                   )}
-                  <td>
-                    <div className={styles["cellCenter"]}>{item.quantity}</div>
+                  <td style={borderStyle}>
+                    <div style={whiteText} className={styles["cellCenter"]}>
+                      {item.quantity}
+                    </div>
                   </td>
-                  <td>
-                    <div className={styles["cellCenter"]}>
+                  <td style={borderStyle}>
+                    <div style={whiteText} className={styles["cellCenter"]}>
                       {formatCurrency(price)}
                     </div>
                   </td>
-                  <td>
-                    <div className={styles["cellCenter"]}>
+                  <td style={borderStyle}>
+                    <div style={whiteText} className={styles["cellCenter"]}>
                       {variant.discount ? `${variant.discount}%` : "-"}
                     </div>
                   </td>
-                  <td>
-                    <div className={styles["cellCenter"]}>36 Months</div>
-                  </td>
+                  {!screen.xs && (
+                    <td style={borderStyle}>
+                      <div style={whiteText} className={styles["cellCenter"]}>
+                        36 Months
+                      </div>
+                    </td>
+                  )}
                 </tr>
               );
             })}
           </tbody>
         </table>
-        <div className={styles["total"]}>
+        <div style={whiteText} className={styles["total"]}>
           Total: <span>{formatCurrency(total)}</span>
         </div>
       </div>
-      <div className={styles["actions"]}>
-        <Button
-          icon={<PrinterOutlined />}
-          type="primary"
-          onClick={() => window.print()}
-          style={{ width: 120 }}
-        >
-          Print
-        </Button>
-        <Button
-          icon={<FilePdfOutlined />}
-          style={{
-            backgroundColor: "#d32f2f",
-            borderColor: "#d32f2f",
-            color: "#fff",
-            width: 120,
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = "#b71c1c";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = "#d32f2f";
-          }}
-          onClick={handleExportPDF}
-        >
-          Export PDF
-        </Button>
-      </div>
+      {screen.lg && (
+        <div className={styles["actions"]}>
+          <Button
+            icon={<PrinterOutlined />}
+            type={background === "dark" ? "default" : "primary"}
+            onClick={handlePrint}
+            style={{
+              width: 120,
+              background: background === "dark" ? "transparent" : undefined,
+              border: background === "dark" ? "1px solid #1677ff" : undefined,
+              color: background === "dark" ? "#1677ff" : undefined,
+            }}
+          >
+            Print
+          </Button>
+          <Button
+            icon={<FilePdfOutlined />}
+            style={{
+              width: 120,
+              background: background === "dark" ? "transparent" : "#d32f2f",
+              border:
+                background === "dark"
+                  ? "1px solid #d32f2f"
+                  : "1px solid #d32f2f",
+              color: background === "dark" ? "#d32f2f" : "#fff",
+            }}
+            onMouseEnter={(e) => {
+              if (background === "dark") {
+                e.currentTarget.style.background = "rgba(211, 47, 47, 0.08)";
+              } else {
+                e.currentTarget.style.background = "#b71c1c";
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (background === "dark") {
+                e.currentTarget.style.background = "transparent";
+              } else {
+                e.currentTarget.style.background = "#d32f2f";
+              }
+            }}
+            onClick={handleExportPDF}
+          >
+            Export PDF
+          </Button>
+        </div>
+      )}
     </div>
   );
 };
 
-export default PrintCartPage;
+export default PrintPage;

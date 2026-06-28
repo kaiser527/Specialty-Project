@@ -1,5 +1,10 @@
-import { roleGradients } from "@/config/constants/utils";
+import {
+  DARKTHEME,
+  roleColorsDark,
+  roleGradients,
+} from "@/config/constants/utils";
 import { buildVariantName, formatCurrency } from "@/config/helpers/global";
+import { useBackground } from "@/hooks/useBackground";
 import { IOrderItem, IVariant } from "@/types/backend";
 import { Card, Grid, Image, Tag, Typography } from "antd";
 
@@ -43,6 +48,8 @@ const { useBreakpoint } = Grid;
 const OrderCardItem = ({ item, area }: IProps) => {
   const screen = useBreakpoint();
 
+  const { background } = useBackground();
+
   const hasProvider = !!item.provider && area === "ADMIN";
   const status = item?.provider?.status || "PENDING";
   //@ts-ignore
@@ -54,8 +61,9 @@ const OrderCardItem = ({ item, area }: IProps) => {
       hoverable
       style={{
         borderRadius: 16,
-        border: hasProvider ? `1px solid ${style.border}` : "1px solid #f0f0f0",
-
+        border: hasProvider
+          ? `1px solid ${style.border}`
+          : `1px solid ${background === "dark" ? DARKTHEME.border : "#f0f0f0"}`,
         transition: "all 0.25s ease",
       }}
       styles={{ body: { padding: 14 } }}
@@ -97,7 +105,7 @@ const OrderCardItem = ({ item, area }: IProps) => {
               fontSize: 15,
               lineHeight: "18px",
               marginBottom: 6,
-              color: "#1f1f1f",
+              color: background === "dark" ? "#ddd" : "#1f1f1f",
               display: "-webkit-box",
               WebkitLineClamp: 2,
               WebkitBoxOrient: "vertical",
@@ -113,7 +121,7 @@ const OrderCardItem = ({ item, area }: IProps) => {
               gap: 12,
               flexWrap: "wrap",
               fontSize: 12,
-              color: "#666",
+              color: background === "dark" ? "#bbb" : "#666",
             }}
           >
             <span
@@ -122,7 +130,7 @@ const OrderCardItem = ({ item, area }: IProps) => {
                 overflow: "hidden",
                 textOverflow: "ellipsis",
                 whiteSpace: "nowrap",
-                color: "#999",
+                color: background === "dark" ? "#ddd" : "#999",
                 fontSize: 13,
               }}
             >
@@ -159,7 +167,8 @@ const OrderCardItem = ({ item, area }: IProps) => {
                 marginTop: 12,
                 padding: 10,
                 borderRadius: 12,
-                background: "#ffffffcc",
+                background:
+                  background === "dark" ? DARKTHEME.card : "#ffffffcc",
                 border: `1px solid ${style.border}`,
                 display: "flex",
                 alignItems: "center",
@@ -198,12 +207,22 @@ const OrderCardItem = ({ item, area }: IProps) => {
                         padding: "0 7px",
                         fontWeight: 500,
                         marginLeft: 5,
-                        border: "none",
-                        color: "#fff",
+                        border:
+                          background === "light"
+                            ? "none"
+                            : `1px solid ${
+                                roleColorsDark[item.provider?.role ?? "USER"]
+                              }`,
+                        color:
+                          background === "light"
+                            ? "#fff"
+                            : roleColorsDark[item.provider?.role ?? "USER"],
                         fontSize: 10,
                         background:
-                          roleGradients[item.provider?.role ?? "USER"] ||
-                          "#999",
+                          background === "light"
+                            ? roleGradients[item.provider?.role ?? "USER"] ||
+                              "#999"
+                            : "transparent",
                       }}
                     >
                       {item.provider?.role || "USER"}
@@ -223,9 +242,13 @@ const OrderCardItem = ({ item, area }: IProps) => {
                   fontWeight: 600,
                   fontSize: 12,
                   padding: "2px 10px",
-                  background: style.color,
-                  color: "#fff",
-                  border: "none",
+                  background:
+                    background === "light" ? style.color : "transparent",
+                  color: background === "light" ? "#fff" : style.color,
+                  border:
+                    background === "light"
+                      ? "none"
+                      : `1px solid ${style.color}`,
                 }}
               >
                 {style.icon} {item.provider.status}

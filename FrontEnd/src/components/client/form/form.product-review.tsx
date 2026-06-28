@@ -1,3 +1,4 @@
+import { useBackground } from "@/hooks/useBackground";
 import { useGetAccount } from "@/hooks/useGetAccount";
 import { useMessage } from "@/hooks/useMessage";
 import { useCreateReviewMutation } from "@/redux/api/reviewApi";
@@ -12,6 +13,7 @@ const ProductReviewForm = () => {
   const { id } = useParams();
   const { user } = useGetAccount();
   const { notificationApi } = useMessage();
+  const { background } = useBackground();
 
   const [form] = Form.useForm();
   const [create] = useCreateReviewMutation();
@@ -47,7 +49,9 @@ const ProductReviewForm = () => {
       form={form}
       onFinish={onFinish}
       initialValues={{ rating: 0 }}
-      className={styles.writeReviewWrapper}
+      className={`${styles.writeReviewWrapper} ${
+        background === "dark" ? styles.writeReviewWrapperDark : ""
+      }`}
     >
       <div className={styles.inputHeader}>
         <Avatar src={urlAvatar} className={styles.userAvatar} size="large" />

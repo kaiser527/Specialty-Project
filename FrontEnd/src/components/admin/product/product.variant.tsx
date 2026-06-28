@@ -1,5 +1,7 @@
 import UploadImage from "@/components/share/upload";
+import { DARKTHEME } from "@/config/constants/utils";
 import { formatterNumber, parserNumber } from "@/config/helpers/global";
+import { useBackground } from "@/hooks/useBackground";
 import { useGetAccount } from "@/hooks/useGetAccount";
 import { IVariant } from "@/types/frontend";
 import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
@@ -34,6 +36,7 @@ const ProductVariants = ({
 }: IProps) => {
   const screen = useBreakpoint();
   const { user } = useGetAccount();
+  const { background } = useBackground();
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -149,6 +152,44 @@ const ProductVariants = ({
   const endIndex = startIndex + pageSize;
   const currentVariants = filteredVariants.slice(startIndex, endIndex);
 
+  const blueTheme =
+    background === "dark"
+      ? {
+          background: "transparent",
+          color: "#1677ff",
+          border: "1px solid #1677ff",
+          padding: "6px 10px",
+          borderRadius: 4,
+          cursor: "pointer",
+        }
+      : {
+          background: "#1677ff",
+          color: "#fff",
+          border: "none",
+          padding: "6px 10px",
+          borderRadius: 4,
+          cursor: "pointer",
+        };
+
+  const redTheme =
+    background === "dark"
+      ? {
+          background: "transparent",
+          color: "#ff4d4f",
+          border: "1px solid #ff4d4f",
+          padding: "6px 10px",
+          borderRadius: 4,
+          cursor: "pointer",
+        }
+      : {
+          background: "#ff4d4f",
+          color: "#fff",
+          border: "none",
+          padding: "6px 10px",
+          borderRadius: 4,
+          cursor: "pointer",
+        };
+
   return (
     <div>
       <h3>Variants</h3>
@@ -182,7 +223,10 @@ const ProductVariants = ({
           <div
             key={variant.id}
             style={{
-              border: "1px solid #eee",
+              border: `1px solid ${
+                background === "dark" ? DARKTHEME.border : "#eee"
+              }`,
+              background: background === "dark" ? DARKTHEME.card : "#fff",
               padding: 16,
               marginBottom: 16,
               borderRadius: 8,
@@ -265,33 +309,14 @@ const ProductVariants = ({
               {!isShow && (
                 <Col sm={3} xs={8} lg={5}>
                   <div style={{ display: "flex", gap: 8, marginTop: 5 }}>
-                    {/* Add */}
-                    <div
-                      style={{
-                        background: "#1677ff",
-                        color: "#fff",
-                        border: "none",
-                        padding: "6px 10px",
-                        borderRadius: 4,
-                        cursor: "pointer",
-                      }}
-                      onClick={handleAddVariant}
-                    >
+                    <div onClick={handleAddVariant} style={blueTheme}>
                       <PlusOutlined />
                     </div>
 
-                    {/* Remove */}
                     {productVariants.length > 1 && (
                       <div
                         onClick={() => handleRemoveVariant(variant.id)}
-                        style={{
-                          background: "red",
-                          color: "#fff",
-                          border: "none",
-                          padding: "6px 10px",
-                          borderRadius: 4,
-                          cursor: "pointer",
-                        }}
+                        style={redTheme}
                       >
                         <MinusOutlined />
                       </div>
@@ -375,37 +400,23 @@ const ProductVariants = ({
                         style={{
                           display: "flex",
                           gap: 8,
-                          marginTop: screen.xs ? -16 : -24,
+                          marginTop: screen.xs ? -16 : -26,
                           float: screen.xs ? "right" : "none",
                         }}
                       >
-                        {/* ADD */}
                         <div
                           onClick={() => handleAddAttribute(variant.id)}
-                          style={{
-                            background: "#1677ff",
-                            color: "#fff",
-                            padding: "6px 10px",
-                            borderRadius: 4,
-                            cursor: "pointer",
-                          }}
+                          style={blueTheme}
                         >
                           <PlusOutlined />
                         </div>
 
-                        {/* REMOVE */}
                         {variant.attributes.length > 1 && (
                           <div
                             onClick={() =>
                               handleRemoveAttribute(variant.id, attrIndex)
                             }
-                            style={{
-                              background: "red",
-                              color: "#fff",
-                              padding: "6px 10px",
-                              borderRadius: 4,
-                              cursor: "pointer",
-                            }}
+                            style={redTheme}
                           >
                             <MinusOutlined />
                           </div>

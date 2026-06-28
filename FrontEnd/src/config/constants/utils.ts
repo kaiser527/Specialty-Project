@@ -1,3 +1,4 @@
+import { CSSProperties } from "react";
 import { io, Socket } from "socket.io-client";
 
 export const WHITELIST_REDUCER = [
@@ -5,13 +6,21 @@ export const WHITELIST_REDUCER = [
   "account.isRefreshToken",
   "timer",
   "cart",
+  "background",
 ];
 
 export const roleColors: Record<string, string> = {
   ADMIN: "red",
   USER: "blue",
-  STAFF: "green",
+  STAFF: "purple",
   PROVIDER: "orange",
+};
+
+export const roleColorsDark: Record<string, string> = {
+  ADMIN: "#ff4d4f",
+  USER: "#1677ff",
+  STAFF: "#722ed1",
+  PROVIDER: "#ffa940",
 };
 
 export const roleGradients: Record<string, string> = {
@@ -87,4 +96,18 @@ export const SUGGESTIONS = {
     "Find products updated today",
     "Show latest orders",
   ],
+};
+
+export const DARKTHEME = {
+  bg: "#121212",
+  bgSecondary: "#1a1a1a",
+  card: "#1f1f1f",
+  border: "#2d2d2d",
+  header: "rgba(32,32,32,0.9)",
+};
+
+export const hideScrollbar: CSSProperties = {
+  overflowY: "auto",
+  scrollbarWidth: "none",
+  msOverflowStyle: "none",
 };

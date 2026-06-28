@@ -8,6 +8,7 @@ import {
   formatCurrency,
   FORMATE_DATE,
 } from "@/config/helpers/global";
+import { useBackground } from "@/hooks/useBackground";
 import { useMessage } from "@/hooks/useMessage";
 import {
   useUpdateProviderOrderStatusByOrderIdMutation,
@@ -48,6 +49,7 @@ const ProviderOrderPage = () => {
   const [bulkUpdateOrder] = useUpdateProviderOrderStatusByOrderIdMutation();
 
   const { messageApi, notificationApi } = useMessage();
+  const { background } = useBackground();
 
   useEffect(() => {
     setIsLoading(true);
@@ -395,10 +397,27 @@ const ProviderOrderPage = () => {
           const allPackaging = statuses.every((s: any) => s === "PACKAGING");
           const allDelivering = statuses.every((s: any) => s === "DELIVERING");
 
-          if (allApproved) return styles["row-approved"];
-          if (allRejected) return styles["row-rejected"];
-          if (allPackaging) return styles["row-packaging"];
-          if (allDelivering) return styles["row-delivering"];
+          const dark = background === "dark";
+
+          if (allApproved)
+            return `${styles["row-approved"]} ${
+              dark ? styles["row-approved-dark"] : ""
+            }`;
+
+          if (allRejected)
+            return `${styles["row-rejected"]} ${
+              dark ? styles["row-rejected-dark"] : ""
+            }`;
+
+          if (allPackaging)
+            return `${styles["row-packaging"]} ${
+              dark ? styles["row-packaging-dark"] : ""
+            }`;
+
+          if (allDelivering)
+            return `${styles["row-delivering"]} ${
+              dark ? styles["row-delivering-dark"] : ""
+            }`;
 
           return "";
         }}

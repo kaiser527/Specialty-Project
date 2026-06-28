@@ -11,6 +11,9 @@ import {
   JavaOutlined,
 } from "@ant-design/icons";
 import InfoItem from "@/components/admin/extra/extra.info-item";
+import styles from "styles/admin.module.scss";
+import { useBackground } from "@/hooks/useBackground";
+import { DARKTHEME, hideScrollbar } from "@/config/constants/utils";
 
 const { Text, Title } = Typography;
 
@@ -24,6 +27,9 @@ interface IProps {
 const ViewDetailPermission = (props: IProps) => {
   const { onClose, open, dataInit, setDataInit } = props;
 
+  const { background } = useBackground();
+  const isDark = background === "dark";
+
   const handleClose = () => {
     onClose(false);
     setDataInit(null);
@@ -35,18 +41,39 @@ const ViewDetailPermission = (props: IProps) => {
       onClose={handleClose}
       open={open}
       width={555}
-      styles={{ body: { padding: 0, background: "#f5f7fb" } }}
+      styles={{
+        body: {
+          ...hideScrollbar,
+          padding: 0,
+          background: isDark ? DARKTHEME.bgSecondary : "#f6f8fb",
+        },
+      }}
+      className={styles["hide-scrollbar"]}
       maskClosable={false}
     >
       {/* Header */}
       <div
         style={{
           padding: 24,
-          background: colorMethodGradient(dataInit?.method ?? "GET"),
+          background: isDark
+            ? `
+                linear-gradient(
+                  rgba(20,20,20,.82),
+                  rgba(20,20,20,.82)
+                ),
+                ${colorMethodGradient(dataInit?.method ?? "GET")}
+              `
+            : colorMethodGradient(dataInit?.method ?? "GET"),
           color: "#fff",
         }}
       >
-        <Title level={4} style={{ color: "#fff", margin: 0 }}>
+        <Title
+          level={4}
+          style={{
+            margin: 0,
+            color: isDark ? "#f5f5f5" : "#fff",
+          }}
+        >
           Permission Detail
         </Title>
         <Text style={{ color: "#e0e7ff" }}>

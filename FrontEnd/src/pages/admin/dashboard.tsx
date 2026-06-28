@@ -14,6 +14,7 @@ import RangePickerDashboard from "@/components/admin/dashboard/RangePickerDashbo
 import { useGetAccount } from "@/hooks/useGetAccount";
 import Access from "@/components/share/access";
 import { ALL_PERMISSIONS } from "@/config/constants/permissions";
+import { useBackground } from "@/hooks/useBackground";
 
 const { useBreakpoint } = Grid;
 
@@ -22,6 +23,7 @@ const DashboardPage = () => {
 
   const { messageApi } = useMessage();
   const { user } = useGetAccount();
+  const { background } = useBackground();
 
   const [isFirstLoad, setIsFirstLoad] = useState(true);
   const [rangeLoading, setRangeLoading] = useState(true);
@@ -170,6 +172,14 @@ const DashboardPage = () => {
   const dualConfig = {
     xField: "time",
     data: dualData,
+    axis: {
+      x: {
+        labelFill: background === "dark" ? "#fff" : "#000",
+      },
+      y: {
+        labelFill: background === "dark" ? "#fff" : "#000",
+      },
+    },
     children: [
       {
         type: "interval",
@@ -206,6 +216,11 @@ const DashboardPage = () => {
     label: {
       text: (d: any) => `${d.value}%`,
     },
+    legend: {
+      color: {
+        itemLabelFill: background === "dark" ? "#fff" : "#000",
+      },
+    },
   };
 
   const roleConfig = {
@@ -216,6 +231,19 @@ const DashboardPage = () => {
     scale: {
       color: {
         range: ["#faad14", "#52c41a", "#1677ff", "#ff4d4f", "#722ed1"],
+      },
+    },
+    axis: {
+      x: {
+        labelFill: background === "dark" ? "#fff" : "#000",
+      },
+      y: {
+        labelFill: background === "dark" ? "#fff" : "#000",
+      },
+    },
+    legend: {
+      color: {
+        itemLabelFill: background === "dark" ? "#fff" : "#000",
       },
     },
   };

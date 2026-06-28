@@ -10,17 +10,17 @@ import {
   Col,
 } from "antd";
 import { useMessage } from "@/hooks/useMessage";
-import OrderCardItem from "@/components/admin/order/order.order-item";
-import UserOrderDetailCard from "@/components/client/card/card.user-order-detail";
-import OrderInfoCard from "@/components/admin/order/orderorder-info";
+import OrderCardItem from "@/components/admin/order/order.item";
+import UserOrderDetailCard from "@/components/admin/order/order.user";
+import OrderInfoCard from "@/components/admin/order/order-info";
 import { useEffect, useState } from "react";
-import { socket } from "@/config/constants/utils";
+import { hideScrollbar, socket } from "@/config/constants/utils";
 import { IOrder, IVariant } from "@/types/backend";
 import { useNavigate } from "react-router-dom";
 import { FileExcelOutlined, PrinterOutlined } from "@ant-design/icons";
 import { useGetAccount } from "@/hooks/useGetAccount";
-import OrderPorgressCard from "@/components/admin/order/order.order-progress";
-import OrderActionCard from "./order.order-action";
+import OrderPorgressCard from "@/components/admin/order/order.progress";
+import OrderActionCard from "./order.action";
 import ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
 import { buildVariantName, getFinalPrice } from "@/config/helpers/global";
@@ -111,6 +111,8 @@ const ViewOrderDetail = (props: IProps) => {
         onClose(false);
         setOrderId(null);
       }}
+      styles={{ body: hideScrollbar }}
+      maskClosable={false}
       open={open}
     >
       {loading ? (

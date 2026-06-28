@@ -38,12 +38,16 @@ import OrderPage from "./pages/admin/order";
 import ProviderFeePage from "./pages/admin/provider-fee";
 import ProviderOrderPage from "./pages/admin/provider-order";
 import ProductDetail from "./pages/product/product.detail";
-import PrintCartPage from "./pages/cart/print";
+import PrintPage from "./pages/cart/print";
 import VoucherPage from "./pages/admin/voucher";
+import { useBackground } from "./hooks/useBackground";
+import { DARKTHEME } from "./config/constants/utils";
 
 const LayoutClient = () => {
   const location = useLocation();
   const rootRef = useRef<HTMLDivElement>(null);
+
+  const { background } = useBackground();
 
   useEffect(() => {
     if (rootRef && rootRef.current) {
@@ -54,7 +58,10 @@ const LayoutClient = () => {
   return (
     <div ref={rootRef}>
       <Header />
-      <main className={styles["main"]}>
+      <main
+        style={background === "dark" ? { background: DARKTHEME.bg } : {}}
+        className={styles["main"]}
+      >
         <Outlet />
       </main>
       <Footer />
@@ -238,7 +245,7 @@ const App = () => {
     },
     {
       path: "/print",
-      element: <PrintCartPage />,
+      element: <PrintPage />,
     },
     {
       path: "/redirect",

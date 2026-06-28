@@ -5,6 +5,7 @@ import styles from "styles/product-detail.module.scss";
 import ReviewItem from "./product-review-item.client";
 import ProductReviewForm from "../form/form.product-review";
 import { useGetAccount } from "@/hooks/useGetAccount";
+import { useBackground } from "@/hooks/useBackground";
 
 const { Text } = Typography;
 
@@ -14,10 +15,15 @@ interface IProps {
 
 const ProductReviews = ({ reviews }: IProps) => {
   const { isAuthenticated } = useGetAccount();
+  const { background } = useBackground();
 
   if (isAuthenticated && (!reviews || reviews.length === 0)) {
     return (
-      <div className={styles.emptyContainer}>
+      <div
+        className={`${styles.emptyContainer} ${
+          background === "dark" ? styles.emptyContainerDark : ""
+        }`}
+      >
         <div className={styles.emptyContent}>
           <Empty
             image={Empty.PRESENTED_IMAGE_SIMPLE}
@@ -45,7 +51,11 @@ const ProductReviews = ({ reviews }: IProps) => {
 
   return (
     <div className={styles.reviewsContainer}>
-      <h3 className={styles.title}>
+      <h3
+        className={`${styles.title} ${
+          background === "dark" ? styles.titleDark : ""
+        }`}
+      >
         <span className={styles.iconWrapper}>
           <MessageOutlined />
         </span>

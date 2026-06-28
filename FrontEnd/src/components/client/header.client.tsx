@@ -43,9 +43,11 @@ import { useGetUnAuthenticateCart } from "@/hooks/useGetUnAuthenticateCart";
 import { clearCart } from "@/redux/slice/cartSlice";
 import { IVariant } from "@/types/backend";
 import { useFetchVariantQuery } from "@/redux/api/productApi";
-import { socket } from "@/config/constants/utils";
+import { DARKTHEME, socket } from "@/config/constants/utils";
 import FloatingChat from "./modal/modal.floating-chat";
 import { useConversation } from "@/hooks/useConversation";
+import { useBackground } from "@/hooks/useBackground";
+import BackgroundToggle from "../share/background.toggle";
 
 const { useBreakpoint } = Grid;
 
@@ -53,8 +55,10 @@ const Header = () => {
   const screens = useBreakpoint();
 
   const unAuthenticateCart = useGetUnAuthenticateCart();
+
   const { setConversationId } = useConversation();
   const { messageApi, notificationApi } = useMessage();
+  const { background } = useBackground();
 
   const [categoryFilter, setCategoryFilter] = useState("");
   const [debouncedCategory, setDebouncedCategory] = useState(categoryFilter);
@@ -68,61 +72,44 @@ const Header = () => {
   const [logout] = useLogoutMutation();
 
   const { user, isAuthenticated } = useGetAccount();
-  const { data: cart, isLoading: isLoadingCart } = useFetchCartQuery(
+  const { data: cart } = useFetchCartQuery(
     !isAuthenticated ? skipToken : undefined,
     {
       refetchOnMountOrArgChange: true,
     }
   );
-  const { data: searchData, isLoading: isSearching } = useFetchVariantQuery(
+  const { data: searchData, isFetching: isSearching } = useFetchVariantQuery(
     `current=1&pageSize=50&search=${debouncedValue}`,
     {
       skip: !debouncedValue.trim(),
     }
   );
-  const { data: category, isLoading: isLoadingCategory } =
-    useFetchCategoryQuery(
-      `current=1&pageSize=100${
-        debouncedCategory ? `&name=${debouncedCategory}` : ""
-      }`
-    );
+  const { data: category } = useFetchCategoryQuery(
+    `current=1&pageSize=100${
+      debouncedCategory ? `&name=${debouncedCategory}` : ""
+    }`
+  );
 
-  const skeletonItems = Array.from({ length: 6 }).flatMap((_, index, arr) => {
-    const item = {
-      key: `skeleton-${index}`,
-      label: (
-        <Skeleton active title={false} paragraph={{ rows: 1, width: "100%" }} />
-      ),
-    };
+  const categoryItems =
+    category?.data?.result?.flatMap((c: any, index: number, arr: any[]) => {
+      const item = {
+        key: c.id,
+        label: (
+          <div
+            onClick={() => navigate(`/filter?categoryId=${c.id}`)}
+            style={{ cursor: "pointer" }}
+          >
+            {c.name}
+          </div>
+        ),
+      };
 
-    if (index < arr.length - 1) {
-      return [item, { type: "divider" as const }];
-    }
+      if (index < arr.length - 1) {
+        return [item, { type: "divider" as const }];
+      }
 
-    return [item];
-  });
-
-  const categoryItems = isLoadingCategory
-    ? skeletonItems
-    : category?.data?.result?.flatMap((c: any, index: number, arr: any[]) => {
-        const item = {
-          key: c.id,
-          label: (
-            <div
-              onClick={() => navigate(`/filter?categoryId=${c.id}`)}
-              style={{ cursor: "pointer" }}
-            >
-              {c.name}
-            </div>
-          ),
-        };
-
-        if (index < arr.length - 1) {
-          return [item, { type: "divider" as const }];
-        }
-
-        return [item];
-      }) || [];
+      return [item];
+    }) || [];
 
   useEffect(() => {
     if (!debouncedValue.trim()) {
@@ -195,73 +182,51 @@ const Header = () => {
     ? cart?.data?.items ?? []
     : unAuthenticateCart ?? [];
 
-  const cartSkeleton = (
+  const contentPopover = (
     <div className={styles["pop-cart-body"]}>
       <div className={styles["pop-cart-content"]}>
-        {Array.from({ length: 3 }).map((_, index) => (
-          <div className={styles["book"]} key={`skeleton-cart-${index}`}>
-            <Skeleton.Image style={{ width: 50, height: 50 }} active />
-            <div style={{ width: screens.xs ? 150 : 300 }}>
-              <Skeleton
-                active
-                title={false}
-                paragraph={{ rows: 1, width: "100%" }}
-              />
+        {cartItems.map((c, index) => {
+          return (
+            <div className={styles["book"]} key={`book-${index}`}>
+              <div className={styles["img-wrapper"]}>
+                <img
+                  src={`${import.meta.env.VITE_BACKEND_URL}/images/product/${
+                    c?.variant.images[0]
+                  }`}
+                />
+                <span className={styles["quantity-badge"]}>{c.quantity}</span>
+              </div>
+              <div
+                style={{
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  width: screens.xs ? 150 : 300,
+                }}
+              >
+                {buildVariantName(c.variant)}
+              </div>
+              <div className={styles["price"]}>
+                {formatCurrency(getFinalPrice(c.variant))}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
-      <div className={styles["pop-cart-footer"]}>
-        <div></div>
-        <Skeleton.Button active style={{ width: 120, height: 36 }} />
-      </div>
+      {cartItems.length > 0 ? (
+        <div
+          className={`${styles["pop-cart-footer"]} ${
+            background === "dark" ? styles["pop-cart-footer-dark"] : ""
+          }`}
+        >
+          <div></div>
+          <button onClick={() => navigate("/cart")}>View cart</button>
+        </div>
+      ) : (
+        <Empty description=" Cart is empty" />
+      )}
     </div>
   );
-
-  const contentPopover =
-    isAuthenticated && isLoadingCart ? (
-      cartSkeleton
-    ) : (
-      <div className={styles["pop-cart-body"]}>
-        <div className={styles["pop-cart-content"]}>
-          {cartItems.map((c, index) => {
-            return (
-              <div className={styles["book"]} key={`book-${index}`}>
-                <div className={styles["img-wrapper"]}>
-                  <img
-                    src={`${import.meta.env.VITE_BACKEND_URL}/images/product/${
-                      c?.variant.images[0]
-                    }`}
-                  />
-                  <span className={styles["quantity-badge"]}>{c.quantity}</span>
-                </div>
-                <div
-                  style={{
-                    whiteSpace: "nowrap",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    width: screens.xs ? 150 : 300,
-                  }}
-                >
-                  {buildVariantName(c.variant)}
-                </div>
-                <div className={styles["price"]}>
-                  {formatCurrency(getFinalPrice(c.variant))}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-        {cartItems.length > 0 ? (
-          <div className={styles["pop-cart-footer"]}>
-            <div></div>
-            <button onClick={() => navigate("/cart")}>View cart</button>
-          </div>
-        ) : (
-          <Empty description="Cart is empty" />
-        )}
-      </div>
-    );
 
   const itemsDropdown = [
     isAuthenticated &&
@@ -290,6 +255,15 @@ const Header = () => {
       key: "logout",
       icon: isAuthenticated ? <LogoutOutlined /> : <LoginOutlined />,
     },
+    !screens.lg && {
+      label: (
+        <div onClick={(e) => e.stopPropagation()} style={{ float: "right" }}>
+          <BackgroundToggle />
+        </div>
+      ),
+      key: "config-theme",
+      icon: "Theme",
+    },
   ];
 
   if (isAuthenticated && user?.role?.name !== "USER") {
@@ -316,7 +290,7 @@ const Header = () => {
   const categoryRender = () => (
     <div
       style={{
-        background: "#fff",
+        background: background === "dark" ? DARKTHEME.card : "#fff",
         borderRadius: 8,
         padding: 8,
         boxSizing: "border-box",
@@ -327,14 +301,19 @@ const Header = () => {
         style={{
           display: "flex",
           alignItems: "center",
-          border: "1px solid #f0f0f0",
+          border: `1px solid ${background === "dark" ? "#ff9f1a" : "#f0f0f0"}`,
           borderRadius: 6,
           padding: "0 8px",
           marginBottom: 8,
           transition: "all 0.2s ease",
         }}
       >
-        <SearchOutlined style={{ color: "#999", fontSize: 14 }} />
+        <SearchOutlined
+          style={{
+            color: background === "dark" ? "#ff9f1a" : "#999",
+            fontSize: 14,
+          }}
+        />
         <input
           placeholder="Search category..."
           value={categoryFilter}
@@ -344,17 +323,21 @@ const Header = () => {
             border: "none",
             outline: "none",
             padding: "6px 8px",
+            background: "transparent",
+            color: background === "dark" ? "#fff" : "#000",
           }}
         />
       </div>
       {categoryItems.length > 0 ? (
-        <Menu items={categoryItems} style={{ border: "none" }} />
-      ) : (
-        <Empty
-          description="No category found"
-          image={Empty.PRESENTED_IMAGE_SIMPLE}
-          style={{ margin: "12px 0" }}
+        <Menu
+          items={categoryItems}
+          style={{
+            background: background === "dark" ? DARKTHEME.bg : "#fcfcfc",
+            border: "none",
+          }}
         />
+      ) : (
+        <Empty description="No category found" style={{ margin: "12px 0" }} />
       )}
     </div>
   );
@@ -365,7 +348,9 @@ const Header = () => {
         {suggestions.map((variant, index) => (
           <div
             key={variant.id || index}
-            className={styles["suggest-item"]}
+            className={`${styles["suggest-item"]} ${
+              background === "dark" ? styles.dark : ""
+            }`}
             onClick={() => {
               navigate(`/product/${variant.id}`);
               setSearchValue("");
@@ -381,7 +366,10 @@ const Header = () => {
               className={styles["suggest-img"]}
             />
             <div className={styles["suggest-info"]}>
-              <div className={styles["suggest-name"]}>
+              <div
+                style={background === "dark" ? { color: "#fff" } : {}}
+                className={styles["suggest-name"]}
+              >
                 {buildVariantName(variant)}
               </div>
               <div className={styles["suggest-price"]}>
@@ -391,7 +379,14 @@ const Header = () => {
           </div>
         ))}
       </div>
-      <div className={styles["suggest-count"]}>
+      <div
+        style={
+          background === "dark"
+            ? { background: DARKTHEME.bg, color: "#fff" }
+            : {}
+        }
+        className={styles["suggest-count"]}
+      >
         {suggestions.length} product
         {suggestions.length > 1 ? "s" : ""} found
       </div>
@@ -400,7 +395,10 @@ const Header = () => {
 
   return (
     <>
-      <div className={styles["header-section"]}>
+      <div
+        style={background === "dark" ? { background: DARKTHEME.header } : {}}
+        className={styles["header-section"]}
+      >
         <div className={styles["header-mobile"]}>
           <Dropdown
             trigger={["click"]}
@@ -409,7 +407,10 @@ const Header = () => {
           >
             <BarsOutlined className={styles["menu-icon"]} />
           </Dropdown>
-          <div className={styles["mobile-search-bar"]}>
+          <div
+            style={background === "dark" ? { background: DARKTHEME.bg } : {}}
+            className={styles["mobile-search-bar"]}
+          >
             <SearchOutlined
               className={styles["search-icon"]}
               onClick={() => {
@@ -418,6 +419,7 @@ const Header = () => {
               }}
             />
             <input
+              style={background === "dark" ? { color: "#fff" } : {}}
               placeholder="Search products..."
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
@@ -426,13 +428,18 @@ const Header = () => {
               }}
             />
             {openSuggest && screens.xs && (
-              <div className={styles["search-suggest"]}>
+              <div
+                style={
+                  background === "dark" ? { background: DARKTHEME.bg } : {}
+                }
+                className={styles["search-suggest"]}
+              >
                 {isSearching ? (
-                  <Skeleton active paragraph={{ rows: 2 }} />
+                  <Skeleton active title={false} paragraph={{ rows: 4 }} />
                 ) : suggestions.length > 0 ? (
                   suggestSearch
                 ) : (
-                  <Empty description="No products found" />
+                  <Empty description=" No product found" />
                 )}
               </div>
             )}
@@ -442,7 +449,7 @@ const Header = () => {
               className={styles["popover-carts"]}
               placement="bottomLeft"
               rootClassName={styles["popover-carts"]}
-              title={"Your cart"}
+              title="Your cart"
               content={contentPopover}
               trigger={"click"}
               arrow={true}
@@ -485,17 +492,27 @@ const Header = () => {
                   placement="bottomLeft"
                   dropdownRender={categoryRender}
                 >
-                  <span className={styles["category-btn"]}>
+                  <span
+                    className={
+                      background === "dark"
+                        ? styles["category-btn-dark"]
+                        : styles["category-btn"]
+                    }
+                  >
                     <BarsOutlined style={{ fontSize: 18 }} />
                     {screens.lg && "PRODUCT "} CATEGORY
                   </span>
                 </Dropdown>
               </div>
               <div
+                style={
+                  background === "dark" ? { background: DARKTHEME.bg } : {}
+                }
                 className={styles["search-box"]}
                 onClick={(e) => e.stopPropagation()}
               >
                 <input
+                  style={background === "dark" ? { color: "#fff" } : {}}
                   type="text"
                   placeholder="Search anything..."
                   className={styles["search-input"]}
@@ -515,33 +532,49 @@ const Header = () => {
                   <SearchOutlined />
                 </button>
                 {openSuggest && !screens.xs && (
-                  <div className={styles["search-suggest"]}>
+                  <div
+                    style={
+                      background === "dark" ? { background: DARKTHEME.bg } : {}
+                    }
+                    className={styles["search-suggest"]}
+                  >
                     {isSearching ? (
                       <div className={styles["suggest-loading"]}>
-                        <Skeleton active paragraph={{ rows: 2 }} />
+                        <Skeleton
+                          active
+                          title={false}
+                          paragraph={{ rows: 5 }}
+                        />
                       </div>
                     ) : suggestions.length > 0 ? (
                       suggestSearch
                     ) : (
                       <div className={styles["suggest-empty"]}>
-                        <Empty description="No products found" />
+                        <Empty description="No product found" />
                       </div>
                     )}
                   </div>
                 )}
               </div>
             </div>
+            {!screens.lg && !isAuthenticated && <BackgroundToggle />}
             <div className={styles["extra"]}>
+              {screens.lg && <BackgroundToggle />}
               <Popover
                 className={styles["popover-carts"]}
                 placement="topRight"
                 rootClassName={styles["popover-carts"]}
-                title={"Your cart"}
+                title="Your cart"
                 trigger="hover"
                 content={contentPopover}
                 arrow={true}
               >
-                <div className={styles["cart-icon"]}>
+                <div
+                  style={
+                    background === "dark" ? { background: DARKTHEME.bg } : {}
+                  }
+                  className={styles["cart-icon"]}
+                >
                   <ShoppingCartOutlined className={styles["cart-icon-inner"]} />
                   <span className={styles["cart-badge"]}>
                     {cartItems.length ?? 0}
@@ -557,7 +590,13 @@ const Header = () => {
               ) : (
                 <Dropdown menu={{ items: itemsDropdown }} trigger={["click"]}>
                   <Space style={{ cursor: "pointer" }}>
-                    <span style={{ color: "#000" }}>{user?.name}</span>
+                    <span
+                      style={{
+                        color: background === "dark" ? "#fff" : "#000",
+                      }}
+                    >
+                      {user?.name}
+                    </span>
                     <Avatar size={"large"} src={urlAvatar} />
                   </Space>
                 </Dropdown>

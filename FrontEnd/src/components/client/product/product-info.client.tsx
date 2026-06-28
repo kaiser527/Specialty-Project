@@ -1,8 +1,10 @@
+import { DARKTHEME } from "@/config/constants/utils";
 import {
   buildVariantName,
   formatCurrency,
   getFinalPrice,
 } from "@/config/helpers/global";
+import { useBackground } from "@/hooks/useBackground";
 import { useGetAccount } from "@/hooks/useGetAccount";
 import { useMessage } from "@/hooks/useMessage";
 import { useUpsertUserCartMutation } from "@/redux/api/cartApi";
@@ -30,6 +32,7 @@ const ProductInfo = ({ variant }: IProps) => {
 
   const { notificationApi } = useMessage();
   const { isAuthenticated } = useGetAccount();
+  const { background } = useBackground();
 
   const dispatch = useAppDispatch();
 
@@ -66,9 +69,21 @@ const ProductInfo = ({ variant }: IProps) => {
 
   return (
     <div className={styles["productInfo"]}>
-      <h2 className={styles["variantName"]}>{buildVariantName(variant)}</h2>
-      <div className={styles["priceWrapper"]}>
-        <div className={styles["priceBanner"]}>
+      <h2
+        style={background === "dark" ? { color: "#fff" } : {}}
+        className={styles["variantName"]}
+      >
+        {buildVariantName(variant)}
+      </h2>
+      <div
+        style={background === "dark" ? { background: "#262626 " } : {}}
+        className={styles["priceWrapper"]}
+      >
+        <div
+          className={`${styles["priceBanner"]} ${
+            background === "dark" ? styles["priceBannerDark"] : ""
+          }`}
+        >
           <div className={styles["mainPriceGroup"]}>
             <span className={styles["currentPrice"]}>
               {formatCurrency(getFinalPrice(variant))}
@@ -95,8 +110,17 @@ const ProductInfo = ({ variant }: IProps) => {
         </div>
       </div>
       <div className={styles["description"]}>
-        <h3 className={styles["sectionTitle"]}>Product Specifications</h3>
-        <ul className={styles["attributeList"]}>
+        <h3
+          style={background === "dark" ? { color: "#fff" } : {}}
+          className={styles["sectionTitle"]}
+        >
+          Product Specifications
+        </h3>
+        <ul
+          className={`${styles["attributeList"]} ${
+            background === "dark" ? styles["attributeListDark"] : ""
+          }`}
+        >
           {variant &&
             Object.entries(variant.attributes).map(([key, value], index) => (
               <li key={index} className={styles["attributeItem"]}>
@@ -108,8 +132,20 @@ const ProductInfo = ({ variant }: IProps) => {
         </ul>
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-        <p style={{ fontSize: 17, fontWeight: 700 }}>Quantity: </p>
-        <div className={styles["qty-wrapper"]}>
+        <p
+          style={{
+            fontSize: 17,
+            fontWeight: 700,
+            color: background === "dark" ? "#fff" : "#000",
+          }}
+        >
+          Quantity:{" "}
+        </p>
+        <div
+          className={`${styles["qty-wrapper"]} ${
+            background === "dark" ? styles["qty-wrapper-dark"] : ""
+          }`}
+        >
           <button
             className={styles["qty-btn"]}
             onClick={() => setQuantity((prev) => prev + 1)}

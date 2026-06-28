@@ -5,11 +5,9 @@
 }
 
 .sidebar {
-  border-right: 1px solid #f1f1f1;
   overflow-y: auto;
   .sidebarHeader {
     padding: 16px;
-    border-bottom: 1px solid #f1f1f1;
   }
 }
 
@@ -45,6 +43,7 @@
     color: white;
   }
 }
+
 .conversationItem {
   padding: 14px 16px !important;
   cursor: pointer;
@@ -57,12 +56,23 @@
 
   &.active {
     background: #fff7ed !important;
+    border-left: 3px solid #ff9f1a;
+  }
+}
+
+.darkConversationItem {
+  &:hover {
+    background: #2a2a2a !important;
+  }
+
+  &.activeDark {
+    background: #333333 !important;
+    border-left: 3px solid #ff9f1a;
   }
 }
 
 .chatHeader {
   height: 56px;
-  border-bottom: 1px solid #f1f1f1;
   display: flex;
   align-items: center;
   padding: 0 12px;
@@ -79,11 +89,6 @@
   align-items: center;
   justify-content: center;
   color: #999;
-}
-
-.chatContent {
-  height: 100%;
-  background: #fafafa;
 }
 
 .chatWrapper {
@@ -174,6 +179,34 @@
     transform: scale(0.98);
   }
 }
+
+.suggestionButtonDark {
+  background: #1a1a1a !important; // dark card
+  color: #fb923c !important;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+
+  &::before {
+    background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
+  }
+
+  &:hover {
+    background: #1f1f1f !important; // slightly lighter dark
+    color: #fdba74 !important;
+
+    box-shadow: 0 10px 25px rgba(249, 115, 22, 0.15),
+      0 0 0 3px rgba(249, 115, 22, 0.08);
+
+    &::before {
+      background: linear-gradient(135deg, #fdba74 0%, #fb923c 100%);
+    }
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
 .messagesWrapper {
   flex: 1;
   overflow-y: auto;
@@ -223,7 +256,6 @@
   padding: 14px;
   border-top: 1px solid #f3f3f3;
   background: #fff;
-
   position: sticky;
   bottom: 0;
 }

@@ -1,4 +1,10 @@
-import { roleGradients, statusColors } from "@/config/constants/utils";
+import {
+  DARKTHEME,
+  roleColorsDark,
+  roleGradients,
+  statusColors,
+} from "@/config/constants/utils";
+import { useBackground } from "@/hooks/useBackground";
 import { IOrder, IUser } from "@/types/backend";
 import {
   CreditCardOutlined,
@@ -18,12 +24,16 @@ interface IProps {
 const UserOrderDetailCard = ({ order, area, user }: IProps) => {
   const currentUser = area === "CLIENT" && user ? user : order.user;
 
+  const { background } = useBackground();
+
   return (
     <Card
       size="small"
       style={{
         borderRadius: 16,
-        border: "1px solid #f0f0f0",
+        border: `1px solid ${
+          background === "dark" ? DARKTHEME.border : "#f0f0f0"
+        }`,
         boxShadow: "0 4px 12px rgba(0,0,0,0.04)",
       }}
     >
@@ -55,10 +65,20 @@ const UserOrderDetailCard = ({ order, area, user }: IProps) => {
                 borderRadius: 8,
                 padding: "2px 10px",
                 fontWeight: 500,
-                border: "none",
-                color: "#fff",
+                border:
+                  background === "light"
+                    ? "none"
+                    : `1px solid ${
+                        roleColorsDark[currentUser?.role?.name ?? "USER"]
+                      }`,
+                color:
+                  background === "light"
+                    ? "#fff"
+                    : roleColorsDark[currentUser?.role?.name ?? "USER"],
                 background:
-                  roleGradients[currentUser?.role?.name ?? "USER"] || "#999",
+                  background === "light"
+                    ? roleGradients[currentUser?.role?.name ?? "USER"] || "#999"
+                    : "transparent",
               }}
             >
               {currentUser?.role?.name || "USER"}

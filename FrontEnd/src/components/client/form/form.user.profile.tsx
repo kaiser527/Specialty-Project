@@ -9,6 +9,8 @@ import { useMessage } from "@/hooks/useMessage";
 import { useAppDispatch } from "@/redux/hooks";
 import { setLogoutAction, setUserLoginInfo } from "@/redux/slice/accountSlice";
 import { useUpdateUserClientMutation } from "@/redux/api/accountApi";
+import { useBackground } from "@/hooks/useBackground";
+import styles from "styles/home.module.scss";
 
 const UserProfileForm = () => {
   const [updateUserClient, { isLoading }] = useUpdateUserClientMutation();
@@ -19,6 +21,7 @@ const UserProfileForm = () => {
   const [form] = Form.useForm();
 
   const { user } = useGetAccount();
+  const { background } = useBackground();
   const { messageApi, notificationApi } = useMessage();
 
   useEffect(() => {
@@ -152,10 +155,11 @@ const UserProfileForm = () => {
 
             <Col span={24} style={{ textAlign: "right" }}>
               <Button
-                type="primary"
+                type={background === "dark" ? "default" : "primary"}
                 htmlType="submit"
                 loading={isLoading}
                 size="large"
+                className={background === "dark" ? styles.darkButton : ""}
               >
                 Update Profile
               </Button>

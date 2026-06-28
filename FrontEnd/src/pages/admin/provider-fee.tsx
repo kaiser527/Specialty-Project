@@ -1,7 +1,12 @@
 import DataTable from "@/components/admin/extra/protable";
 import Access from "@/components/share/access";
 import { ALL_PERMISSIONS } from "@/config/constants/permissions";
-import { roleGradients, socket } from "@/config/constants/utils";
+import {
+  DARKTHEME,
+  roleColorsDark,
+  roleGradients,
+  socket,
+} from "@/config/constants/utils";
 import {
   dateRangeValidate,
   formatCurrency,
@@ -46,6 +51,7 @@ import CardPopover from "@/components/client/card/card.popover";
 import styles from "styles/admin.module.scss";
 import RangePickerDashboard from "@/components/admin/dashboard/RangePickerDashboard";
 import { DualAxes } from "@ant-design/plots";
+import { useBackground } from "@/hooks/useBackground";
 
 const { Text } = Typography;
 
@@ -124,6 +130,7 @@ const ProviderFeePage = () => {
 
   const { messageApi, notificationApi } = useMessage();
   const { user } = useGetAccount();
+  const { background } = useBackground();
 
   const [update] = useUpdateProviderFeeStatusMutation();
   const [quickUpdate] = useQuickUpdateProviderFeeStatusMutation();
@@ -259,6 +266,14 @@ const ProviderFeePage = () => {
   const dualConfig = {
     xField: "time",
     data: dualData,
+    axis: {
+      x: {
+        labelFill: background === "dark" ? "#fff" : "#000",
+      },
+      y: {
+        labelFill: background === "dark" ? "#fff" : "#000",
+      },
+    },
     children: [
       {
         type: "interval",
@@ -287,7 +302,6 @@ const ProviderFeePage = () => {
             style={{
               borderRadius: "50%",
               objectFit: "cover",
-              border: "2px solid #fff",
               boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
             }}
           />
@@ -303,10 +317,21 @@ const ProviderFeePage = () => {
                   borderRadius: 6,
                   padding: "2px 8px",
                   fontWeight: 500,
-                  border: "none",
-                  color: "#fff",
+                  border:
+                    background === "light"
+                      ? "none"
+                      : `1px solid ${
+                          roleColorsDark[record.user?.role?.name ?? "USER"]
+                        }`,
+                  color:
+                    background === "light"
+                      ? "#fff"
+                      : roleColorsDark[record.user?.role?.name ?? "USER"],
                   background:
-                    roleGradients[record.user?.role?.name ?? "USER"] || "#999",
+                    background === "light"
+                      ? roleGradients[record.user?.role?.name ?? "USER"] ||
+                        "#999"
+                      : "transparent",
                 }}
               >
                 {record.user?.role?.name || "USER"}
@@ -316,7 +341,8 @@ const ProviderFeePage = () => {
                 type="secondary"
                 style={{
                   fontSize: 12,
-                  background: "#f5f5f5",
+                  background:
+                    background === "dark" ? DARKTHEME.card : "#f5f5f5",
                   padding: "2px 8px",
                   borderRadius: 6,
                 }}
@@ -456,7 +482,8 @@ const ProviderFeePage = () => {
                 <Card
                   variant="borderless"
                   style={{
-                    background: "#fafafa",
+                    background:
+                      background === "dark" ? DARKTHEME.bg : "#fafafa",
                     borderRadius: 12,
                   }}
                   styles={{ body: { padding: 16 } }}
@@ -476,11 +503,19 @@ const ProviderFeePage = () => {
                       );
 
                       if (allPaid) {
-                        return styles["row-approved"];
+                        return `${styles["row-approved"]} ${
+                          background === "dark"
+                            ? styles["row-approved-dark"]
+                            : ""
+                        }`;
                       }
 
                       if (allCancelled) {
-                        return styles["row-rejected"];
+                        return `${styles["row-rejected"]} ${
+                          background === "dark"
+                            ? styles["row-rejected-dark"]
+                            : ""
+                        }`;
                       }
 
                       return "";
@@ -571,9 +606,13 @@ const ProviderFeePage = () => {
                                 </Button>
 
                                 <Button
-                                  type="primary"
+                                  type={"primary"}
                                   size="small"
-                                  className={styles["green-btn"]}
+                                  className={
+                                    background === "dark"
+                                      ? styles["green-btn-outline"]
+                                      : styles["green-btn"]
+                                  }
                                   onClick={() => handleBulk("PAID")}
                                 >
                                   Paid All

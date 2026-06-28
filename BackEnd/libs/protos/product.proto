@@ -295,6 +295,7 @@ message MinMaxPriceRequest {
   repeated string names = 10;
   optional string nameRegex = 11; 
   repeated string categories = 12;
+  optional bool isQueryBrand = 13;
 }
 
 message CartItem {

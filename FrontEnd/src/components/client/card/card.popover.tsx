@@ -1,4 +1,6 @@
+import { DARKTHEME } from "@/config/constants/utils";
 import { buildVariantName, formatCurrency } from "@/config/helpers/global";
+import { useBackground } from "@/hooks/useBackground";
 import { IVariant } from "@/types/backend";
 import { CheckOutlined } from "@ant-design/icons";
 import { Typography } from "antd";
@@ -10,13 +12,15 @@ interface IProps {
 const { Text } = Typography;
 
 const CardPopover = ({ variant }: IProps) => {
+  const { background } = useBackground();
+
   return (
     <div
       style={{
         maxWidth: 280,
         padding: "12px",
         borderRadius: "12px",
-        background: "#fff",
+        background: background === "dark" ? DARKTHEME.bg : "#fff",
         boxShadow: "0 6px 18px rgba(0,0,0,0.12)",
         fontFamily: "Inter, sans-serif",
         color: "#1a1a1a",
@@ -44,7 +48,10 @@ const CardPopover = ({ variant }: IProps) => {
 
       <div style={{ fontSize: 14 }}>
         <div>
-          Price:{" "}
+          <span style={background === "dark" ? { color: "#fff" } : {}}>
+            Price
+          </span>
+          :{" "}
           <span style={{ color: "#ff4d4f", fontWeight: 700 }}>
             {formatCurrency(variant.price)}
           </span>
@@ -57,7 +64,7 @@ const CardPopover = ({ variant }: IProps) => {
         style={{
           fontSize: 14,
           fontFamily: "monospace",
-          color: "#8c8c8c",
+          color: background === "dark" ? "#fff" : "#8c8c8c",
           display: "block",
           maxWidth: "100%",
           marginBottom: 8,
@@ -87,7 +94,7 @@ const CardPopover = ({ variant }: IProps) => {
               paddingLeft: 0,
               margin: 0,
               fontSize: 13,
-              color: "#595959",
+              color: background === "dark" ? "#ccc" : "#595959",
               listStyle: "none",
             }}
           >

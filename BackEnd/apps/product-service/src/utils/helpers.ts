@@ -101,6 +101,7 @@ export function applyVariantFilters(
     search,
     nameRegex,
     categories,
+    isQueryBrand,
   } = dto;
   const keyword = search ? `%${search}%` : undefined;
 
@@ -110,7 +111,7 @@ export function applyVariantFilters(
     });
   }
 
-  if (brands?.length) {
+  if (isQueryBrand && brands?.length) {
     qb.andWhere('product.brand IN (:...brands)', {
       brands,
     });

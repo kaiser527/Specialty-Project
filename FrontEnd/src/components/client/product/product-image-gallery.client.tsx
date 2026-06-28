@@ -1,3 +1,5 @@
+import { DARKTHEME } from "@/config/constants/utils";
+import { useBackground } from "@/hooks/useBackground";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { Carousel } from "antd";
 import { CarouselRef } from "antd/es/carousel";
@@ -14,6 +16,8 @@ const ProductImageGallery = ({ images }: IProps) => {
 
   const [current, setCurrent] = useState(0);
 
+  const { background } = useBackground();
+
   if (!images || images.length === 0) return null;
 
   const baseUrl = `${import.meta.env.VITE_BACKEND_URL}/images/product`;
@@ -23,9 +27,12 @@ const ProductImageGallery = ({ images }: IProps) => {
     thumbRef.current?.goTo(index);
   };
 
+  const borderStyle =
+    background === "dark" ? { border: `1px solid ${DARKTHEME.border}` } : {};
+
   return (
     <div className={styles["gallery"]}>
-      <div className={styles["main"]}>
+      <div style={borderStyle} className={styles["main"]}>
         <Carousel
           ref={mainRef}
           afterChange={handleChange}
@@ -44,21 +51,25 @@ const ProductImageGallery = ({ images }: IProps) => {
         </Carousel>
 
         <button
-          className={styles["prev"]}
+          className={`${styles["prev"]} ${
+            background === "dark" ? styles["prevDark"] : ""
+          }`}
           onClick={() => mainRef.current?.prev()}
         >
           <LeftOutlined />
         </button>
 
         <button
-          className={styles["next"]}
+          className={`${styles["next"]} ${
+            background === "dark" ? styles["nextDark"] : ""
+          }`}
           onClick={() => mainRef.current?.next()}
         >
           <RightOutlined />
         </button>
       </div>
 
-      <div className={styles["thumbCarousel"]}>
+      <div style={borderStyle} className={styles["thumbCarousel"]}>
         {images.length > 4 ? (
           <Carousel
             ref={thumbRef}

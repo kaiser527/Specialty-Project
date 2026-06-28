@@ -11,6 +11,8 @@ import ChatSidebar from "../chat/chat.sidebar";
 import { useGetAccount } from "@/hooks/useGetAccount";
 import ChatContent from "../chat/chat.content";
 import { useConversation } from "@/hooks/useConversation";
+import { useBackground } from "@/hooks/useBackground";
+import { DARKTHEME, hideScrollbar } from "@/config/constants/utils";
 
 const { useBreakpoint } = Grid;
 const { Sider } = Layout;
@@ -22,6 +24,7 @@ const FloatingChat = () => {
   const [openModal, setOpenModal] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
 
+  const { background } = useBackground();
   const { isAuthenticated } = useGetAccount();
   const { setConversationId } = useConversation();
 
@@ -65,6 +68,7 @@ const FloatingChat = () => {
           )}
           {!screen.lg && (
             <Drawer
+              styles={{ body: hideScrollbar }}
               title={
                 <Flex justify="space-between" align="center">
                   <span>Conversations</span>
@@ -90,7 +94,14 @@ const FloatingChat = () => {
             </Drawer>
           )}
           <Layout>
-            <div className={styles.chatHeader}>
+            <div
+              style={
+                background === "dark"
+                  ? { borderBottom: `1px solid ${DARKTHEME.border}` }
+                  : {}
+              }
+              className={styles.chatHeader}
+            >
               {isAuthenticated && (
                 <Button
                   type="text"

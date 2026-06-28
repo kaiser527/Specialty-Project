@@ -2,8 +2,9 @@ import ProductImageGallery from "@/components/client/product/product-image-galle
 import ProductInfo from "@/components/client/product/product-info.client";
 import ProductReviews from "@/components/client/product/product-reviews.client";
 import PreviousPage from "@/components/share/previous-page";
-import { socket } from "@/config/constants/utils";
+import { DARKTHEME, socket } from "@/config/constants/utils";
 import { buildVariantName } from "@/config/helpers/global";
+import { useBackground } from "@/hooks/useBackground";
 import { useMessage } from "@/hooks/useMessage";
 import { useFetchSingleVariantQuery } from "@/redux/api/productApi";
 import { IMeta, IVariant, ReviewNode } from "@/types/backend";
@@ -20,6 +21,7 @@ const ProductDetail = () => {
 
   const { id } = useParams();
   const { messageApi } = useMessage();
+  const { background } = useBackground();
 
   const [currentPage, setCurrentPage] = useState(1);
   const [meta, setMeta] = useState<IMeta | null>(null);
@@ -86,9 +88,16 @@ const ProductDetail = () => {
     },
   ];
 
+  const borderStyle =
+    background === "dark" ? { border: `1px solid ${DARKTHEME.border}` } : {};
+
   const ReviewSkeleton = () => {
     return (
-      <div className={styles.reviewItem}>
+      <div
+        className={`${styles.reviewItem} ${
+          background === "dark" ? styles.reviewItemDark : ""
+        }`}
+      >
         <div className={styles.header}>
           <Skeleton.Avatar active size="large" />
           <div style={{ flex: 1, marginLeft: 12, display: "flex", gap: 10 }}>
@@ -108,12 +117,15 @@ const ProductDetail = () => {
   const GallerySkeleton = () => {
     return (
       <div className={styles["gallery"]}>
-        <div className={styles["main"]}>
-          <div className={styles["mainImageContainer"]}>
+        <div style={borderStyle} className={styles["main"]}>
+          <div
+            style={background === "dark" ? { background: DARKTHEME.card } : {}}
+            className={styles["mainImageContainer"]}
+          >
             <Skeleton.Image active />
           </div>
         </div>
-        <div className={styles["thumbCarousel"]}>
+        <div style={borderStyle} className={styles["thumbCarousel"]}>
           <Flex justify="center">
             <div className={styles["thumbList"]}>
               {Array.from({ length: screen.lg ? 5 : screen.xs ? 3 : 6 }).map(
@@ -156,7 +168,10 @@ const ProductDetail = () => {
       <div style={{ marginBottom: 10 }}>
         <PreviousPage previousPages={breadcrumbItems} />
       </div>
-      <div className={styles["product-detail-container"]}>
+      <div
+        style={background === "dark" ? { background: DARKTHEME.card } : {}}
+        className={styles["product-detail-container"]}
+      >
         <Row gutter={[10, 10]}>
           <Col lg={12} sm={24} xs={24}>
             {isLoading ? (
@@ -175,7 +190,11 @@ const ProductDetail = () => {
         </Row>
       </div>
       <div
-        style={{ marginTop: 15 }}
+        style={
+          background === "dark"
+            ? { background: DARKTHEME.card, marginTop: 15 }
+            : { marginTop: 15 }
+        }
         className={styles["product-detail-container"]}
       >
         {loadingReviews ? (
