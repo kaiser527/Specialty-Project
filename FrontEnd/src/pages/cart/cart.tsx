@@ -16,6 +16,7 @@ import OrderInfoForm from "@/components/client/form/form.order-info";
 import { ICart } from "@/types/backend";
 import { useBackground } from "@/hooks/useBackground";
 import { DARKTHEME } from "@/config/constants/utils";
+import { ShoppingCartOutlined } from "@ant-design/icons";
 
 const { Text } = Typography;
 
@@ -124,7 +125,9 @@ const CartPage = () => {
           style={background === "dark" ? { background: DARKTHEME.card } : {}}
           className={styles["empty-cart"]}
         >
-          <div className={styles["icon"]}>🛒</div>
+          <div className={styles["icon"]}>
+            <ShoppingCartOutlined />
+          </div>
           <div
             style={background === "dark" ? { color: "#bbb" } : {}}
             className={styles["title"]}

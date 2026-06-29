@@ -9,6 +9,7 @@ import {
   Row,
   Select,
   Space,
+  Tooltip,
   Typography,
 } from "antd";
 import axios from "axios";
@@ -468,17 +469,27 @@ const OrderInfoForm = ({ totalPrice, cart, refetch }: IProps) => {
                       }`}
                       placeholder="Voucher code"
                     />
-                    <Button
-                      type="primary"
-                      loading={isLoading}
-                      icon={<TagOutlined />}
-                      className={`${styles["voucher-btn"]} ${
-                        background === "dark" ? styles["voucher-btn-dark"] : ""
-                      }`}
-                      onClick={handleSubmitVoucher}
+                    <Tooltip
+                      title={
+                        screens.xs
+                          ? "Select a voucher code to apply a discount"
+                          : null
+                      }
                     >
-                      Select Voucher code
-                    </Button>
+                      <Button
+                        type="primary"
+                        loading={isLoading}
+                        icon={screens.xs ? null : <TagOutlined />}
+                        className={`${styles["voucher-btn"]} ${
+                          background === "dark"
+                            ? styles["voucher-btn-dark"]
+                            : ""
+                        }`}
+                        onClick={handleSubmitVoucher}
+                      >
+                        {screens.xs ? <TagOutlined /> : "Select Voucher code"}
+                      </Button>
+                    </Tooltip>
                   </Space.Compact>
                 </div>
               </Access>

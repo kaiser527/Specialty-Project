@@ -105,7 +105,7 @@ const ViewOrderDetail = (props: IProps) => {
 
   return (
     <Drawer
-      title={<Text strong>🧾 Order Detail</Text>}
+      title={<Text strong>Order Detail</Text>}
       width={screen.xs ? "100vw" : 700}
       onClose={() => {
         onClose(false);
@@ -123,11 +123,7 @@ const ViewOrderDetail = (props: IProps) => {
 
           <OrderPorgressCard order={order} />
 
-          <Card
-            title="🛒 Order Items"
-            size="small"
-            style={{ borderRadius: 12 }}
-          >
+          <Card title="Order Items" size="small" style={{ borderRadius: 12 }}>
             <Space direction="vertical" style={{ width: "100%" }} size={12}>
               {order?.items?.map((item) => (
                 <OrderCardItem area={area} key={item.id} item={item} />

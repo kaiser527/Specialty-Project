@@ -22,7 +22,7 @@ const OrderPorgressCard = ({ order }: IProps) => {
   const isFailed = order?.status === "FAILED";
 
   return (
-    <Card title="📦 Order Progress" size="small" style={{ borderRadius: 12 }}>
+    <Card title="Order Progress" size="small" style={{ borderRadius: 12 }}>
       {isCancelled || isFailed ? (
         <Steps
           current={-1}
