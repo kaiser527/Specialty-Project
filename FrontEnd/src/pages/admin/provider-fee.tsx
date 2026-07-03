@@ -1,12 +1,7 @@
 import DataTable from "@/components/admin/extra/protable";
 import Access from "@/components/share/access";
 import { ALL_PERMISSIONS } from "@/config/constants/permissions";
-import {
-  DARKTHEME,
-  roleColorsDark,
-  roleGradients,
-  socket,
-} from "@/config/constants/utils";
+import { DARKTHEME, socket } from "@/config/constants/utils";
 import {
   dateRangeValidate,
   formatCurrency,
@@ -52,6 +47,7 @@ import styles from "styles/admin.module.scss";
 import RangePickerDashboard from "@/components/admin/dashboard/RangePickerDashboard";
 import { DualAxes } from "@ant-design/plots";
 import { useBackground } from "@/hooks/useBackground";
+import RoleTag from "@/components/share/role.tag";
 
 const { Text } = Typography;
 
@@ -312,30 +308,14 @@ const ProviderFeePage = () => {
                 {record.user?.name || "Unknown User"}
               </Text>
 
-              <Tag
-                style={{
+              <RoleTag
+                user={record.user as IUser}
+                customStyle={{
                   borderRadius: 6,
                   padding: "2px 8px",
                   fontWeight: 500,
-                  border:
-                    background === "light"
-                      ? "none"
-                      : `1px solid ${
-                          roleColorsDark[record.user?.role?.name ?? "USER"]
-                        }`,
-                  color:
-                    background === "light"
-                      ? "#fff"
-                      : roleColorsDark[record.user?.role?.name ?? "USER"],
-                  background:
-                    background === "light"
-                      ? roleGradients[record.user?.role?.name ?? "USER"] ||
-                        "#999"
-                      : "transparent",
                 }}
-              >
-                {record.user?.role?.name || "USER"}
-              </Tag>
+              />
 
               <Text
                 type="secondary"

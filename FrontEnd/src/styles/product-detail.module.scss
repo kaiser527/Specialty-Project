@@ -887,30 +887,6 @@
         font-size: 18px;
         color: #262626;
       }
-
-      .roleBadge {
-        font-size: 12px;
-        padding: 4px 8px;
-        border-radius: 4px;
-        text-transform: uppercase;
-        font-weight: 700;
-        color: #fff;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      }
-
-      // Role Specific Gradients
-      .role_ADMIN {
-        background: linear-gradient(135deg, #ff4d4f 0%, #ff7875 100%);
-      }
-      .role_USER {
-        background: linear-gradient(135deg, #1677ff 0%, #69b1ff 100%);
-      }
-      .role_STAFF {
-        background: linear-gradient(135deg, #722ed1 0%, #b37feb 100%);
-      }
-      .role_PROVIDER {
-        background: linear-gradient(135deg, #ffa940 0%, #ffd666 100%);
-      }
     }
 
     .meta {

@@ -23,16 +23,14 @@ import { IImage, IVariant } from "@/types/frontend";
 import UploadImage from "@/components/share/upload";
 import { useMessage } from "@/hooks/useMessage";
 import ProductVariants from "./product.variant";
-import {
-  DARKTHEME,
-  roleColorsDark,
-  roleGradients,
-} from "@/config/constants/utils";
+import { DARKTHEME } from "@/config/constants/utils";
 import { useGetAccount } from "@/hooks/useGetAccount";
 import { useFetchUserQuery } from "@/redux/api/userApi";
 import Access from "@/components/share/access";
 import { ALL_PERMISSIONS } from "@/config/constants/permissions";
 import { useBackground } from "@/hooks/useBackground";
+import RoleTag from "@/components/share/role.tag";
+import { IUser } from "@/types/backend";
 
 const variants: IVariant[] = [
   {
@@ -280,32 +278,17 @@ const ViewUpsertProduct = () => {
                   <div style={{ fontWeight: 600 }}>
                     {product.data.user.name}
                   </div>
-                  <div
-                    style={{
+                  <RoleTag
+                    user={product.data.user as IUser}
+                    customStyle={{
                       fontSize: 12,
                       fontWeight: 500,
                       padding: "2px 8px",
                       borderRadius: 4,
-                      border:
-                        background === "light"
-                          ? "none"
-                          : `1px solid ${
-                              roleColorsDark[product.data.user.role.name]
-                            }`,
-                      color:
-                        background === "light"
-                          ? "#fff"
-                          : roleColorsDark[product.data.user.role.name],
                       marginTop: 5,
-                      background:
-                        background === "light"
-                          ? roleGradients[product.data.user.role.name] || "gray"
-                          : "transparent",
                       display: "inline-block",
                     }}
-                  >
-                    {product.data.user.role.name}
-                  </div>
+                  />
                 </div>
               </div>
             </Col>
@@ -313,60 +296,49 @@ const ViewUpsertProduct = () => {
         )}
       </div>
       <Access permission={ALL_PERMISSIONS.PRODUCTS.SWITCH} hideChildren>
-        <div style={{ display: "flex", gap: 12, marginBottom: 15 }}>
-          <span style={{ alignSelf: "center" }}>Switch author:</span>
-          <Select
-            showSearch
-            style={{ width: 200 }}
-            placeholder="Search Author..."
-            loading={isLoading}
-            filterOption={false}
-            onFocus={() => setIsFetchUser(true)}
-            onSearch={setSearchUser}
-            onSelect={(value) => (authorRef.current = value)}
-            options={
-              dataUser?.data?.result?.map((u) => ({
-                label: (
-                  <div key={u._id}>
-                    {u.name}
-                    <div
-                      style={{
-                        fontSize: 11,
-                        fontWeight: 500,
-                        padding: "1px 4px",
-                        borderRadius: 4,
-                        border:
-                          background === "light"
-                            ? "none"
-                            : `1px solid ${roleColorsDark[u.role.name]}`,
-                        color:
-                          background === "light"
-                            ? "#fff"
-                            : roleColorsDark[u.role.name],
-                        marginLeft: 8,
-                        background:
-                          background === "light"
-                            ? roleGradients[u.role.name] || "gray"
-                            : "transparent",
-                        display: "inline-block",
-                      }}
-                    >
-                      {u.role.name}
+        {product?.data?.id && (
+          <div style={{ display: "flex", gap: 12, marginBottom: 15 }}>
+            <span style={{ alignSelf: "center" }}>Switch author:</span>
+            <Select
+              showSearch
+              style={{ width: 200 }}
+              placeholder="Search Author..."
+              loading={isLoading}
+              filterOption={false}
+              onFocus={() => setIsFetchUser(true)}
+              onSearch={setSearchUser}
+              onSelect={(value) => (authorRef.current = value)}
+              options={
+                dataUser?.data?.result?.map((u) => ({
+                  label: (
+                    <div key={u._id}>
+                      {u.name}
+                      <RoleTag
+                        user={u}
+                        customStyle={{
+                          fontSize: 11,
+                          fontWeight: 500,
+                          padding: "1px 4px",
+                          borderRadius: 4,
+                          marginLeft: 8,
+                          display: "inline-block",
+                        }}
+                      />
                     </div>
-                  </div>
-                ),
-                value: u.email,
-              })) || []
-            }
-          />
-          <Button
-            type="primary"
-            loading={isLoadingSwitch}
-            onClick={onSwitchAuthor}
-          >
-            Switch
-          </Button>
-        </div>
+                  ),
+                  value: u.email,
+                })) || []
+              }
+            />
+            <Button
+              type="primary"
+              loading={isLoadingSwitch}
+              onClick={onSwitchAuthor}
+            >
+              Switch
+            </Button>
+          </div>
+        )}
       </Access>
       <div>
         <ProForm

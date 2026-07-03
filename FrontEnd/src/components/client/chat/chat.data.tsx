@@ -3,8 +3,6 @@ import { UserOutlined } from "@ant-design/icons";
 import {
   DARKTHEME,
   paymentRefColors,
-  roleColorsDark,
-  roleGradients,
   statusColors,
 } from "@/config/constants/utils";
 import {
@@ -17,6 +15,7 @@ import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
 import { IVariant } from "@/types/backend";
 import { useBackground } from "@/hooks/useBackground";
+import RoleTag from "@/components/share/role.tag";
 
 const { Text } = Typography;
 const { useBreakpoint } = Grid;
@@ -73,28 +72,10 @@ const ChatData = ({ data, setOrderId, setOpenViewDetail }: IProps) => {
           <Space direction="vertical" size={0}>
             <Space align="center" size={8}>
               <Text strong>{user.name}</Text>
-              <Tag
-                style={{
-                  background:
-                    background === "light"
-                      ? roleGradients[user.role?.name || "USER"]
-                      : "transparent",
-                  color:
-                    background === "light"
-                      ? "#fff"
-                      : roleColorsDark[user.role?.name || "USER"],
-                  border:
-                    background === "light"
-                      ? "none"
-                      : `1px solid ${
-                          roleColorsDark[user.role?.name || "USER"]
-                        }`,
-                  borderRadius: 10,
-                  padding: "0px 10px",
-                }}
-              >
-                {user.role?.name}
-              </Tag>
+              <RoleTag
+                user={user}
+                customStyle={{ borderRadius: 10, padding: "0px 10px" }}
+              />
             </Space>
             <Text type="secondary">{user.email}</Text>
           </Space>

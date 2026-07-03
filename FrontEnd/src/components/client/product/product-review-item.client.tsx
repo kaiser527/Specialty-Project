@@ -1,3 +1,4 @@
+import RoleTag from "@/components/share/role.tag";
 import { FORMATE_DATE } from "@/config/helpers/global";
 import { useBackground } from "@/hooks/useBackground";
 import { useGetAccount } from "@/hooks/useGetAccount";
@@ -7,7 +8,7 @@ import {
   useDeleteReviewMutation,
   useEditReviewMutation,
 } from "@/redux/api/reviewApi";
-import { ReviewNode } from "@/types/backend";
+import { IUser, ReviewNode } from "@/types/backend";
 import {
   CaretDownOutlined,
   CaretUpOutlined,
@@ -47,8 +48,7 @@ const ReviewItem = ({ node }: { node: ReviewNode }) => {
   const { background } = useBackground();
 
   const hasChildren = node.children && node.children.length > 0;
-  const roleName = node.user?.role?.name || "USER";
-  const roleClass = styles[`role_${roleName}`] || styles.role_USER;
+
   const urlAvatar = `${import.meta.env.VITE_BACKEND_URL}/images/user/${
     node.user?.image
   }`;
@@ -117,9 +117,10 @@ const ReviewItem = ({ node }: { node: ReviewNode }) => {
           <div>
             <Space>
               <span className={styles.name}>{node.user?.name}</span>
-              <span className={`${styles.roleBadge} ${roleClass}`}>
-                {roleName}
-              </span>
+              <RoleTag
+                user={node.user as IUser}
+                customStyle={{ borderRadius: 5, padding: "0px 8px" }}
+              />
             </Space>
             <div className={styles.meta}>
               {dayjs(node.createdAt).format(FORMATE_DATE)}

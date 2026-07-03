@@ -1,9 +1,5 @@
-import {
-  DARKTHEME,
-  roleColorsDark,
-  roleGradients,
-  statusColors,
-} from "@/config/constants/utils";
+import RoleTag from "@/components/share/role.tag";
+import { DARKTHEME, statusColors } from "@/config/constants/utils";
 import { useBackground } from "@/hooks/useBackground";
 import { IOrder, IUser } from "@/types/backend";
 import {
@@ -59,30 +55,15 @@ const UserOrderDetailCard = ({ order, area, user }: IProps) => {
               {currentUser?.name || "Unknown User"}
             </Text>
             <Text type="secondary">{currentUser?.email}</Text>
-            <Tag
-              style={{
+            <RoleTag
+              user={currentUser as IUser}
+              customStyle={{
                 width: "fit-content",
                 borderRadius: 8,
                 padding: "2px 10px",
                 fontWeight: 500,
-                border:
-                  background === "light"
-                    ? "none"
-                    : `1px solid ${
-                        roleColorsDark[currentUser?.role?.name ?? "USER"]
-                      }`,
-                color:
-                  background === "light"
-                    ? "#fff"
-                    : roleColorsDark[currentUser?.role?.name ?? "USER"],
-                background:
-                  background === "light"
-                    ? roleGradients[currentUser?.role?.name ?? "USER"] || "#999"
-                    : "transparent",
               }}
-            >
-              {currentUser?.role?.name || "USER"}
-            </Tag>
+            />
           </Space>
         </div>
         <Tag
