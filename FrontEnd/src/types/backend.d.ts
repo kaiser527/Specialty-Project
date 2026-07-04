@@ -370,5 +370,8 @@ export interface IVoucherUsage {
   orderId: string;
   createdAt: string;
   updatedAt: string;
-  voucher: IVoucher;
+  order: {
+    discountAmount: number;
+    voucherCode: string;
+  };
 }

@@ -15,7 +15,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Sun Mar 29 2026 10:58:47 GMT+0700 (Indochina Time)',
     updatedAt: 'Thu Apr 16 2026 09:59:55 GMT+0700 (Indochina Time)',
     discount: 8,
-    dueDate: 'Fri Jul 10 2026 09:25:23 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 10 2026 09:25:23 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -85,7 +85,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Mon Mar 30 2026 19:01:55 GMT+0700 (Indochina Time)',
     updatedAt: 'Tue Apr 14 2026 15:19:51 GMT+0700 (Indochina Time)',
     discount: 10,
-    dueDate: 'Fri Jul 10 2026 09:25:23 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 10 2026 09:25:23 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -112,7 +112,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Fri Apr 24 2026 11:16:45 GMT+0700 (Indochina Time)',
     updatedAt: 'Wed Apr 29 2026 08:42:12 GMT+0700 (Indochina Time)',
     discount: 2,
-    dueDate: 'Fri Jul 24 2026 11:16:45 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 24 2026 11:16:45 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -133,7 +133,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Fri Apr 10 2026 17:35:28 GMT+0700 (Indochina Time)',
     updatedAt: 'Sun Apr 26 2026 17:23:20 GMT+0700 (Indochina Time)',
     discount: 20,
-    dueDate: 'Thu Jul 09 2026 00:00:00 GMT+0700 (Indochina Time)',
+    dueDate: 'Thu Aug 09 2026 00:00:00 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -154,7 +154,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Fri Mar 27 2026 09:48:13 GMT+0700 (Indochina Time)',
     updatedAt: 'Thu Apr 23 2026 10:43:42 GMT+0700 (Indochina Time)',
     discount: 9,
-    dueDate: 'Fri Jul 10 2026 09:25:23 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 10 2026 09:25:23 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -199,7 +199,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Mon Mar 30 2026 08:56:41 GMT+0700 (Indochina Time)',
     updatedAt: 'Mon Apr 27 2026 18:25:29 GMT+0700 (Indochina Time)',
     discount: 4,
-    dueDate: 'Fri Jul 10 2026 09:25:23 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 10 2026 09:25:23 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -221,7 +221,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Mon Mar 30 2026 18:33:48 GMT+0700 (Indochina Time)',
     updatedAt: 'Mon Apr 27 2026 18:23:43 GMT+0700 (Indochina Time)',
     discount: 4,
-    dueDate: 'Fri Jul 10 2026 09:25:23 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 10 2026 09:25:23 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -268,7 +268,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Thu Apr 09 2026 17:52:44 GMT+0700 (Indochina Time)',
     updatedAt: 'Tue Apr 14 2026 10:13:15 GMT+0700 (Indochina Time)',
     discount: 16,
-    dueDate: 'Fri Jul 10 2026 09:25:23 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 10 2026 09:25:23 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -312,7 +312,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Thu Apr 02 2026 16:03:18 GMT+0700 (Indochina Time)',
     updatedAt: 'Mon Apr 27 2026 15:36:22 GMT+0700 (Indochina Time)',
     discount: 9,
-    dueDate: 'Fri Jul 10 2026 09:25:23 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 10 2026 09:25:23 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -335,7 +335,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Tue Mar 31 2026 09:37:03 GMT+0700 (Indochina Time)',
     updatedAt: 'Mon Apr 27 2026 18:23:43 GMT+0700 (Indochina Time)',
     discount: 10,
-    dueDate: 'Fri Jul 10 2026 09:25:23 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 10 2026 09:25:23 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -406,7 +406,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Fri Apr 10 2026 11:13:54 GMT+0700 (Indochina Time)',
     updatedAt: 'Tue Apr 28 2026 18:34:57 GMT+0700 (Indochina Time)',
     discount: 0,
-    dueDate: 'Thu Jul 23 2026 00:00:00 GMT+0700 (Indochina Time)',
+    dueDate: 'Thu Aug 23 2026 00:00:00 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -430,7 +430,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Thu Apr 02 2026 16:03:18 GMT+0700 (Indochina Time)',
     updatedAt: 'Tue Apr 14 2026 10:23:31 GMT+0700 (Indochina Time)',
     discount: 4,
-    dueDate: 'Fri Jul 10 2026 09:25:23 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 10 2026 09:25:23 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -452,7 +452,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Sat Apr 11 2026 10:29:16 GMT+0700 (Indochina Time)',
     updatedAt: 'Tue Apr 28 2026 18:29:35 GMT+0700 (Indochina Time)',
     discount: 0,
-    dueDate: 'Sat Jul 11 2026 10:29:16 GMT+0700 (Indochina Time)',
+    dueDate: 'Sat Aug 11 2026 10:29:16 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -473,7 +473,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Sun Mar 29 2026 15:39:55 GMT+0700 (Indochina Time)',
     updatedAt: 'Thu Apr 16 2026 12:40:27 GMT+0700 (Indochina Time)',
     discount: 12,
-    dueDate: 'Fri Jul 10 2026 09:25:23 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 10 2026 09:25:23 GMT+0700 (Indochina Time)',
   },
   {
     images: ['master_box.png', 'asus_front.jpg', 'asus_up.png'],
@@ -490,7 +490,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Fri Mar 27 2026 09:48:13 GMT+0700 (Indochina Time)',
     updatedAt: 'Tue Apr 28 2026 18:41:23 GMT+0700 (Indochina Time)',
     discount: 3,
-    dueDate: 'Fri Jul 10 2026 09:25:23 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 10 2026 09:25:23 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -536,7 +536,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Fri Mar 27 2026 12:13:26 GMT+0700 (Indochina Time)',
     updatedAt: 'Wed Apr 22 2026 14:42:24 GMT+0700 (Indochina Time)',
     discount: 6,
-    dueDate: 'Fri Jul 10 2026 09:25:23 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 10 2026 09:25:23 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -558,7 +558,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Tue Mar 31 2026 09:34:36 GMT+0700 (Indochina Time)',
     updatedAt: 'Mon Apr 27 2026 18:23:43 GMT+0700 (Indochina Time)',
     discount: 0,
-    dueDate: 'Fri Jul 10 2026 09:25:23 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 10 2026 09:25:23 GMT+0700 (Indochina Time)',
   },
   {
     images: ['msi_box.png', 'msi_left.jpg', 'msi_down.jpg'],
@@ -575,7 +575,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Fri Mar 27 2026 09:48:13 GMT+0700 (Indochina Time)',
     updatedAt: 'Tue Apr 28 2026 18:41:23 GMT+0700 (Indochina Time)',
     discount: 13,
-    dueDate: 'Fri Jul 10 2026 09:25:23 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 10 2026 09:25:23 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -599,7 +599,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Thu Apr 09 2026 17:40:12 GMT+0700 (Indochina Time)',
     updatedAt: 'Wed Apr 22 2026 13:29:59 GMT+0700 (Indochina Time)',
     discount: 7,
-    dueDate: 'Fri Jul 10 2026 09:25:23 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 10 2026 09:25:23 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -620,7 +620,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Fri Mar 27 2026 09:48:13 GMT+0700 (Indochina Time)',
     updatedAt: 'Tue Apr 28 2026 18:41:23 GMT+0700 (Indochina Time)',
     discount: 2,
-    dueDate: 'Fri Jul 10 2026 09:25:23 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 10 2026 09:25:23 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -642,7 +642,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Fri Apr 24 2026 09:59:53 GMT+0700 (Indochina Time)',
     updatedAt: 'Tue Apr 28 2026 18:41:23 GMT+0700 (Indochina Time)',
     discount: 10,
-    dueDate: 'Fri Jul 24 2026 09:59:54 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 24 2026 09:59:54 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -663,7 +663,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Fri Mar 27 2026 09:48:13 GMT+0700 (Indochina Time)',
     updatedAt: 'Tue Apr 14 2026 10:16:12 GMT+0700 (Indochina Time)',
     discount: 8,
-    dueDate: 'Fri Jul 10 2026 09:25:23 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 10 2026 09:25:23 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -716,7 +716,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Fri Apr 10 2026 15:53:10 GMT+0700 (Indochina Time)',
     updatedAt: 'Tue Apr 28 2026 18:38:10 GMT+0700 (Indochina Time)',
     discount: 10,
-    dueDate: 'Fri Jul 24 2026 00:00:00 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 24 2026 00:00:00 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -737,7 +737,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Mon Mar 30 2026 08:52:17 GMT+0700 (Indochina Time)',
     updatedAt: 'Tue Apr 28 2026 18:38:10 GMT+0700 (Indochina Time)',
     discount: 3,
-    dueDate: 'Fri Jul 10 2026 09:25:23 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 10 2026 09:25:23 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -758,7 +758,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Fri Mar 27 2026 09:55:38 GMT+0700 (Indochina Time)',
     updatedAt: 'Mon Apr 27 2026 18:25:29 GMT+0700 (Indochina Time)',
     discount: 6,
-    dueDate: 'Fri Jul 10 2026 09:25:23 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 10 2026 09:25:23 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -781,7 +781,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Sat Apr 11 2026 14:54:08 GMT+0700 (Indochina Time)',
     updatedAt: 'Mon Apr 27 2026 17:41:56 GMT+0700 (Indochina Time)',
     discount: 2,
-    dueDate: 'Sat Jul 11 2026 14:54:08 GMT+0700 (Indochina Time)',
+    dueDate: 'Sat Aug 11 2026 14:54:08 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -803,7 +803,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Tue Mar 31 2026 09:41:58 GMT+0700 (Indochina Time)',
     updatedAt: 'Mon Apr 27 2026 16:59:43 GMT+0700 (Indochina Time)',
     discount: 3,
-    dueDate: 'Fri Jul 10 2026 09:25:23 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 10 2026 09:25:23 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -823,7 +823,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Mon Mar 30 2026 15:18:49 GMT+0700 (Indochina Time)',
     updatedAt: 'Sun Apr 26 2026 08:01:42 GMT+0700 (Indochina Time)',
     discount: 10,
-    dueDate: 'Fri Jul 10 2026 09:25:23 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 10 2026 09:25:23 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -844,7 +844,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Thu Apr 09 2026 18:02:54 GMT+0700 (Indochina Time)',
     updatedAt: 'Tue Apr 14 2026 10:16:12 GMT+0700 (Indochina Time)',
     discount: 4,
-    dueDate: 'Fri Jul 10 2026 09:25:23 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 10 2026 09:25:23 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -865,7 +865,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Fri Mar 27 2026 09:48:13 GMT+0700 (Indochina Time)',
     updatedAt: 'Tue Apr 14 2026 10:16:12 GMT+0700 (Indochina Time)',
     discount: 3,
-    dueDate: 'Fri Jul 10 2026 09:25:23 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 10 2026 09:25:23 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -888,7 +888,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Fri Apr 24 2026 11:16:45 GMT+0700 (Indochina Time)',
     updatedAt: 'Tue Apr 28 2026 18:38:10 GMT+0700 (Indochina Time)',
     discount: 5,
-    dueDate: 'Fri Jul 24 2026 11:16:45 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 24 2026 11:16:45 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -911,7 +911,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Sat Apr 11 2026 10:11:05 GMT+0700 (Indochina Time)',
     updatedAt: 'Tue Apr 28 2026 18:29:35 GMT+0700 (Indochina Time)',
     discount: 9,
-    dueDate: 'Thu Jul 30 2026 00:00:00 GMT+0700 (Indochina Time)',
+    dueDate: 'Thu Aug 30 2026 00:00:00 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -932,7 +932,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Mon Mar 30 2026 08:56:41 GMT+0700 (Indochina Time)',
     updatedAt: 'Tue Apr 28 2026 18:34:57 GMT+0700 (Indochina Time)',
     discount: 5,
-    dueDate: 'Fri Jul 10 2026 09:25:23 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 10 2026 09:25:23 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -956,7 +956,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Sat Apr 11 2026 14:51:24 GMT+0700 (Indochina Time)',
     updatedAt: 'Mon Apr 27 2026 17:41:56 GMT+0700 (Indochina Time)',
     discount: 13,
-    dueDate: 'Sat Jul 11 2026 14:51:25 GMT+0700 (Indochina Time)',
+    dueDate: 'Sat Aug 11 2026 14:51:25 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -978,7 +978,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Fri Apr 10 2026 16:42:26 GMT+0700 (Indochina Time)',
     updatedAt: 'Mon Apr 27 2026 17:54:01 GMT+0700 (Indochina Time)',
     discount: 0,
-    dueDate: 'Thu Jul 16 2026 00:00:00 GMT+0700 (Indochina Time)',
+    dueDate: 'Thu Aug 16 2026 00:00:00 GMT+0700 (Indochina Time)',
   },
   {
     images: ['hhh.jpg', 'fx506.jpg', '2658_2059_a3.jpg', 'fx66.jpg'],
@@ -994,7 +994,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Fri Mar 27 2026 17:56:05 GMT+0700 (Indochina Time)',
     updatedAt: 'Mon Apr 27 2026 18:25:29 GMT+0700 (Indochina Time)',
     discount: 3,
-    dueDate: 'Fri Jul 10 2026 09:25:23 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 10 2026 09:25:23 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -1017,7 +1017,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Thu Apr 02 2026 16:03:18 GMT+0700 (Indochina Time)',
     updatedAt: 'Wed Apr 22 2026 13:29:59 GMT+0700 (Indochina Time)',
     discount: 8,
-    dueDate: 'Fri Jul 10 2026 09:25:23 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 10 2026 09:25:23 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -1038,7 +1038,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Mon Mar 30 2026 18:44:42 GMT+0700 (Indochina Time)',
     updatedAt: 'Thu Apr 23 2026 19:01:49 GMT+0700 (Indochina Time)',
     discount: 8,
-    dueDate: 'Fri Jul 10 2026 09:25:23 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 10 2026 09:25:23 GMT+0700 (Indochina Time)',
   },
   {
     images: ['gpro1.jpg', 'gpro2.jpg', 'gpro3.jpg'],
@@ -1056,7 +1056,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Sun Mar 29 2026 10:58:47 GMT+0700 (Indochina Time)',
     updatedAt: 'Wed Apr 22 2026 13:29:59 GMT+0700 (Indochina Time)',
     discount: 7,
-    dueDate: 'Fri Jul 10 2026 09:25:23 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 10 2026 09:25:23 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -1078,7 +1078,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Sun Mar 29 2026 15:39:55 GMT+0700 (Indochina Time)',
     updatedAt: 'Sun Apr 26 2026 08:01:46 GMT+0700 (Indochina Time)',
     discount: 3,
-    dueDate: 'Fri Jul 10 2026 09:25:23 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 10 2026 09:25:23 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -1103,7 +1103,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Fri Apr 10 2026 15:53:10 GMT+0700 (Indochina Time)',
     updatedAt: 'Mon Apr 27 2026 17:41:56 GMT+0700 (Indochina Time)',
     discount: 17,
-    dueDate: 'Thu Jul 09 2026 00:00:00 GMT+0700 (Indochina Time)',
+    dueDate: 'Thu Aug 09 2026 00:00:00 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -1127,7 +1127,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Fri Apr 10 2026 11:13:54 GMT+0700 (Indochina Time)',
     updatedAt: 'Mon Apr 27 2026 17:41:56 GMT+0700 (Indochina Time)',
     discount: 0,
-    dueDate: 'Fri Jul 24 2026 00:00:00 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 24 2026 00:00:00 GMT+0700 (Indochina Time)',
   },
   {
     images: ['rog3.png', 'rog4.jpg', '16_2_141.jpg'],
@@ -1145,7 +1145,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Sun Mar 29 2026 10:58:47 GMT+0700 (Indochina Time)',
     updatedAt: 'Mon Apr 20 2026 16:10:38 GMT+0700 (Indochina Time)',
     discount: 11,
-    dueDate: 'Fri Jul 10 2026 09:25:23 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 10 2026 09:25:23 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -1168,7 +1168,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Thu Apr 02 2026 18:16:28 GMT+0700 (Indochina Time)',
     updatedAt: 'Tue Apr 28 2026 18:38:10 GMT+0700 (Indochina Time)',
     discount: 16,
-    dueDate: 'Fri Jul 10 2026 09:25:23 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 10 2026 09:25:23 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -1190,7 +1190,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Mon Mar 30 2026 09:36:05 GMT+0700 (Indochina Time)',
     updatedAt: 'Thu Apr 16 2026 14:38:58 GMT+0700 (Indochina Time)',
     discount: 13,
-    dueDate: 'Fri Jul 10 2026 09:25:23 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 10 2026 09:25:23 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -1259,7 +1259,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Fri Apr 24 2026 11:16:45 GMT+0700 (Indochina Time)',
     updatedAt: 'Tue Apr 28 2026 18:29:35 GMT+0700 (Indochina Time)',
     discount: 3,
-    dueDate: 'Fri Jul 24 2026 11:16:45 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 24 2026 11:16:45 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -1279,7 +1279,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Fri Mar 27 2026 12:20:08 GMT+0700 (Indochina Time)',
     updatedAt: 'Tue Apr 14 2026 10:17:13 GMT+0700 (Indochina Time)',
     discount: 5,
-    dueDate: 'Fri Jul 10 2026 09:25:23 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 10 2026 09:25:23 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -1301,7 +1301,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Mon Mar 30 2026 09:36:05 GMT+0700 (Indochina Time)',
     updatedAt: 'Thu Apr 16 2026 14:48:36 GMT+0700 (Indochina Time)',
     discount: 7,
-    dueDate: 'Fri Jul 10 2026 09:25:23 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 10 2026 09:25:23 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -1330,7 +1330,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Fri Apr 24 2026 11:16:45 GMT+0700 (Indochina Time)',
     updatedAt: 'Wed Apr 29 2026 08:42:12 GMT+0700 (Indochina Time)',
     discount: 0,
-    dueDate: 'Fri Jul 24 2026 11:16:45 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 24 2026 11:16:45 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -1353,7 +1353,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Fri Apr 24 2026 09:59:53 GMT+0700 (Indochina Time)',
     updatedAt: 'Fri Apr 24 2026 10:14:17 GMT+0700 (Indochina Time)',
     discount: 13,
-    dueDate: 'Fri Jul 24 2026 09:59:54 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 24 2026 09:59:54 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -1374,7 +1374,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Fri Mar 27 2026 09:48:13 GMT+0700 (Indochina Time)',
     updatedAt: 'Mon Apr 27 2026 16:59:39 GMT+0700 (Indochina Time)',
     discount: 10,
-    dueDate: 'Fri Jul 10 2026 09:25:23 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 10 2026 09:25:23 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -1396,7 +1396,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Fri Apr 24 2026 09:59:53 GMT+0700 (Indochina Time)',
     updatedAt: 'Sun Apr 26 2026 17:23:16 GMT+0700 (Indochina Time)',
     discount: 10,
-    dueDate: 'Fri Jul 24 2026 09:59:54 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 24 2026 09:59:54 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -1443,7 +1443,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Thu Apr 02 2026 16:03:18 GMT+0700 (Indochina Time)',
     updatedAt: 'Tue Apr 28 2026 18:29:35 GMT+0700 (Indochina Time)',
     discount: 12,
-    dueDate: 'Fri Jul 10 2026 09:25:23 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 10 2026 09:25:23 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -1465,7 +1465,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Fri Mar 27 2026 09:48:13 GMT+0700 (Indochina Time)',
     updatedAt: 'Wed Apr 22 2026 14:42:24 GMT+0700 (Indochina Time)',
     discount: 9,
-    dueDate: 'Fri Jul 10 2026 09:25:23 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 10 2026 09:25:23 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -1488,7 +1488,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Fri Apr 24 2026 09:59:53 GMT+0700 (Indochina Time)',
     updatedAt: 'Fri Apr 24 2026 10:19:56 GMT+0700 (Indochina Time)',
     discount: 12,
-    dueDate: 'Fri Jul 24 2026 09:59:54 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 24 2026 09:59:54 GMT+0700 (Indochina Time)',
   },
   {
     images: [
@@ -1511,7 +1511,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Fri Apr 24 2026 09:59:53 GMT+0700 (Indochina Time)',
     updatedAt: 'Mon Apr 27 2026 17:54:01 GMT+0700 (Indochina Time)',
     discount: 5,
-    dueDate: 'Fri Jul 24 2026 09:59:54 GMT+0700 (Indochina Time)',
+    dueDate: 'Fri Aug 24 2026 09:59:54 GMT+0700 (Indochina Time)',
   },
   {
     id: '5a5d7161-c6bb-49bc-adfc-be7e031c7a6a',
@@ -1533,7 +1533,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Thu Apr 30 2026 11:22:00 GMT+0700 (Indochina Time)',
     updatedAt: 'Thu Apr 30 2026 11:23:08 GMT+0700 (Indochina Time)',
     discount: 10,
-    dueDate: 'Thu Jul 30 2026 11:22:01 GMT+0700 (Indochina Time)',
+    dueDate: 'Thu Aug 30 2026 11:22:01 GMT+0700 (Indochina Time)',
   },
   {
     id: 'e57cba10-d0c0-41b7-8f7f-c0f526c3a658',
@@ -1551,7 +1551,7 @@ export const INIT_VARIANTS = [
     createdAt: 'Thu Apr 30 2026 11:22:00 GMT+0700 (Indochina Time)',
     updatedAt: 'Thu Apr 30 2026 11:23:08 GMT+0700 (Indochina Time)',
     discount: 7,
-    dueDate: 'Thu Jul 30 2026 11:22:01 GMT+0700 (Indochina Time)',
+    dueDate: 'Thu Aug 30 2026 11:22:01 GMT+0700 (Indochina Time)',
   },
   {
     id: '5915e7fb-34a7-40a7-ac4d-290ddb61245d',
@@ -1568,6 +1568,6 @@ export const INIT_VARIANTS = [
     createdAt: 'Thu Apr 30 2026 12:48:25 GMT+0700 (Indochina Time)',
     updatedAt: 'Thu Apr 30 2026 12:49:27 GMT+0700 (Indochina Time)',
     discount: 0,
-    dueDate: 'Tue Jul 07 2026 00:00:00 GMT+0700 (Indochina Time)',
+    dueDate: 'Tue Aug 07 2026 00:00:00 GMT+0700 (Indochina Time)',
   },
 ];

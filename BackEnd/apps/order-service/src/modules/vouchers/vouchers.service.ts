@@ -319,7 +319,8 @@ export class VouchersService {
       take: limit,
       skip: (currentPage - 1) * limit,
       order: Object.keys(order).length ? order : { createdAt: 'DESC' },
-      relations: ['voucher'],
+      relations: { order: true },
+      select: { order: { discountAmount: true, voucherCode: true } },
     });
 
     return {

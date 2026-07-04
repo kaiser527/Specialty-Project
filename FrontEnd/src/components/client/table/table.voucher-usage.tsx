@@ -23,13 +23,13 @@ const VoucherUsageTable = () => {
   const columns: ColumnsType<IVoucherUsage> = [
     {
       title: "Voucher Code",
-      dataIndex: ["voucher", "code"],
+      dataIndex: ["order", "voucherCode"],
       key: "code",
       render: (code: string) => <Tag color="blue">{code}</Tag>,
     },
     {
       title: "Discount",
-      dataIndex: ["voucher", "discountAmount"],
+      dataIndex: ["order", "discountAmount"],
       key: "discountAmount",
       render: (discountAmount) => <>{formatCurrency(discountAmount)}</>,
     },

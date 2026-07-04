@@ -123,13 +123,14 @@ public static class GeminiPromptBuilder
             * format: YYYY-MM-DD
             * If CURRENT_ROLE NOT IN [ADMIN, STAFF, PROVIDER] AND query references dueDate or overdue concepts => intent="none" and qs=""
             * overdue / expired / late / past due => dueDate<CURRENT_LOCAL_DATE
+            * upcoming / due soon / due later => dueDate>CURRENT_LOCAL_DATE 
             * due today / today due => dueDate=CURRENT_LOCAL_DATE
             * due tomorrow / tomorrow due => dueDate=CURRENT_LOCAL_DATE+1day
             * due in N days => dueDate=CURRENT_LOCAL_DATE+Ndays
             * due within N days => dueDate>=CURRENT_LOCAL_DATE&dueDate<=CURRENT_LOCAL_DATE+Ndays
             * latest due / last due / furthest due date => dueDate=max
             * earliest due / first due / soonest due date => dueDate=min
-            * overdue with highest(or lowest) due date => intent="none" and qs=""
+            * upcoming expired, overdue with highest(or lowest) due date => intent="none" and qs=""
         - Example qs: 
             * age>=20&age<=50&name=/john/i&createdAt=min
             * status=PENDING,FAILED&createdAt>=2026-08-09&createdAt<=2026-10-08

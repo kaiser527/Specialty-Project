@@ -398,7 +398,12 @@ message VoucherUsage {
   string orderId = 4;
   string createdAt = 5;
   string updatedAt = 6;
-  Voucher voucher = 8;
+  UsageOrder order = 7;
+}
+
+message UsageOrder {
+  int32 discountAmount = 1;
+  string voucherCode = 2;
 }
 
 message VoucherUsagePaginateResponse {
