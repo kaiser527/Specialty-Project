@@ -74,7 +74,7 @@ public static class GeminiPromptBuilder
         CURRENT_LOCAL_DATE: {{{localNow:yyyy-MM-dd}}}
         CURRENT_TIMEZONE: Asia/Ho_Chi_Minh (UTC+7)
         [SCHEMA_REFERENCE]
-        - USER: _id, email, name, age, isActive (bool), gender, address, accountType {LOCAL, GOOGLE, FACEBOOK}, role {USER,STAFF,PROVIDER,ADMIN}, createdAt, updatedAt
+        - USER: _id, email, name, age, isActive (bool), gender {MALE, FEMALE, OTHER}, address, accountType {LOCAL, GOOGLE, FACEBOOK}, role {USER,STAFF,PROVIDER,ADMIN}, createdAt, updatedAt
         - ORDER: id, userId, status {PENDING, SUCCESS, FAILED, CANCELLED, REFUNDED, PACKAGING, DELIVERING}, type {COD, BANKING}, paymentRef {VNPAY,LOCAL,CREDIT_CARD}, shippingFee, subTotal, totalPrice, createdAt, updatedAt
         - PRODUCT: id, sku, discount (0-100), price, stock, product.name, product.createdBy, product.updatedBy, product.brand, category, createdAt, updatedAt, dueDate
         [INTENT_SCHEMA]
