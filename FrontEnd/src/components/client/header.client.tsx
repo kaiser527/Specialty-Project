@@ -191,7 +191,7 @@ const Header = () => {
               <div className={styles["img-wrapper"]}>
                 <img
                   src={`${import.meta.env.VITE_BACKEND_URL}/images/product/${
-                    c?.variant?.product?.thumbnail
+                    c?.variant?.images[0]
                   }`}
                 />
                 <span className={styles["quantity-badge"]}>{c.quantity}</span>
@@ -361,7 +361,7 @@ const Header = () => {
           >
             <img
               src={`${import.meta.env.VITE_BACKEND_URL}/images/product/${
-                variant.product?.thumbnail
+                variant.images[0]
               }`}
               className={styles["suggest-img"]}
             />

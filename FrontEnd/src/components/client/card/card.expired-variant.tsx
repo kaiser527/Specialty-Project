@@ -167,7 +167,7 @@ const ExpiredVariantCard = ({
                       style={{ borderRadius: 12 }}
                       src={`${
                         import.meta.env.VITE_BACKEND_URL
-                      }/images/product/${variant.product?.thumbnail}`}
+                      }/images/product/${variant.images[0]}`}
                     />
                   )}
                 </Flex>
@@ -190,7 +190,7 @@ const ExpiredVariantCard = ({
                         style={{ borderRadius: 12 }}
                         src={`${
                           import.meta.env.VITE_BACKEND_URL
-                        }/images/product/${variant.product?.thumbnail}`}
+                        }/images/product/${variant.images[0]}`}
                       />
                     )}
 

@@ -106,8 +106,7 @@ const ChatData = ({ data, setOrderId, setOpenViewDetail }: IProps) => {
 
   if ("sku" in first && "price" in first) {
     return data.map((variant: IVariant, index) => {
-      const image =
-        variant.images?.[0] || variant.product?.thumbnail || "empty.jpg";
+      const image = variant.images?.[0] || variant.images[0] || "empty.jpg";
 
       const isExpired = dayjs(variant.dueDate).isBefore(dayjs());
 

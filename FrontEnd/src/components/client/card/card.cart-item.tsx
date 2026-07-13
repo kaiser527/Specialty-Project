@@ -76,7 +76,7 @@ const CartItemCard = ({ cartItem }: IProps) => {
             >
               <Image
                 src={`${import.meta.env.VITE_BACKEND_URL}/images/product/${
-                  cartItem?.variant.product?.thumbnail
+                  cartItem?.variant.images[0]
                 }`}
                 width={50}
                 height={50}
@@ -87,7 +87,7 @@ const CartItemCard = ({ cartItem }: IProps) => {
           ) : (
             <Image
               src={`${import.meta.env.VITE_BACKEND_URL}/images/product/${
-                cartItem?.variant.product?.thumbnail
+                cartItem?.variant.images[0]
               }`}
               width={screens.lg ? 75 : 65}
               height={screens.lg ? 75 : 65}

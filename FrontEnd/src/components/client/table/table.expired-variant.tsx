@@ -52,7 +52,7 @@ const TableExpiredVariant = () => {
               shape="square"
               size={60}
               src={`${import.meta.env.VITE_BACKEND_URL}/images/product/${
-                record.product?.thumbnail
+                record.images[0]
               }`}
             />
           </Popover>

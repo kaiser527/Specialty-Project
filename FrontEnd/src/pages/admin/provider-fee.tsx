@@ -660,7 +660,7 @@ const ProviderFeePage = () => {
                                           src={`${
                                             import.meta.env.VITE_BACKEND_URL
                                           }/images/product/${
-                                            entity?.variant.product?.thumbnail
+                                            entity?.variant.images[0]
                                           }`}
                                           preview={false}
                                           width={66}
