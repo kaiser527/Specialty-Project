@@ -119,12 +119,10 @@ export class CategoriesService {
       throw new RpcException('Category is already exist');
     }
 
-    const product = await this.categoriesRepository.update(id, {
+    return this.categoriesRepository.update(id, {
       ...rest,
-      createdBy: user.email,
+      updatedBy: user.email,
     });
-
-    return product;
   };
 
   delete = async (id: string, user: IUser) => {

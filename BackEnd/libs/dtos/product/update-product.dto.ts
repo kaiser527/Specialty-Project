@@ -1,5 +1,11 @@
 import { OmitType, PartialType } from '@nestjs/mapped-types';
-import { IsArray, IsNotEmpty, ValidateNested } from 'class-validator';
+import {
+  ArrayUnique,
+  IsArray,
+  IsNotEmpty,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 import { CreateProductDto, CreateVariantDto } from './create-product.dto';
 
@@ -17,10 +23,21 @@ export class UpdateProductDto extends OmitType(CreateProductDto, [
   variants: UpdateVariantDto[];
 }
 
-export class SwitchProductAuthorDTO {
+export class SwitchProductAuthorDto {
   @IsNotEmpty()
   productId: string;
 
   @IsNotEmpty()
   newAuthorEmail: string;
+}
+
+export class RenewVariantsDto {
+  @IsNotEmpty()
+  @IsArray()
+  @ArrayUnique()
+  @IsString({ each: true })
+  variantIds: string[];
+
+  @IsNotEmpty()
+  dueDate: string;
 }

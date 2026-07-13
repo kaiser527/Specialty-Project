@@ -575,6 +575,8 @@ export class OrdersService implements OnModuleInit {
       await this.providersService.deleteProviderFeeByOrder(id, manager, user);
       await this.providersService.deleteProviderOrderByOrder(id, manager, user);
 
+      await this.vouchersService.deleteUsagesByOrder(id);
+
       const itemsUpdate = await manager.update(
         OrderItem,
         { orderId: id },

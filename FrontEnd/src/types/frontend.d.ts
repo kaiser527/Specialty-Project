@@ -22,3 +22,12 @@ export interface IVariant {
 }
 
 export type Cart = Omit<ICartItem, "cart" | "cartId"> & { totalPrice: number };
+
+export interface RenewPlan {
+  id: string;
+  months: number;
+  price: number;
+  badge?: string;
+  description: string;
+  features: string[];
+}

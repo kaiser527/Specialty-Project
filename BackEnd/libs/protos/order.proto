@@ -238,7 +238,7 @@ message VerifyReturnUrlRequest {
   optional string vnp_TransactionStatus = 11;
   optional string vnp_SecureHashType = 12;
   string vnp_SecureHash = 13;
-  User user = 14;
+  optional User user = 14;
 }
 
 message VerifyReturnUrlResponse {
@@ -439,7 +439,24 @@ message UpdateVoucherRequest {
 message FindVoucherByCodeAndUserRequest {
   string code = 1;
   User user = 2;
-} 
+}
+
+message CreateRenewProductPaymentRequest {
+  string planId = 1;
+  optional string ipAddr = 2;
+  repeated string variantIds = 3;
+  string dueDate = 4;
+}
+
+message VerifyReturnUrlForRenewProductVariantRequest {
+  VerifyReturnUrlRequest query = 1;
+  User user = 2;
+}
+
+message CreateRenewStripePaymentRequest {
+  CreateRenewProductPaymentRequest dto = 1;
+  User user = 2;
+}
 
 service OrderService {
   rpc findAllOrder(PaginateRequest) returns (PaginateOrderResponse);
@@ -477,5 +494,9 @@ service OrderService {
   rpc createVoucher(CreateVoucherRequest) returns (QuickResponse);    
   rpc updateVoucher(UpdateVoucherRequest) returns (QuickResponse);
   rpc findVoucherByCodeAndUser(FindVoucherByCodeAndUserRequest) returns (Voucher); 
-  rpc deleteVoucher(FindOneRequest) returns (QuickResponse); 
+  rpc deleteVoucher(FindOneRequest) returns (QuickResponse);
+  rpc createRenewVnpayUrl(CreateRenewProductPaymentRequest) returns (PaymentResponse);
+  rpc verifyReturnUrlForRenewProductVariant(VerifyReturnUrlForRenewProductVariantRequest) returns (VerifyReturnUrlResponse);
+  rpc createRenewStripePayment(CreateRenewStripePaymentRequest) returns (PaymentResponse);
+  rpc verifyRenewStripePayment(VerifyStripePaymentRequest) returns (VerifyReturnUrlResponse);
 }

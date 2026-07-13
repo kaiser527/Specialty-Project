@@ -87,7 +87,7 @@ const OrderCardItem = ({ item, area }: IProps) => {
       >
         <Image
           src={`${import.meta.env.VITE_BACKEND_URL}/images/product/${
-            item?.variant?.images[0]
+            item?.variant?.product?.thumbnail
           }`}
           width={64}
           height={64}

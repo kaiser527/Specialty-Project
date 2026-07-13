@@ -57,6 +57,17 @@ export const productApi = createApi({
       providesTags: ["Variant"],
     }),
 
+    findAllVariantsByIds: builder.query<
+      IBackendRes<IModelPaginate<IVariant>>,
+      { variantIds: string[] }
+    >({
+      query: (body) => ({
+        url: `/api/v1/products/variants-by-ids`,
+        method: "POST",
+        data: body,
+      }),
+    }),
+
     createProduct: builder.mutation<IBackendRes<IProduct>, IProduct>({
       query: (body) => ({
         url: "/api/v1/products",
@@ -126,4 +137,5 @@ export const {
   useFetchVariantQuery,
   useFetchSingleVariantQuery,
   useSwitchProductAuthorMutation,
+  useFindAllVariantsByIdsQuery,
 } = productApi;

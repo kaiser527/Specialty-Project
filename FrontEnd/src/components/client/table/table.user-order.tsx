@@ -23,11 +23,11 @@ const UserOrderTable = () => {
 
   const [current, setCurrent] = useState(1);
   const [openViewDetail, setOpenViewDetail] = useState(false);
-  const [sort, setSort] = useState<string | null>(null);
   const [orderId, setOrderId] = useState<string | null>(null);
   const [orders, setOrders] = useState<IOrder[]>([]);
   const [meta, setMeta] = useState<IMeta | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [qs, setQs] = useState<string | null>(null);
 
   const { messageApi, notificationApi } = useMessage();
   const { background } = useBackground();
@@ -52,14 +52,14 @@ const UserOrderTable = () => {
   }, []);
 
   useEffect(() => {
-    const query = `&current=${current}&pageSize=${PAGE_SIZE}${sort || ""}`;
+    const query = `&current=${current}&pageSize=${PAGE_SIZE}${qs || ""}`;
 
     socket.emit("findAllOrderUser:subscribe", {
       currentPage: current,
       limit: PAGE_SIZE,
       qs: query,
     });
-  }, [current, sort]);
+  }, [current, qs]);
 
   const handleChangeOrder = async (id: string, status: string) => {
     const res = await update({ id, status }).unwrap();
@@ -95,11 +95,17 @@ const UserOrderTable = () => {
     {
       title: "Total",
       dataIndex: "totalPrice",
+      sorter: true,
       render: (value: number) => formatCurrency(value),
     },
     {
       title: "Payment",
       dataIndex: "paymentRef",
+      filters: [
+        { text: "Local", value: "LOCAL" },
+        { text: "VNPay", value: "VNPAY" },
+        { text: "Credit Card", value: "CREDIT_CARD" },
+      ],
       render(dom, entity) {
         const paymentRef = entity.paymentRef || "LOCAL";
         return (
@@ -121,6 +127,13 @@ const UserOrderTable = () => {
     {
       title: "Status",
       dataIndex: "status",
+      filters: [
+        { text: "Success", value: "SUCCESS" },
+        { text: "Failed", value: "FAILED" },
+        { text: "Cancelled", value: "CANCELLED" },
+        { text: "Delivering", value: "DELIVERING" },
+        { text: "Packaging", value: "PACKAGING" },
+      ],
       render: (status: string) => (
         <Tag color={statusColors[status] || "default"}>{status}</Tag>
       ),
@@ -203,17 +216,24 @@ const UserOrderTable = () => {
         dataSource={orders}
         loading={isLoading}
         onChange={(pagination, filters, sorter: any) => {
-          let query = `&current=${pagination.current}&pageSize=${PAGE_SIZE}`;
+          let query = ``;
 
           if (sorter.order && sorter.field) {
             const order =
               sorter.order === "ascend" ? `-${sorter.field}` : sorter.field;
 
             query += `&sort=${order}`;
-            setSort(`&sort=${order}`);
-          } else {
-            setSort(null);
           }
+
+          if (filters.paymentRef?.length) {
+            query += `&paymentRef=${filters.paymentRef.join(",")}`;
+          }
+
+          if (filters.status?.length) {
+            query += `&status=${filters.status.join(",")}`;
+          }
+
+          setQs(query);
 
           socket.emit("findAllOrderUser:subscribe", {
             currentPage: pagination.current,

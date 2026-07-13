@@ -7,7 +7,8 @@ import {
   GetMinMaxPriceDto,
 } from 'libs/dtos/product/create-product.dto';
 import {
-  SwitchProductAuthorDTO,
+  RenewVariantsDto,
+  SwitchProductAuthorDto,
   UpdateProductDto,
 } from 'libs/dtos/product/update-product.dto';
 import { IUser } from 'libs/utils/interface';
@@ -121,12 +122,20 @@ export class ProductsGrpcController {
 
   @GrpcMethod('ProductService', 'switchProductAuthor')
   async switchProductAuthor(data: {
-    dto: SwitchProductAuthorDTO;
+    dto: SwitchProductAuthorDto;
     user: IUser;
   }) {
     return await this.productsService.switchProductAuthorById(
       data.dto,
       data.user,
+    );
+  }
+
+  @GrpcMethod('ProductService', 'renewVariantsByAuthor')
+  async renewVariantsByAuthor(data: { dto: RenewVariantsDto; user: IUser }) {
+    return await this.productsService.renewVariantsByAuthor(
+      data.user,
+      data.dto,
     );
   }
 }

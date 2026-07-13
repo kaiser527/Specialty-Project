@@ -341,6 +341,13 @@ export const protectFiles = [
   '86938_chuot_gaming_khong_day_razer_basilisk_v3_pro_35k_rz01_05240100_r3a1_1.jpg',
 ];
 
+export const planMap: Record<'3' | '6' | '12' | '24', number> = {
+  '3': 9.99,
+  '6': 17.99,
+  '12': 29.99,
+  '24': 49.99,
+};
+
 export enum OrderStatus {
   PENDING = 'PENDING',
   SUCCESS = 'SUCCESS',

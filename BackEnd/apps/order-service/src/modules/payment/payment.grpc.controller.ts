@@ -4,8 +4,9 @@ import { GrpcMethod } from '@nestjs/microservices';
 import {
   CreateVnPayPaymentDto,
   VerifyReturnUrlDto,
-} from 'libs/dtos/payment/vn-pay-payment.dto';
+} from 'libs/dtos/payment/payment.dto';
 import { IUser } from 'libs/utils/interface';
+import { CreateRenewProductPaymentDto } from 'libs/dtos/payment/renew-payement.dto';
 
 @Controller()
 export class PaymentGrpcController {
@@ -29,5 +30,37 @@ export class PaymentGrpcController {
   @GrpcMethod('OrderService', 'verifyStripePayment')
   async verifyStripePayment(data: { sessionId: string }) {
     return await this.paymentService.verifyStripePayment(data.sessionId);
+  }
+
+  @GrpcMethod('OrderService', 'createRenewVnpayUrl')
+  async createRenewVnpayUrl(data: CreateRenewProductPaymentDto) {
+    return await this.paymentService.createRenewVnpayUrl(data);
+  }
+
+  @GrpcMethod('OrderService', 'verifyReturnUrlForRenewProductVariant')
+  async verifyReturnUrlForRenewProductVariant(data: {
+    query: VerifyReturnUrlDto;
+    user: IUser;
+  }) {
+    return await this.paymentService.verifyReturnUrlForRenewProductVariant(
+      data.query,
+      data.user,
+    );
+  }
+
+  @GrpcMethod('OrderService', 'createRenewStripePayment')
+  async createRenewStripePayment(data: {
+    dto: CreateRenewProductPaymentDto;
+    user: IUser;
+  }) {
+    return await this.paymentService.createRenewStripePayment(
+      data.dto,
+      data.user,
+    );
+  }
+
+  @GrpcMethod('OrderService', 'verifyRenewStripePayment')
+  async verifyRenewStripePayment(data: { sessionId: string }) {
+    return await this.paymentService.verifyRenewStripePayment(data.sessionId);
   }
 }

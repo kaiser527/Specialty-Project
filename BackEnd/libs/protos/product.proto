@@ -331,6 +331,16 @@ message SwitchProductAuthorRequest {
   User user = 2;
 }
 
+message RenewVariant {
+  repeated string variantIds = 1;
+  string dueDate = 2;
+}
+
+message RenewVariantByAuthorRequest {
+  RenewVariant dto = 1;
+  User user = 2;
+}
+
 service ProductService {
   rpc findAllVariant(PaginateRequest) returns (PaginateVariantResponse);
   rpc findOneVariant(FindOneRequest) returns (VariantResponse);
@@ -340,6 +350,7 @@ service ProductService {
   rpc restoreVariantStock(UpdateVariantStockRequest) returns (QuickResponse);
   rpc updateProductCreatedBy(UpdateProductCreatedByRequest) returns (QuickResponse);
   rpc findAllVariantInit(Empty) returns (VariantList);
+  rpc renewVariantsByAuthor(RenewVariantByAuthorRequest) returns (QuickResponse);
 
   rpc findAllProduct(PaginateRequest) returns (PaginateProductResponse);
   rpc createProduct(CreateProductRequest) returns(MutationProductResponse);

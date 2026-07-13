@@ -4,6 +4,7 @@ import UserOrderTable from "../table/table.user-order";
 import VoucherUsageTable from "../table/table.voucher-usage";
 import { useGetAccount } from "@/hooks/useGetAccount";
 import { ALL_PERMISSIONS } from "@/config/constants/permissions";
+import TableExpiredVariant from "../table/table.expired-variant";
 
 interface IProps {
   isOpen: boolean;
@@ -24,6 +25,14 @@ const ModelManageAccount = ({ isOpen, setIsOpen }: IProps) => {
       method === ALL_PERMISSIONS.VOUCHERS.USAGE.method
   );
 
+  const isShowExpired =
+    user.role.name === "PROVIDER" &&
+    user.permissions.some(
+      ({ apiPath, method }) =>
+        apiPath === ALL_PERMISSIONS.PRODUCTS.GET_PAGINATE.apiPath &&
+        method === ALL_PERMISSIONS.PRODUCTS.GET_PAGINATE.method
+    );
+
   const items: TabsProps["items"] = [
     {
       key: "user-profile",
@@ -32,7 +41,7 @@ const ModelManageAccount = ({ isOpen, setIsOpen }: IProps) => {
     },
     {
       key: "user-order",
-      label: `Order`,
+      label: `Order History`,
       children: <UserOrderTable />,
     },
     ...(isShowVoucher
@@ -41,6 +50,15 @@ const ModelManageAccount = ({ isOpen, setIsOpen }: IProps) => {
             key: "user-voucher-usage",
             label: "Voucher Usage",
             children: <VoucherUsageTable />,
+          },
+        ]
+      : []),
+    ...(isShowExpired
+      ? [
+          {
+            key: "provider-expired-variant",
+            label: "Expired variant",
+            children: <TableExpiredVariant />,
           },
         ]
       : []),

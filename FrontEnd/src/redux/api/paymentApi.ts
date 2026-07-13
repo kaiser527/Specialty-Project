@@ -17,6 +17,17 @@ export const paymentApi = createApi({
       }),
     }),
 
+    createRenewVNPayUrl: builder.mutation<
+      IBackendRes<IPaymentResponse>,
+      { planId: string; variantIds: string[]; dueDate: string }
+    >({
+      query: (body) => ({
+        url: `/api/v1/payment/renew/vnpay`,
+        method: "POST",
+        data: body,
+      }),
+    }),
+
     createStripeUrl: builder.mutation<
       IBackendRes<IPaymentResponse>,
       { orderId: string }
@@ -27,8 +38,23 @@ export const paymentApi = createApi({
         data: body,
       }),
     }),
+
+    createRenewStripeUrl: builder.mutation<
+      IBackendRes<IPaymentResponse>,
+      { planId: string; variantIds: string[]; dueDate: string }
+    >({
+      query: (body) => ({
+        url: `/api/v1/payment/renew/stripe`,
+        method: "POST",
+        data: body,
+      }),
+    }),
   }),
 });
 
-export const { useCreateVNPayUrlMutation, useCreateStripeUrlMutation } =
-  paymentApi;
+export const {
+  useCreateRenewVNPayUrlMutation,
+  useCreateVNPayUrlMutation,
+  useCreateStripeUrlMutation,
+  useCreateRenewStripeUrlMutation,
+} = paymentApi;

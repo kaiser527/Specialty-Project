@@ -231,7 +231,7 @@ const ProviderOrderPage = () => {
             >
               <Image
                 src={`${import.meta.env.VITE_BACKEND_URL}/images/product/${
-                  entity?.variant.images[0]
+                  entity?.variant.product?.thumbnail
                 }`}
                 preview={false}
                 width={66}

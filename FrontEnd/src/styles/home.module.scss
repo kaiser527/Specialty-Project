@@ -186,3 +186,64 @@
     border-color: #2563eb !important;
   }
 }
+
+.darkButtonDanger {
+  background: transparent !important;
+  border-color: #ef4444 !important;
+  color: #ef4444 !important;
+
+  &:hover,
+  &:focus {
+    background: #ef4444 !important;
+    border-color: #ef4444 !important;
+    color: #fff !important;
+  }
+
+  &:active {
+    background: #dc2626 !important;
+    border-color: #dc2626 !important;
+  }
+}
+
+.orangeButton {
+  background: #ff9f1a !important;
+  border-color: #ff9f1a !important;
+  color: #fff !important;
+
+  &:hover,
+  &:focus {
+    background: #ffb84d !important;
+    border-color: #ffb84d !important;
+    color: #fff !important;
+  }
+
+  &:active {
+    background: #e68a00 !important;
+    border-color: #e68a00 !important;
+  }
+}
+
+.orangeButtonDark {
+  background: transparent !important;
+  border-color: #ff9f1a !important;
+  color: #ff9f1a !important;
+
+  &:hover,
+  &:focus {
+    background: #ff9f1a !important;
+    border-color: #ff9f1a !important;
+    color: #fff !important;
+  }
+
+  &:active {
+    background: #e68a00 !important;
+    border-color: #e68a00 !important;
+    color: #fff !important;
+  }
+
+  &:disabled {
+    background: transparent !important;
+    border-color: rgba(255, 159, 26, 0.35) !important;
+    color: rgba(255, 159, 26, 0.35) !important;
+  }
+}

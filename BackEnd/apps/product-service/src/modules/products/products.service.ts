@@ -10,7 +10,8 @@ import {
   GetMinMaxPriceDto,
 } from 'libs/dtos/product/create-product.dto';
 import {
-  SwitchProductAuthorDTO,
+  RenewVariantsDto,
+  SwitchProductAuthorDto,
   UpdateProductDto,
 } from 'libs/dtos/product/update-product.dto';
 import { CategoriesService } from '../categories/categories.service';
@@ -21,6 +22,7 @@ import { lastValueFrom } from 'rxjs';
 import { ProductStatus } from 'libs/utils/constants';
 import { CartDto } from 'libs/dtos/cart/cart-dto';
 import { ReviewsService } from '../reviews/reviews.service';
+import dayjs from 'dayjs';
 
 @Injectable()
 export class ProductsService implements OnModuleInit {
@@ -868,7 +870,7 @@ export class ProductsService implements OnModuleInit {
     return { products };
   }
 
-  async switchProductAuthorById(dto: SwitchProductAuthorDTO, user: IUser) {
+  async switchProductAuthorById(dto: SwitchProductAuthorDto, user: IUser) {
     const { productId, newAuthorEmail } = dto;
 
     const userRes: any = await lastValueFrom(
@@ -897,5 +899,32 @@ export class ProductsService implements OnModuleInit {
     );
 
     return { message: 'Switch product author successfully' };
+  }
+
+  async renewVariantsByAuthor(user: IUser, dto: RenewVariantsDto) {
+    if (user.role.name !== 'PROVIDER') {
+      throw new RpcException('Only Provider user can renew variant');
+    }
+
+    const { variantIds, dueDate } = dto;
+
+    if (dayjs(dueDate).format('YYYY-MM-DD') < dayjs().format('YYYY-MM-DD')) {
+      throw new RpcException('New Due date must be larger than today');
+    }
+
+    await this.variantsRepository
+      .createQueryBuilder()
+      .update(ProductVariant)
+      .set({ dueDate, updatedBy: user.email })
+      .where('id IN (:...ids)', { ids: variantIds })
+      .andWhere(
+        `productId IN (
+          SELECT id FROM products WHERE createdBy = :email
+        )`,
+        { email: user.email },
+      )
+      .execute();
+
+    return { message: 'Renew Variants success' };
   }
 }

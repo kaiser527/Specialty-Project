@@ -4,15 +4,18 @@ import {
   Public,
   ResponseMessage,
   SkipPermission,
+  User,
 } from '../../utils/decorator.customize';
 import {
   CreateVnPayPaymentDto,
   VerifyReturnUrlDto,
-} from 'libs/dtos/payment/vn-pay-payment.dto';
+} from 'libs/dtos/payment/payment.dto';
 import { Request, Response } from 'express';
 import { IUser } from 'libs/utils/interface';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import { CreateRenewProductPaymentDto } from 'libs/dtos/payment/renew-payement.dto';
+import { validate as isUUID } from 'uuid';
 
 @Controller('payment')
 export class PaymentController {
@@ -30,6 +33,26 @@ export class PaymentController {
     @Req() req: Request,
   ) {
     return this.paymentService.createPayment(createPaymentDto, req);
+  }
+
+  @Post('renew/vnpay')
+  @SkipPermission()
+  @ResponseMessage('Renew with Vnpay')
+  async createRenewPayment(
+    @Body() createPaymentDto: CreateRenewProductPaymentDto,
+    @Req() req: Request,
+  ) {
+    return this.paymentService.createRenewVnpayUrl(createPaymentDto, req);
+  }
+
+  @Post('renew/stripe')
+  @SkipPermission()
+  @ResponseMessage('Renew with Stripe')
+  async createRenewStripePayment(
+    @Body() createPaymentDto: CreateRenewProductPaymentDto,
+    @User() user: IUser,
+  ) {
+    return this.paymentService.createRenewStripePayment(createPaymentDto, user);
   }
 
   @Post('stripe')
@@ -60,6 +83,16 @@ export class PaymentController {
     );
   }
 
+  @Get('/renew/stripe/verify')
+  @Public()
+  @ResponseMessage('Pay with stripe')
+  async verifyRenewStripePayment(
+    @Query('session_id') sessionId: string,
+    @Res() res: Response,
+  ) {
+    return this.paymentService.verifyRenewStripePayment(sessionId, res);
+  }
+
   @Get('vnpay-return')
   @ResponseMessage('Vnpay redirect')
   @Public()
@@ -72,6 +105,15 @@ export class PaymentController {
     const payload = this.jwtService.verify(refresh_token, {
       secret: this.configService.get<string>('JWT_REFRESH_TOKEN_SECRET'),
     }) as IUser;
-    return this.paymentService.vnpayReturn(query, payload, res);
+
+    if (isUUID(query.vnp_TxnRef)) {
+      return this.paymentService.vnpayReturn(query, payload, res);
+    } else {
+      return this.paymentService.verifyReturnUrlForRenewProductVariant(
+        query,
+        payload,
+        res,
+      );
+    }
   }
 }

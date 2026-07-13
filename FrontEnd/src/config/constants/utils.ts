@@ -1,3 +1,4 @@
+import { RenewPlan } from "@/types/frontend";
 import { CSSProperties } from "react";
 import { io, Socket } from "socket.io-client";
 
@@ -111,3 +112,54 @@ export const hideScrollbar: CSSProperties = {
   scrollbarWidth: "none",
   msOverflowStyle: "none",
 };
+
+export const PLANS: RenewPlan[] = [
+  {
+    id: "3",
+    months: 3,
+    price: 9.99,
+    description: "Ideal for testing new products or short-term campaigns.",
+    features: [
+      "Perfect for seasonal inventory",
+      "Low upfront cost",
+      "Renew anytime",
+    ],
+  },
+  {
+    id: "6",
+    months: 6,
+    price: 17.99,
+    badge: "Popular",
+    description: "A balanced plan for growing stores with consistent sales.",
+    features: [
+      "Save more than monthly renewals",
+      "Great for fast-selling products",
+      "Priority renewal reminders",
+    ],
+  },
+  {
+    id: "12",
+    months: 12,
+    price: 29.99,
+    badge: "Best Value",
+    description: "Keep your products active all year while maximizing savings.",
+    features: [
+      "Lowest yearly cost",
+      "Ideal for evergreen products",
+      "Priority support included",
+    ],
+  },
+  {
+    id: "24",
+    months: 24,
+    price: 49.99,
+    badge: "Ultimate",
+    description:
+      "The longest coverage with the biggest savings for established businesses.",
+    features: [
+      "Maximum long-term savings",
+      "Best for top-selling products",
+      "VIP support & renewal reminders",
+    ],
+  },
+];

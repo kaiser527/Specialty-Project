@@ -333,4 +333,8 @@ export class VouchersService {
       result,
     };
   };
+
+  async deleteUsagesByOrder(orderId: string) {
+    await this.voucherUsageRepository.delete({ orderId });
+  }
 }

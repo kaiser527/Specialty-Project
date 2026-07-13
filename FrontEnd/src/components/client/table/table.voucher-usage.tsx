@@ -25,13 +25,23 @@ const VoucherUsageTable = () => {
       title: "Voucher Code",
       dataIndex: ["order", "voucherCode"],
       key: "code",
-      render: (code: string) => <Tag color="blue">{code}</Tag>,
+      render: (_, record) =>
+        record.order ? (
+          <Tag color="blue">{record.order.voucherCode}</Tag>
+        ) : (
+          <Tag color="default">Deleted Order</Tag>
+        ),
     },
     {
       title: "Discount",
       dataIndex: ["order", "discountAmount"],
       key: "discountAmount",
-      render: (discountAmount) => <>{formatCurrency(discountAmount)}</>,
+      render: (_, record) =>
+        record.order ? (
+          formatCurrency(record.order.discountAmount)
+        ) : (
+          <Text type="secondary">-</Text>
+        ),
     },
     {
       title: "Order ID",

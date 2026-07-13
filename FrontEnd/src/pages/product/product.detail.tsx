@@ -16,7 +16,7 @@ import styles from "styles/product-detail.module.scss";
 
 const { useBreakpoint } = Grid;
 
-const ProductDetail = () => {
+const ProductDetailPage = () => {
   const screen = useBreakpoint();
 
   const { id } = useParams();
@@ -220,4 +220,4 @@ const ProductDetail = () => {
   );
 };
 
-export default ProductDetail;
+export default ProductDetailPage;

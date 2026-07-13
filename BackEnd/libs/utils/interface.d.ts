@@ -7,7 +7,8 @@ import {
   GetMinMaxPriceDto,
 } from 'libs/dtos/product/create-product.dto';
 import {
-  SwitchProductAuthorDTO,
+  RenewVariantsDto,
+  SwitchProductAuthorDto,
   UpdateProductDto,
 } from 'libs/dtos/product/update-product.dto';
 import { CreateCategoryDto } from 'libs/dtos/category/create-category.dto';
@@ -21,7 +22,7 @@ import {
 import {
   CreateVnPayPaymentDto,
   VerifyReturnUrlDto,
-} from 'libs/dtos/payment/vn-pay-payment.dto';
+} from 'libs/dtos/payment/payment.dto';
 import { DashboardDto } from 'libs/dtos/order/order-dto';
 import {
   CreateReviewDTO,
@@ -115,7 +116,8 @@ export interface ProductService {
   deleteReview(data: { id: string; user: IUser }): any;
   findAllProductsByUser(user: IUser): any;
   deleteReviewsByVariantsOrUsers(data: DeleteReviewDTO): any;
-  switchProductAuthor(data: { dto: SwitchProductAuthorDTO; user: IUser }): any;
+  switchProductAuthor(data: { dto: SwitchProductAuthorDto; user: IUser }): any;
+  renewVariantsByAuthor(data: { dto: RenewVariantsDto; user: IUser }): any;
 }
 
 export interface OrderService {
@@ -186,6 +188,16 @@ export interface OrderService {
   updateVoucher(data: { dto: UpdateVoucherDto; user: IUser }): any;
   findVoucherByCodeAndUser(data: { code: string; user: IUser }): any;
   deleteVoucher(data: { id: string }): any;
+  createRenewVnpayUrl(data: CreateRenewProductPaymentDto): any;
+  verifyReturnUrlForRenewProductVariant(data: {
+    query: VerifyReturnUrlDto;
+    user: IUser;
+  }): any;
+  createRenewStripePayment(data: {
+    dto: CreateRenewProductPaymentDto;
+    user: IUser;
+  }): any;
+  verifyRenewStripePayment(data: { sessionId: string }): any;
 }
 
 export interface IDashboardRevenue {

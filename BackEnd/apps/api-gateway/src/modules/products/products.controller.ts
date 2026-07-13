@@ -17,7 +17,7 @@ import {
 } from 'libs/dtos/product/create-product.dto';
 import { IUser } from 'libs/utils/interface';
 import {
-  SwitchProductAuthorDTO,
+  SwitchProductAuthorDto,
   UpdateProductDto,
 } from 'libs/dtos/product/update-product.dto';
 
@@ -91,7 +91,7 @@ export class ProductsController {
 
   @Patch('switch/switch-author')
   @ResponseMessage('Switch product author')
-  switchAuthor(@Body() dto: SwitchProductAuthorDTO, @User() user: IUser) {
+  switchAuthor(@Body() dto: SwitchProductAuthorDto, @User() user: IUser) {
     return this.productsService.switchProductAuthor(dto, user);
   }
 
@@ -100,5 +100,12 @@ export class ProductsController {
   @ResponseMessage('Find variant by id')
   findOneVariant(@Param('id') id: string) {
     return this.productsService.findOneVariant(id);
+  }
+
+  @Post('variants-by-ids')
+  @Public()
+  @ResponseMessage('Find variants by ids')
+  findAllVariantsByIds(@Body('variantIds') variantIds: string[]) {
+    return this.productsService.findAllVariants(variantIds);
   }
 }

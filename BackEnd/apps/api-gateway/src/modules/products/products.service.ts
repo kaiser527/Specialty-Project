@@ -8,7 +8,7 @@ import {
   GetMinMaxPriceDto,
 } from 'libs/dtos/product/create-product.dto';
 import {
-  SwitchProductAuthorDTO,
+  SwitchProductAuthorDto,
   UpdateProductDto,
 } from 'libs/dtos/product/update-product.dto';
 import { SocketGateway } from '../socket/socket.gateway';
@@ -81,9 +81,15 @@ export class ProductsService implements OnModuleInit {
     );
   }
 
-  async switchProductAuthor(dto: SwitchProductAuthorDTO, user: IUser) {
+  async switchProductAuthor(dto: SwitchProductAuthorDto, user: IUser) {
     return await grpcCall(
       this.productService.switchProductAuthor({ dto, user }),
+    );
+  }
+
+  async findAllVariants(variantIds: string[]) {
+    return await grpcCall(
+      this.productService.findAllVariantForOrderService({ variantIds }),
     );
   }
 }

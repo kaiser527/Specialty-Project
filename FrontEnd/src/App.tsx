@@ -37,11 +37,12 @@ import FilterPage from "./pages/home/filter";
 import OrderPage from "./pages/admin/order";
 import ProviderFeePage from "./pages/admin/provider-fee";
 import ProviderOrderPage from "./pages/admin/provider-order";
-import ProductDetail from "./pages/product/product.detail";
+import ProductDetailPage from "./pages/product/product.detail";
 import PrintPage from "./pages/cart/print";
 import VoucherPage from "./pages/admin/voucher";
 import { useBackground } from "./hooks/useBackground";
 import { DARKTHEME } from "./config/constants/utils";
+import RenewProductPage from "./pages/product/product.renew";
 
 const LayoutClient = () => {
   const location = useLocation();
@@ -134,7 +135,8 @@ const App = () => {
         { index: true, element: <HomePage /> },
         { path: "cart", element: <CartPage /> },
         { path: "filter", element: <FilterPage /> },
-        { path: "product/:id", element: <ProductDetail /> },
+        { path: "product/:id", element: <ProductDetailPage /> },
+        { path: "renew-product", element: <RenewProductPage /> },
       ],
     },
     {
